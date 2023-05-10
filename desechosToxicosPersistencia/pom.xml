@@ -11,4 +11,26 @@
         <maven.compiler.target>18</maven.compiler.target>
         <exec.mainClass>com.itson.desechostoxicospersistencia.DesechosToxicosPersistencia</exec.mainClass>
     </properties>
+    
+    <dependencies>
+        <dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>mongodb-driver-sync</artifactId>
+    <version>3.10.2</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core -->
+<dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>mongodb-driver-core</artifactId>
+    <version>3.10.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.mongodb/bson -->
+<dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>bson</artifactId>
+    <version>3.10.2</version>
+</dependency>
+
+    </dependencies>
 </project>

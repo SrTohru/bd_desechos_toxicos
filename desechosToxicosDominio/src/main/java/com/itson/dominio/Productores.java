@@ -4,37 +4,42 @@
  */
 package com.itson.dominio;
 
+import java.util.List;
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author Usuario
  */
 public class Productores {
-    
-    private Productos producto;
-    private Residuos residuo;
+
+    private ObjectId id;
     private String nombre;
+    private String empresa;
+    private List<Residuos> residuos;
 
     public Productores() {
     }
 
-    public Productores(String nombre) {
+    public Productores(String nombre, String empresa, List<Residuos> residuos) {
         this.nombre = nombre;
+        this.empresa = empresa;
+        this.residuos = residuos;
+    }
+    
+    public Productores(ObjectId id, String nombre, String empresa, List<Residuos> residuos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.empresa = empresa;
+        this.residuos = residuos;
     }
 
-    public Productos getProducto() {
-        return producto;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setProducto(Productos producto) {
-        this.producto = producto;
-    }
-
-    public Residuos getResiduo() {
-        return residuo;
-    }
-
-    public void setResiduo(Residuos residuo) {
-        this.residuo = residuo;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -44,5 +49,24 @@ public class Productores {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
+
+    public List<Residuos> getResiduos() {
+        return residuos;
+    }
+
+    public void setResiduos(List<Residuos> residuos) {
+        this.residuos = residuos;
+    }
+    
+    
+    
     
 }

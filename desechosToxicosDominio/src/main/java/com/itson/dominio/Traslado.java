@@ -4,86 +4,79 @@
  */
 package com.itson.dominio;
 
+import java.util.Date;
+import java.util.List;
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author Usuario
  */
 public class Traslado {
-    
-    private EmpresaTransportista empresa;
-    private String destino;
-    private String medioDeTransporte;
-    private int numVehiculos;
-    private float kilometrosRealizados;
-    private float coste;
-    private String fechaLlegada;
+
+    private ObjectId id;
+    private ObjectId productorId;
+    private Date fecha;
+    private List<RegistroTraslado> residuos;
+    private List<EmpresaTransportista> EmpresaTransportista;
 
     public Traslado() {
     }
 
-    public Traslado(String destino, String medioDeTransporte, int numVehiculos, float kilometrosRealizados, float coste, String fechaLlegada) {
-        this.destino = destino;
-        this.medioDeTransporte = medioDeTransporte;
-        this.numVehiculos = numVehiculos;
-        this.kilometrosRealizados = kilometrosRealizados;
-        this.coste = coste;
-        this.fechaLlegada = fechaLlegada;
+    public Traslado(ObjectId productorId, Date fecha, List<RegistroTraslado> residuos, List<EmpresaTransportista> EmpresaTransportista) {
+        this.productorId = productorId;
+        this.fecha = fecha;
+        this.residuos = residuos;
+        this.EmpresaTransportista = EmpresaTransportista;
     }
 
-    public EmpresaTransportista getEmpresa() {
-        return empresa;
+    public Traslado(ObjectId id, ObjectId productorId, Date fecha, List<RegistroTraslado> residuos, List<EmpresaTransportista> EmpresaTransportista) {
+        this.id = id;
+        this.productorId = productorId;
+        this.fecha = fecha;
+        this.residuos = residuos;
+        this.EmpresaTransportista = EmpresaTransportista;
     }
 
-    public void setEmpresa(EmpresaTransportista empresa) {
-        this.empresa = empresa;
+    public ObjectId getId() {
+        return id;
     }
 
-    public String getDestino() {
-        return destino;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public void setDestino(String destino) {
-        this.destino = destino;
+    public ObjectId getProductorId() {
+        return productorId;
     }
 
-    public String getMedioDeTransporte() {
-        return medioDeTransporte;
+    public void setProductorId(ObjectId productorId) {
+        this.productorId = productorId;
     }
 
-    public void setMedioDeTransporte(String medioDeTransporte) {
-        this.medioDeTransporte = medioDeTransporte;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public int getNumVehiculos() {
-        return numVehiculos;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public void setNumVehiculos(int numVehiculos) {
-        this.numVehiculos = numVehiculos;
+    public List<RegistroTraslado> getResiduos() {
+        return residuos;
     }
 
-    public float getKilometrosRealizados() {
-        return kilometrosRealizados;
+    public void setResiduos(List<RegistroTraslado> residuos) {
+        this.residuos = residuos;
     }
 
-    public void setKilometrosRealizados(float kilometrosRealizados) {
-        this.kilometrosRealizados = kilometrosRealizados;
+    public List<EmpresaTransportista> getEmpresaTransportista() {
+        return EmpresaTransportista;
     }
 
-    public float getCoste() {
-        return coste;
+    public void setEmpresaTransportista(List<EmpresaTransportista> EmpresaTransportista) {
+        this.EmpresaTransportista = EmpresaTransportista;
     }
-
-    public void setCoste(float coste) {
-        this.coste = coste;
-    }
-
-    public String getFechaLlegada() {
-        return fechaLlegada;
-    }
-
-    public void setFechaLlegada(String fechaLlegada) {
-        this.fechaLlegada = fechaLlegada;
-    }
+    
     
 }

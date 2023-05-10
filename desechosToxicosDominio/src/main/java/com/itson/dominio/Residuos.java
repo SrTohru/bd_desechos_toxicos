@@ -4,55 +4,56 @@
  */
 package com.itson.dominio;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author Usuario
  */
 public class Residuos {
-    
-    private Productores productores;
-    private Traslado traslado;
-    private String codigo;
-    private String tratamiento;
+
+    private ObjectId id;
+    private String nombre;
+    private boolean peligroso;
 
     public Residuos() {
     }
 
-    public Residuos(String codigo, String tratamiento) {
-        this.codigo = codigo;
-        this.tratamiento = tratamiento;
+    public Residuos(String nombre, boolean peligroso) {
+        this.nombre = nombre;
+        this.peligroso = peligroso;
     }
 
-    public Productores getProductores() {
-        return productores;
+    public Residuos(ObjectId id, String nombre, boolean peligroso) {
+        this.id = id;
+        this.nombre = nombre;
+        this.peligroso = peligroso;
     }
 
-    public void setProductores(Productores productores) {
-        this.productores = productores;
+    public ObjectId getId() {
+        return id;
     }
 
-    public Traslado getTraslado() {
-        return traslado;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public void setTraslado(Traslado traslado) {
-        this.traslado = traslado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public boolean isPeligroso() {
+        return peligroso;
     }
 
-    public String getTratamiento() {
-        return tratamiento;
+    public void setPeligroso(boolean peligroso) {
+        this.peligroso = peligroso;
     }
 
-    public void setTratamiento(String tratamiento) {
-        this.tratamiento = tratamiento;
-    } 
+    
     
 }

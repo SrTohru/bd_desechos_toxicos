@@ -4,28 +4,39 @@
  */
 package com.itson.dominio;
 
+import java.util.List;
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author Usuario
  */
 class EmpresaTransportista {
     
-    private Traslado traslado;
+     private ObjectId id;
     private String nombre;
+    private List<Vehiculo> vehiculos;
 
     public EmpresaTransportista() {
     }
 
-    public EmpresaTransportista(String nombre) {
+    public EmpresaTransportista(String nombre, List<Vehiculo> vehiculos) {
         this.nombre = nombre;
+        this.vehiculos = vehiculos;
     }
 
-    public Traslado getTraslado() {
-        return traslado;
+    public EmpresaTransportista(ObjectId id, String nombre, List<Vehiculo> vehiculos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.vehiculos = vehiculos;
     }
 
-    public void setTraslado(Traslado traslado) {
-        this.traslado = traslado;
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -34,5 +45,16 @@ class EmpresaTransportista {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    } 
+    }
+
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public void setVehiculos(List<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+    
+    
+    
 }
