@@ -13,7 +13,7 @@ import org.bson.types.ObjectId;
  */
 class EmpresaTransportista {
     
-     private ObjectId id;
+    private ObjectId id;
     private String nombre;
     private List<Vehiculo> vehiculos;
 
