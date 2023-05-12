@@ -11,7 +11,7 @@ import org.bson.types.ObjectId;
  *
  * @author Usuario
  */
-class EmpresaTransportista {
+public class EmpresaTransportista {
     
     private ObjectId id;
     private String nombre;

@@ -10,7 +10,7 @@ public class DesechosToxicosPersistencia {
     public static void main(String[] args) {
     
     //Aqui van las dao CRUD
-    
+
         System.out.println("Hello World!");
     }
 }

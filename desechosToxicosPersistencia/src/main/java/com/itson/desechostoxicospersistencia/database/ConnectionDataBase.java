@@ -12,15 +12,13 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 public class ConnectionDataBase {
 
     //private static String BASE_DATOS;
-    private static MongoDatabase baseDatos;
+    public static MongoDatabase baseDatos;
     
-    /**
-     * Se utiliza el singleton
-     *
-     * @return la base de datos conectada.
-     */
+    private ConnectionDataBase() {
+        
+    }
+
     public static MongoDatabase getBaseDatos() {
-        //ConexionBD.BASE_DATOS = "residuos_toxicos";
 
         if (ConnectionDataBase.baseDatos == null) {
             CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
