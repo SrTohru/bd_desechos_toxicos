@@ -68,15 +68,27 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -90,15 +102,27 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(jTable3);
 
         btnEliminarQuimico.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -109,7 +133,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         jLabel1.setText("Lista de Quimicos del Nuevo Residuo");
 
         btnCrearResiduo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnCrearResiduo.setText("Crear Nuevo Residuo");
+        btnCrearResiduo.setText("Guardar");
 
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegresar.setText("<");
@@ -124,11 +148,11 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRegresar)
-                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegresar)
+                        .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,6 +171,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(54, 54, 54))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(184, 184, 184)
                         .addComponent(btnCrearResiduo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,9 +214,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                         .addGap(44, 44, 44)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
-                        .addComponent(btnEliminarQuimico)
-                        .addGap(54, 54, 54)
-                        .addComponent(btnCrearResiduo))
+                        .addComponent(btnEliminarQuimico))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(lblQuimicos1)
@@ -199,7 +222,9 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnAgregarQuimico)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(btnCrearResiduo)
+                .addGap(28, 28, 28))
         );
 
         pack();
