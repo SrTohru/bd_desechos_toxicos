@@ -5,6 +5,14 @@
 
 package com.itson.desechostoxicospersistencia;
 
+import com.itson.desechostoxicospersistencia.dao.EmpresaTransportistaDAO;
+import com.itson.dominio.EmpresaTransportista;
+import com.itson.dominio.Vehiculo;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import org.bson.types.ObjectId;
+
 public class DesechosToxicosPersistencia {
 
     public static void main(String[] args) {
@@ -17,5 +25,17 @@ public class DesechosToxicosPersistencia {
     //Registrar traslado
     //El administrador asignar traslados a empresas
         System.out.println("Hello World!");
+        
+        List<Vehiculo> stringList  = new LinkedList<>(); // Using Diamond operator from Java 1.7
+        stringList.add(new Vehiculo("test asd", "test asd", 2222));
+     stringList.add(new Vehiculo("tes2t3 asd", "test asd", 20202));
+     stringList.add(new Vehiculo("test2 asd", "test asd", 20022));
+     stringList.add(new Vehiculo("test3 4", "test asd", 20022));
+        EmpresaTransportistaDAO emps = new EmpresaTransportistaDAO();
+        
+        EmpresaTransportista emp = emps.insertarElemento(new EmpresaTransportista("Be Analitica", stringList));
+        
+        System.out.println(emp.getId());
+       
     }
 }

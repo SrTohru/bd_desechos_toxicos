@@ -5,7 +5,7 @@ import com.itson.dominio.EmpresaTransportista;
 
 public interface IEmpresaTransportista {
     
-    EmpresaTransportista insertarElemento(EmpresaTransportista e, DatabaseFormats collectionName);
+    EmpresaTransportista insertarElemento(EmpresaTransportista e);
 
     EmpresaTransportista consultarElemento(EmpresaTransportista elemento, DatabaseFormats collectionName);
 
