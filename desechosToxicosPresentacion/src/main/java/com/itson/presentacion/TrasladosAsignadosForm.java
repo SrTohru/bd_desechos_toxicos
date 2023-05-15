@@ -23,6 +23,11 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
         this.dispose();
     }
     
+    private void irMenuPrincipal(){
+        new MenuPrincipalForm().setVisible(true);
+        this.dispose();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +44,7 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Traslados Asignados");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,7 +76,12 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
         jLabel1.setText("Traslados Asignados");
 
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnRegresar.setText("Regresar");
+        btnRegresar.setText("<");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         btnRegistrar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegistrar.setText("Registrar");
@@ -108,12 +119,18 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
         this.irRegistrarTrasladoForm();
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        this.irMenuPrincipal();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;

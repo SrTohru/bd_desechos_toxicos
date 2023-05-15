@@ -24,6 +24,11 @@ public class RegistroForm extends javax.swing.JFrame {
             txtContrasenia.setEchoChar('*'); // ocultar texto
         }
     }
+    
+    private void irInicio(){
+        new InicioForm().setVisible(true);
+        this.dispose();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,7 +43,7 @@ public class RegistroForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtContrasenia = new javax.swing.JPasswordField();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         btnVerContrasenia = new javax.swing.JToggleButton();
@@ -56,12 +61,16 @@ public class RegistroForm extends javax.swing.JFrame {
         jLabel2.setText("Contraseña");
 
         txtContrasenia.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        txtContrasenia.setText("contrasenia");
 
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton1.setText("<");
+        btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRegresar.setText("<");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Administrador", "Productor", "Empresa Transporadora" }));
 
@@ -89,7 +98,7 @@ public class RegistroForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnRegresar)
                 .addGap(256, 256, 256)
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -122,7 +131,7 @@ public class RegistroForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(btnRegresar)
                     .addComponent(jLabel4))
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -149,11 +158,17 @@ public class RegistroForm extends javax.swing.JFrame {
 
     private void btnVerContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerContraseniaActionPerformed
         // TODO add your handling code here:
+        this.verContrasenia();
     }//GEN-LAST:event_btnVerContraseniaActionPerformed
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        this.irInicio();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JToggleButton btnVerContrasenia;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;

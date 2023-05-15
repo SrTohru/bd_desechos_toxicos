@@ -16,7 +16,27 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
     public MenuPrincipalForm() {
         initComponents();
     }
-
+    
+    private void irRegistrarResiduo(){
+        new RegistrarResiduoForm().setVisible(true);
+        this.dispose();
+    }
+    
+    private void irSolicitarTraslado(){
+        new SolicitarTrasladoForm().setVisible(true);
+        this.dispose();
+    }
+    
+    private void irAsignarTraslados(){
+        new AsignarTrasladosForm().setVisible(true);
+        this.dispose();
+    }
+    
+    private void irRegistrarTraslado(){
+        new TrasladosAsignadosForm().setVisible(true);
+        this.dispose();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,59 +46,101 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnRegistrarResiduo = new javax.swing.JButton();
+        btnSolicitarTraslado = new javax.swing.JButton();
+        btnRegistrarTraslado = new javax.swing.JButton();
+        btnAsignarTraslado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Principal");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton1.setText("Registrar Residuo");
+        btnRegistrarResiduo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRegistrarResiduo.setText("Registrar Residuo");
+        btnRegistrarResiduo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarResiduoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton2.setText("Registrar Solicitar Traslado");
+        btnSolicitarTraslado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnSolicitarTraslado.setText("Solicitar Traslado de Residuos");
+        btnSolicitarTraslado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitarTrasladoActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton3.setText("Ver Solicitudes de Traslados");
+        btnRegistrarTraslado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRegistrarTraslado.setText("Registrar Traslado");
+        btnRegistrarTraslado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarTrasladoActionPerformed(evt);
+            }
+        });
 
-        jButton4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton4.setText("Registrar Traslado");
+        btnAsignarTraslado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnAsignarTraslado.setText("Asignar Traslados a Empresas");
+        btnAsignarTraslado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarTrasladoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(278, 278, 278)
+                .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(309, Short.MAX_VALUE))
+                    .addComponent(btnRegistrarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSolicitarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRegistrarResiduo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAsignarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jButton1)
+                .addGap(106, 106, 106)
+                .addComponent(btnRegistrarResiduo)
                 .addGap(46, 46, 46)
-                .addComponent(jButton2)
-                .addGap(51, 51, 51)
-                .addComponent(jButton4)
-                .addGap(48, 48, 48)
-                .addComponent(jButton3)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addComponent(btnSolicitarTraslado)
+                .addGap(39, 39, 39)
+                .addComponent(btnRegistrarTraslado)
+                .addGap(37, 37, 37)
+                .addComponent(btnAsignarTraslado)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegistrarResiduoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarResiduoActionPerformed
+        // TODO add your handling code here:
+        this.irRegistrarResiduo();
+    }//GEN-LAST:event_btnRegistrarResiduoActionPerformed
+
+    private void btnSolicitarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarTrasladoActionPerformed
+        // TODO add your handling code here:
+        this.irSolicitarTraslado();
+    }//GEN-LAST:event_btnSolicitarTrasladoActionPerformed
+
+    private void btnAsignarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarTrasladoActionPerformed
+        // TODO add your handling code here:
+        this.irAsignarTraslados();
+    }//GEN-LAST:event_btnAsignarTrasladoActionPerformed
+
+    private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed
+        // TODO add your handling code here:
+        this.irRegistrarTraslado();
+    }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnAsignarTraslado;
+    private javax.swing.JButton btnRegistrarResiduo;
+    private javax.swing.JButton btnRegistrarTraslado;
+    private javax.swing.JButton btnSolicitarTraslado;
     // End of variables declaration//GEN-END:variables
 }

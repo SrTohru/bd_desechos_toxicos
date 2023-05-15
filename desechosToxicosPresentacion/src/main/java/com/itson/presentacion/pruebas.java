@@ -15,8 +15,7 @@ public class pruebas {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        LoginForm login = new LoginForm();
-        login.setVisible(true);
+        new MenuPrincipalForm().setVisible(true);
     }
     
 }
