@@ -1,4 +1,5 @@
 package com.itson.dominio;
+
 import org.bson.types.ObjectId;
 
 public class Residuos {
@@ -6,18 +7,21 @@ public class Residuos {
     private ObjectId id;
     private String nombre;
     private boolean peligroso;
+    private Quimicos quimico;
 
     public Residuos() {
     }
 
-    public Residuos(String nombre, boolean peligroso) {
+    public Residuos(String nombre, boolean peligroso, Quimicos quimico) {
         this.nombre = nombre;
         this.peligroso = peligroso;
+        this.quimico = quimico;
     }
 
-    public Residuos(ObjectId id, String nombre, boolean peligroso) {
+    public Residuos(ObjectId id, String nombre, boolean peligroso, Quimicos quimico) {
         this.id = id;
         this.nombre = nombre;
+        this.quimico = quimico;
         this.peligroso = peligroso;
     }
 
@@ -45,6 +49,4 @@ public class Residuos {
         this.peligroso = peligroso;
     }
 
-    
-    
 }

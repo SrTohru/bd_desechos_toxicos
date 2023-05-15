@@ -20,8 +20,9 @@ import org.bson.types.ObjectId;
  */
 public class EmpresaTransportistaDAO {
 
-      MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
+    MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     DatabaseFormats databaseFormats;
+
     public void actualizarEmpresaTransportista(ObjectId id, String nuevoNombre, List<Vehiculo> nuevosVehiculos) {
         Document filter = new Document("_id", id);
         Document update = new Document("$set", new Document("nombre", nuevoNombre).append("vehiculos", nuevosVehiculosToDocuments(nuevosVehiculos)));
@@ -30,12 +31,12 @@ public class EmpresaTransportistaDAO {
 
     public void eliminarEmpresaTransportista(ObjectId id) {
         Document filter = new Document("_id", id);
-         baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION()).deleteOne(filter);
+        baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION()).deleteOne(filter);
     }
 
     public EmpresaTransportista consultarEmpresaTransportista(ObjectId id) {
         Document filter = new Document("_id", id);
-        Document result =  baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION()).find(filter).first();
+        Document result = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION()).find(filter).first();
         if (result != null) {
             return documentToEmpresaTransportista(result);
         }
@@ -44,14 +45,14 @@ public class EmpresaTransportistaDAO {
 
     public void agregarEmpresaTransportista(String nombre, List<Vehiculo> vehiculos) {
         Document document = new Document("nombre", nombre).append("vehiculos", vehiculosToDocuments(vehiculos));
-         baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION()).insertOne(document);
+        baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION()).insertOne(document);
     }
 
     private List<Document> vehiculosToDocuments(List<Vehiculo> vehiculos) {
         List<Document> documents = new ArrayList<>();
         for (Vehiculo vehiculo : vehiculos) {
             documents.add(new Document("id_", vehiculo.getId()));
-    
+
         }
         return documents;
     }
@@ -61,7 +62,7 @@ public class EmpresaTransportistaDAO {
         for (Document document : documents) {
             Vehiculo vehiculo = new Vehiculo();
             vehiculo.setId(new ObjectId(document.getString("id_")));
-       
+
             vehiculos.add(vehiculo);
         }
         return vehiculos;
@@ -72,7 +73,7 @@ public class EmpresaTransportistaDAO {
         List<Document> vehiculosDocuments = new ArrayList<>();
         for (Vehiculo vehiculo : vehiculos) {
             vehiculosDocuments.add(new Document("atributoVehiculo", vehiculo.getId()));
-          
+
         }
         document.append("$each", vehiculosDocuments);
         return document;
@@ -82,7 +83,7 @@ public class EmpresaTransportistaDAO {
         EmpresaTransportista empresaTransportista = new EmpresaTransportista();
         empresaTransportista.setId(document.getObjectId("_id"));
         empresaTransportista.setNombre(document.getString("nombre"));
-           List<Document> vehiculosDocuments = (List<Document>) document.get("vehiculos");
+        List<Document> vehiculosDocuments = (List<Document>) document.get("vehiculos");
         empresaTransportista.setVehiculos(documentsToVehiculos(vehiculosDocuments));
 
         return empresaTransportista;
@@ -92,7 +93,7 @@ public class EmpresaTransportistaDAO {
         List<Document> documents = new ArrayList<>();
         for (Vehiculo vehiculo : nuevosVehiculos) {
             documents.add(new Document("atributoVehiculo", vehiculo.getId()));
-           
+
         }
         return documents;
     }

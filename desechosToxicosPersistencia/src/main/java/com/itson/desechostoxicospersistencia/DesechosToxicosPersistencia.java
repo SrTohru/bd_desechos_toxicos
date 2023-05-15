@@ -10,7 +10,12 @@ public class DesechosToxicosPersistencia {
     public static void main(String[] args) {
     
     //Aqui van las dao CRUD
-
+    
+    
+    //Registrar residuo
+    //Solicitar traslado de residuos
+    //Registrar traslado
+    //El administrador asignar traslados a empresas
         System.out.println("Hello World!");
     }
 }
