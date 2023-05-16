@@ -2,6 +2,7 @@ package com.itson.desechostoxicospersistencia.dao;
 
 import com.itson.desechostoxicospersistencia.database.ConnectionDataBase;
 import com.itson.desechostoxicospersistencia.interfaces.IQuimicos;
+import com.itson.desechostoxicospersistencia.utilities.ConfiguracionDePaginado;
 import com.itson.desechostoxicospersistencia.utilities.DatabaseFormats;
 import com.itson.dominio.Quimicos;
 import com.mongodb.client.FindIterable;
@@ -21,12 +22,13 @@ public class QuimicosDAO implements IQuimicos {
     MongoCollection<Document> empresaCollection = baseDatos.getCollection(databaseFormats.getQUIMICOS());
 
     @Override
-    public List<Quimicos> consultarQuimicosGenerales() {
+    public List<Quimicos> consultarQuimicosGenerales(ConfiguracionDePaginado configuracionDePaginado) {
 
         List<Quimicos> quimicosList = new ArrayList<>();
-
+        int offset = configuracionDePaginado.getElementoASaltar();
+        int limit = configuracionDePaginado.getElementosPorPagina();
         // Consultar todos los documentos en la colección
-        FindIterable<Document> documents = empresaCollection.find();
+        FindIterable<Document> documents = empresaCollection.find().skip(offset).limit(limit);
 
         // Iterar sobre los documentos y convertirlos a objetos Quimicos
         try (MongoCursor<Document> cursor = documents.iterator()) {
