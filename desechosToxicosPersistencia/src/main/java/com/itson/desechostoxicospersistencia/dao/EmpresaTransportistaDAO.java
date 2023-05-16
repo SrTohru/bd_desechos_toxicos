@@ -20,13 +20,13 @@ import org.bson.types.ObjectId;
  *
  * @author PC
  */
-public class EmpresaTransportistaDAO implements IEmpresaTransportista{
+public class EmpresaTransportistaDAO implements IEmpresaTransportista {
 
     MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     DatabaseFormats databaseFormats = new DatabaseFormats();
 
     public void insertarEmpresaConAutos(EmpresaTransportista nombreEmpresa) {
-    
+
         MongoCollection<Document> empresaCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION());
 
         // Crear el documento de la empresa
@@ -47,11 +47,11 @@ public class EmpresaTransportistaDAO implements IEmpresaTransportista{
         empresaCollection.insertOne(empresaDocument);
 
         System.out.println("La empresa y los vehículos han sido insertados correctamente.");
-    
-}
+
+    }
 
     public void agregarVehiculosAEmpresa(ObjectId empresaId, List<Vehiculo> nuevosVehiculos) {
-            MongoCollection<Document> empresaCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION());
+        MongoCollection<Document> empresaCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION());
 
         // Consultar la empresa por su ObjectId
         Document empresaQuery = new Document("_id", empresaId);
@@ -92,12 +92,12 @@ public class EmpresaTransportistaDAO implements IEmpresaTransportista{
         } else {
             System.out.println("No se encontró la empresa con el ObjectId especificado.");
         }
-    
-}
+
+    }
 
     @Override
     public EmpresaTransportista insertarElemento(EmpresaTransportista e) {
-    
+
         MongoCollection<Document> empresaCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION());
 
         // Crear el documento de la empresa
@@ -117,15 +117,16 @@ public class EmpresaTransportistaDAO implements IEmpresaTransportista{
         // Insertar el documento de la empresa en la colección
         empresaCollection.insertOne(empresaDocument);
 
-            e.setId(empresaDocument.getObjectId("_id"));
-        if(e.getId() != null){
+        e.setId(empresaDocument.getObjectId("_id"));
+        
+        if (e.getId() != null) {
             System.out.println("retorno id");
-        }else{
+        } else {
             System.out.println("no lo retorno");
         }
-        
+
         System.out.println("La empresa y los vehículos han sido insertados correctamente.");
-    return e;
+        return e;
     }
 
     @Override

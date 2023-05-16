@@ -7,6 +7,7 @@ public class DatabaseFormats {
     private final String RESIDUOS = "Residuos";
     private final String TRASLADOS = "Traslados";
     private final String VEHICULO = "Vehiculo";
+    private final String QUIMICOS = "Quimicos";
 
     public String getEMPRESA_TRANSPORTISTA_COLLECTION() {
         return EMPRESA_TRANSPORTISTA_COLLECTION;
@@ -30,6 +31,10 @@ public class DatabaseFormats {
 
     public String getVEHICULO() {
         return VEHICULO;
+    }
+
+    public String getQUIMICOS() {
+        return QUIMICOS;
     }
     
     
