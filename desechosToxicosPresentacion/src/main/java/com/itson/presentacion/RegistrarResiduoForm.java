@@ -4,22 +4,80 @@
  */
 package com.itson.presentacion;
 
+import com.itson.desechostoxicospersistencia.dao.QuimicosDAO;
+import com.itson.desechostoxicospersistencia.interfaces.IQuimicos;
+import com.itson.dominio.Quimicos;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Usuario
  */
 public class RegistrarResiduoForm extends javax.swing.JFrame {
 
+    private static final Logger LOG = Logger.getLogger(RegistrarResiduoForm.class.getName());
+    private IQuimicos quimicosDAO;
+    
     /**
      * Creates new form RegistrarResiduoForm
      */
     public RegistrarResiduoForm() {
         initComponents();
+        quimicosDAO = new QuimicosDAO();
+        this.llenarTablaQuimicosDisponibles();
     }
 
     private void irMenuPrincipal(){
         new MenuPrincipalForm().setVisible(true);
         this.dispose();
+    }
+    
+    private void llenarTablaQuimicosDisponibles(){
+        try {
+            DefaultTableModel modeloTabla = (DefaultTableModel) this.tableQuimicosDisponibles.getModel();
+            List<Quimicos> listaQuimicos = quimicosDAO.consultarQuimicosGenerales();
+            modeloTabla.setRowCount(0);
+            for (Quimicos q : listaQuimicos) {
+                Object[] fila = {
+                    q.getNombre(),
+                };
+                modeloTabla.addRow(fila);
+            }
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+        }
+    }
+    
+    private void llenarTablaQuimicosNuevoResiduo() {
+        try {
+            // Obtener el modelo de la tabla de origen y de destino
+            DefaultTableModel modeloOrigen = (DefaultTableModel) tableQuimicosDisponibles.getModel();
+            DefaultTableModel modeloDestino = (DefaultTableModel) tableQuimicosNuevoResiduo.getModel();
+
+            // Obtener el índice de la fila seleccionada en la tabla de origen
+            int filaSeleccionada = tableQuimicosDisponibles.getSelectedRow();
+
+            // Obtener la instancia de la fila seleccionada en la tabla de origen
+            Object[] fila = new Object[modeloOrigen.getColumnCount()];
+            for (int i = 0; i < modeloOrigen.getColumnCount(); i++) {
+                fila[i] = modeloOrigen.getValueAt(filaSeleccionada, i);
+            }
+
+            // Agregar la fila a la tabla de destino
+            modeloDestino.addRow(fila);
+
+            // Eliminar la fila de la tabla de origen
+            modeloOrigen.removeRow(filaSeleccionada);
+
+            // Actualizar las vistas de las tablas
+            tableQuimicosDisponibles.repaint();
+            tableQuimicosNuevoResiduo.repaint();
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+        }
     }
     
     /**
@@ -37,12 +95,12 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         lblQuimicos = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableQuimicosDisponibles = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         lblQuimicos1 = new javax.swing.JLabel();
         btnAgregarQuimico = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tableQuimicosNuevoResiduo = new javax.swing.JTable();
         btnEliminarQuimico = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnCrearResiduo = new javax.swing.JButton();
@@ -66,7 +124,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         lblQuimicos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQuimicos.setText("Crear Nuevo Residuo Peligroso ");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableQuimicosDisponibles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -89,7 +147,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableQuimicosDisponibles);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -99,8 +157,13 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         btnAgregarQuimico.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAgregarQuimico.setText("Agregar Quimico al Nuevo Residuo");
+        btnAgregarQuimico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarQuimicoActionPerformed(evt);
+            }
+        });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tableQuimicosNuevoResiduo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -123,7 +186,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tableQuimicosNuevoResiduo);
 
         btnEliminarQuimico.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnEliminarQuimico.setText("Eliminar Quimico del Nuevo Residuo");
@@ -175,16 +238,15 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                         .addComponent(btnCrearResiduo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
+                        .addGap(99, 99, 99)
                         .addComponent(btnAgregarQuimico))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(lblQuimicos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(38, 38, 38))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1)
+                        .addComponent(lblQuimicos1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,39 +254,38 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblQuimicos))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnRegresar)))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(lblCodigo))
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNombre)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel1)
-                        .addGap(44, 44, 44)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnEliminarQuimico))
+                        .addComponent(lblQuimicos))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lblQuimicos1)
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAgregarQuimico)))
+                        .addContainerGap()
+                        .addComponent(btnRegresar)))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(lblCodigo))
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addComponent(jLabel1)
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(btnEliminarQuimico)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(btnCrearResiduo)
                 .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(lblQuimicos1)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAgregarQuimico)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -236,6 +297,10 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         this.irMenuPrincipal();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnAgregarQuimicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarQuimicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarQuimicoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarQuimico;
     private javax.swing.JButton btnCrearResiduo;
@@ -245,12 +310,12 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblQuimicos;
     private javax.swing.JLabel lblQuimicos1;
+    private javax.swing.JTable tableQuimicosDisponibles;
+    private javax.swing.JTable tableQuimicosNuevoResiduo;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

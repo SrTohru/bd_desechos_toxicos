@@ -4,6 +4,10 @@
  */
 package com.itson.presentacion;
 
+import com.itson.desechostoxicospersistencia.dao.QuimicosDAO;
+import com.itson.desechostoxicospersistencia.interfaces.IQuimicos;
+import com.itson.dominio.Quimicos;
+
 /**
  *
  * @author Usuario
@@ -15,7 +19,14 @@ public class pruebas {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new MenuPrincipalForm().setVisible(true);
+//        new MenuPrincipalForm().setVisible(true);
+        
+        Quimicos quimicos = new Quimicos();
+        quimicos.setNombre("shi");
+        
+        IQuimicos quimico = new QuimicosDAO();
+        quimico.insertarQuimicos(quimicos);
+
     }
     
 }
