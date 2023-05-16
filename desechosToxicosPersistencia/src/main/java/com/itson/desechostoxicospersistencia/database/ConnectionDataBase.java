@@ -30,6 +30,7 @@ public class ConnectionDataBase {
 
             MongoClient conexion = MongoClients.create(configuraciones);
             ConnectionDataBase.baseDatos = conexion.getDatabase("desechos_toxicos");
+            return baseDatos;
         }
 
         return ConnectionDataBase.baseDatos;

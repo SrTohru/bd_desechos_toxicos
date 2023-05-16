@@ -19,41 +19,20 @@ import javax.swing.table.DefaultTableModel;
 public class RegistrarResiduoForm extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(RegistrarResiduoForm.class.getName());
-    private IQuimicos quimicosDAO;
- private DefaultTableModel tableModel;
+    private QuimicosDAO quimicosDAO;
+    
     /**
      * Creates new form RegistrarResiduoForm
      */
     public RegistrarResiduoForm() {
         initComponents();
-        quimicosDAO = new QuimicosDAO();
-                                                                                                    
-        tableModel = new DefaultTableModel();
-        tableModel.addColumn("ID");
-        tableModel.addColumn("Nombre");
-        
+        quimicosDAO = new QuimicosDAO();       
         this.llenarTablaQuimicosDisponibles();
     }
 
     private void irMenuPrincipal() {
         new MenuPrincipalForm().setVisible(true);
         this.dispose();
-    }
-
-    
-    public void cargarQuimicosEnTabla() {
-        // Realizar la consulta a la base de datos y agregar los resultados a la tabla
-    
-        java.util.List<Quimicos> quimicos = quimicosDAO.consultarQuimicosGenerales();
-
-        for (Quimicos quimico : quimicos) {
-            Object[] row = new Object[2];
-            row[0] = quimico.getId();
-            row[1] = quimico.getNombre();
-            tableModel.addRow(row);
-        }
-
-        
     }
     
     private void llenarTablaQuimicosDisponibles() {
@@ -319,6 +298,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
     private void btnAgregarQuimicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarQuimicoActionPerformed
         // TODO add your handling code here:
+        this.llenarTablaQuimicosNuevoResiduo();
     }//GEN-LAST:event_btnAgregarQuimicoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

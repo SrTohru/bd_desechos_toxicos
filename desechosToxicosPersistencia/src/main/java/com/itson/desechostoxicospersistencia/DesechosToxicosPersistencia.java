@@ -38,7 +38,7 @@ public class DesechosToxicosPersistencia {
       emps.insertarQuimicos(q2);
       emps.insertarQuimicos(q1);
         
-      emps.consultarQuimicosGenerales();
+//      emps.consultarQuimicosGenerales();
        
     }
 }

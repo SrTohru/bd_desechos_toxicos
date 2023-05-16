@@ -21,9 +21,6 @@ public class pruebas {
         // TODO code application logic here
 //        new MenuPrincipalForm().setVisible(true);
         
-        Quimicos quimicos = new Quimicos();
-        quimicos.setNombre("shi");
-        
         new RegistrarResiduoForm().setVisible(true);
     }
     
