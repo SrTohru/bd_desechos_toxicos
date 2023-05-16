@@ -4,22 +4,69 @@
  */
 package com.itson.presentacion;
 
+import com.itson.desechostoxicospersistencia.dao.ResiduosDAO;
+import com.itson.desechostoxicospersistencia.interfaces.IResiduos;
+import com.itson.desechostoxicospersistencia.utilities.ConfiguracionDePaginado;
+import com.itson.dominio.Residuos;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Usuario
  */
 public class SolicitarTrasladoForm extends javax.swing.JFrame {
 
+    private static final Logger LOG = Logger.getLogger(SolicitarTrasladoForm.class.getName());
+    private ConfiguracionDePaginado configuracionDePaginado;
+    private IResiduos residuosDAO;
+    
     /**
      * Creates new form SolicitarTrasladoForm
      */
     public SolicitarTrasladoForm() {
+        this.configuracionDePaginado = new ConfiguracionDePaginado(0, 5);
         initComponents();
+        this.residuosDAO = new ResiduosDAO();
+        this.llenarTablaResiduosDisponibles();
     }
 
     private void irMenuPrincipal(){
         new MenuPrincipalForm().setVisible(true);
         this.dispose();
+    }
+    
+    private void llenarTablaResiduosDisponibles(){
+        try {
+            DefaultTableModel modeloTabla = (DefaultTableModel) this.tableResiduosDisponibles.getModel();
+            List<Residuos> listaResiduos = residuosDAO.consultarElemento(this.configuracionDePaginado);
+            modeloTabla.setRowCount(0);
+            for (Residuos r : listaResiduos) {
+                Object[] fila = {
+                    r.getNombre(),};
+                modeloTabla.addRow(fila);
+            }
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+        }
+    }
+    
+    /**
+     * Metodo para avanzar de pagina en la tabla de la consulta de personas
+     */
+    public void avanzarPagina() {
+        this.configuracionDePaginado.avanzarPagina();
+        this.llenarTablaResiduosDisponibles();
+    }
+
+    /**
+     * Metodo para retroceder de pagina en la tabla de la consulta de personas
+     */
+    public void retrocederPagina() {
+        this.configuracionDePaginado.retrocederPagina();
+        this.llenarTablaResiduosDisponibles();
     }
     
     /**
@@ -46,6 +93,10 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
         checkKilos = new javax.swing.JCheckBox();
         checkLitros = new javax.swing.JCheckBox();
         btnSolicitarTraslado = new javax.swing.JButton();
+        btnRetrocederDisponibles = new javax.swing.JButton();
+        btnAvanzarDisponible = new javax.swing.JButton();
+        btnRetrocederSeleccionado = new javax.swing.JButton();
+        btnAvanzarSeleccionado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Solicitar Traslado");
@@ -139,37 +190,34 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
         btnSolicitarTraslado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnSolicitarTraslado.setText("Solicitar Traslado");
 
+        btnRetrocederDisponibles.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRetrocederDisponibles.setText("<");
+        btnRetrocederDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetrocederDisponiblesActionPerformed(evt);
+            }
+        });
+
+        btnAvanzarDisponible.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnAvanzarDisponible.setText(">");
+        btnAvanzarDisponible.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvanzarDisponibleActionPerformed(evt);
+            }
+        });
+
+        btnRetrocederSeleccionado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRetrocederSeleccionado.setText("<");
+
+        btnAvanzarSeleccionado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnAvanzarSeleccionado.setText(">");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(btnElegir)
-                            .addGap(157, 157, 157))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(90, 90, 90)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnKilos)
-                        .addComponent(btnLitros))
-                    .addComponent(checkKilos)
-                    .addComponent(checkLitros))
-                .addGap(83, 83, 83))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(btnQuitar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnRegresar))
@@ -177,6 +225,45 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
                         .addGap(308, 308, 308)
                         .addComponent(btnSolicitarTraslado)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(90, 90, 90)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkKilos)
+                            .addComponent(checkLitros)
+                            .addComponent(btnLitros)
+                            .addComponent(btnKilos)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel1)))
+                .addGap(83, 83, 83))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(btnRetrocederDisponibles)
+                        .addGap(74, 74, 74)
+                        .addComponent(btnAvanzarDisponible))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(btnRetrocederSeleccionado)
+                        .addGap(74, 74, 74)
+                        .addComponent(btnAvanzarSeleccionado))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(185, 185, 185)
+                        .addComponent(btnQuitar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(185, 185, 185)
+                        .addComponent(btnElegir)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,9 +276,13 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRetrocederDisponibles)
+                    .addComponent(btnAvanzarDisponible))
                 .addGap(18, 18, 18)
-                .addComponent(btnElegir)
-                .addGap(18, 18, 18)
+                .addComponent(btnElegir, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -205,9 +296,13 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
                         .addComponent(checkKilos)
                         .addGap(18, 18, 18)
                         .addComponent(btnKilos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRetrocederSeleccionado)
+                    .addComponent(btnAvanzarSeleccionado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnQuitar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(btnSolicitarTraslado)
                 .addGap(45, 45, 45))
         );
@@ -221,12 +316,26 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
         this.irMenuPrincipal();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnRetrocederDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederDisponiblesActionPerformed
+        // TODO add your handling code here:
+        this.retrocederPagina();
+    }//GEN-LAST:event_btnRetrocederDisponiblesActionPerformed
+
+    private void btnAvanzarDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvanzarDisponibleActionPerformed
+        // TODO add your handling code here:
+        this.retrocederPagina();
+    }//GEN-LAST:event_btnAvanzarDisponibleActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAvanzarDisponible;
+    private javax.swing.JButton btnAvanzarSeleccionado;
     private javax.swing.JButton btnElegir;
     private javax.swing.JTextField btnKilos;
     private javax.swing.JTextField btnLitros;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnRetrocederDisponibles;
+    private javax.swing.JButton btnRetrocederSeleccionado;
     private javax.swing.JButton btnSolicitarTraslado;
     private javax.swing.JCheckBox checkKilos;
     private javax.swing.JCheckBox checkLitros;

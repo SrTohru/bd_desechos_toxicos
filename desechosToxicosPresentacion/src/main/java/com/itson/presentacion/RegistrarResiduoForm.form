@@ -61,7 +61,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="btnRetrocederNuevoResiduo" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="btnAvanzarNuevoResiduo" min="-2" pref="112" max="-2" attributes="0"/>
+                                      <Component id="btnAvanzarNuevoResiduo" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="btnEliminarQuimico" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -85,7 +85,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnRetroceder" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnAvanzar" min="-2" pref="112" max="-2" attributes="0"/>
+                              <Component id="btnAvanzar" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="btnAgregarQuimico" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -126,7 +126,7 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               <Component id="jScrollPane3" min="-2" pref="208" max="-2" attributes="0"/>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace pref="9" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnRetrocederNuevoResiduo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAvanzarNuevoResiduo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -294,9 +294,9 @@
     <Component class="javax.swing.JButton" name="btnRetroceder">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="12" style="0"/>
+          <Font name="Dialog" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;- Retroceder"/>
+        <Property name="text" type="java.lang.String" value="&lt;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRetrocederActionPerformed"/>
@@ -305,9 +305,9 @@
     <Component class="javax.swing.JButton" name="btnAvanzar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="12" style="0"/>
+          <Font name="Dialog" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Avanzar -&gt;"/>
+        <Property name="text" type="java.lang.String" value="&gt;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAvanzarActionPerformed"/>
@@ -316,9 +316,9 @@
     <Component class="javax.swing.JButton" name="btnRetrocederNuevoResiduo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="12" style="0"/>
+          <Font name="Dialog" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;- Retroceder"/>
+        <Property name="text" type="java.lang.String" value="&lt;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRetrocederNuevoResiduoActionPerformed"/>
@@ -327,9 +327,9 @@
     <Component class="javax.swing.JButton" name="btnAvanzarNuevoResiduo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="12" style="0"/>
+          <Font name="Dialog" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Avanzar -&gt;"/>
+        <Property name="text" type="java.lang.String" value="&gt;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAvanzarNuevoResiduoActionPerformed"/>

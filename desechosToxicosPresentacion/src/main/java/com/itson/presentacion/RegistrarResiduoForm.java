@@ -228,32 +228,32 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
             }
         });
 
-        btnRetroceder.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnRetroceder.setText("<- Retroceder");
+        btnRetroceder.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRetroceder.setText("<");
         btnRetroceder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRetrocederActionPerformed(evt);
             }
         });
 
-        btnAvanzar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnAvanzar.setText("Avanzar ->");
+        btnAvanzar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnAvanzar.setText(">");
         btnAvanzar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAvanzarActionPerformed(evt);
             }
         });
 
-        btnRetrocederNuevoResiduo.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnRetrocederNuevoResiduo.setText("<- Retroceder");
+        btnRetrocederNuevoResiduo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRetrocederNuevoResiduo.setText("<");
         btnRetrocederNuevoResiduo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRetrocederNuevoResiduoActionPerformed(evt);
             }
         });
 
-        btnAvanzarNuevoResiduo.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnAvanzarNuevoResiduo.setText("Avanzar ->");
+        btnAvanzarNuevoResiduo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnAvanzarNuevoResiduo.setText(">");
         btnAvanzarNuevoResiduo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAvanzarNuevoResiduoActionPerformed(evt);
@@ -294,7 +294,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnRetrocederNuevoResiduo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnAvanzarNuevoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnAvanzarNuevoResiduo))
                                     .addComponent(btnEliminarQuimico))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,7 +310,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnRetroceder)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAvanzar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnAvanzar))
                             .addComponent(btnAgregarQuimico))))
                 .addGap(44, 44, 44))
         );
@@ -339,7 +339,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(44, 44, 44)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRetrocederNuevoResiduo)
                     .addComponent(btnAvanzarNuevoResiduo))
