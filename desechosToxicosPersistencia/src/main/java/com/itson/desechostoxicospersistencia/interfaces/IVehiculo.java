@@ -2,11 +2,14 @@ package com.itson.desechostoxicospersistencia.interfaces;
 
 import com.itson.desechostoxicospersistencia.utilities.DatabaseFormats;
 import com.itson.dominio.Vehiculo;
+import java.util.List;
 
 public interface IVehiculo {
 
-    Vehiculo insertarElemento(Vehiculo e, DatabaseFormats collectionName);
-
+    Vehiculo insertarElemento(Vehiculo e);
+    
+    List<Vehiculo> insertarElementoEnLista(List<Vehiculo> e);
+    
     Vehiculo consultarElemento(Vehiculo elemento, DatabaseFormats collectionName);
 
     Vehiculo eliminarElemento(Vehiculo elemento, DatabaseFormats collectionName);
