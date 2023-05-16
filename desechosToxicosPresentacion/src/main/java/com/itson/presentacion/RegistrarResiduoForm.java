@@ -20,37 +20,57 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(RegistrarResiduoForm.class.getName());
     private IQuimicos quimicosDAO;
-    
+ private DefaultTableModel tableModel;
     /**
      * Creates new form RegistrarResiduoForm
      */
     public RegistrarResiduoForm() {
         initComponents();
         quimicosDAO = new QuimicosDAO();
+                                                                                                    
+        tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Nombre");
+        
         this.llenarTablaQuimicosDisponibles();
     }
 
-    private void irMenuPrincipal(){
+    private void irMenuPrincipal() {
         new MenuPrincipalForm().setVisible(true);
         this.dispose();
     }
+
     
-    private void llenarTablaQuimicosDisponibles(){
+    public void cargarQuimicosEnTabla() {
+        // Realizar la consulta a la base de datos y agregar los resultados a la tabla
+    
+        java.util.List<Quimicos> quimicos = quimicosDAO.consultarQuimicosGenerales();
+
+        for (Quimicos quimico : quimicos) {
+            Object[] row = new Object[2];
+            row[0] = quimico.getId();
+            row[1] = quimico.getNombre();
+            tableModel.addRow(row);
+        }
+
+        
+    }
+    
+    private void llenarTablaQuimicosDisponibles() {
         try {
             DefaultTableModel modeloTabla = (DefaultTableModel) this.tableQuimicosDisponibles.getModel();
             List<Quimicos> listaQuimicos = quimicosDAO.consultarQuimicosGenerales();
             modeloTabla.setRowCount(0);
             for (Quimicos q : listaQuimicos) {
                 Object[] fila = {
-                    q.getNombre(),
-                };
+                    q.getNombre(),};
                 modeloTabla.addRow(fila);
             }
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, ex.getMessage());
         }
     }
-    
+
     private void llenarTablaQuimicosNuevoResiduo() {
         try {
             // Obtener el modelo de la tabla de origen y de destino
@@ -79,7 +99,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
             LOG.log(Level.SEVERE, ex.getMessage());
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -24,9 +24,7 @@ public class pruebas {
         Quimicos quimicos = new Quimicos();
         quimicos.setNombre("shi");
         
-        IQuimicos quimico = new QuimicosDAO();
-        quimico.insertarQuimicos(quimicos);
-
+        new RegistrarResiduoForm().setVisible(true);
     }
     
 }
