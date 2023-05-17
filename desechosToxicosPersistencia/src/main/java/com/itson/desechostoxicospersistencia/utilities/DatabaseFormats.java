@@ -8,6 +8,7 @@ public class DatabaseFormats {
     private final String TRASLADOS = "Traslados";
     private final String VEHICULO = "Vehiculo";
     private final String QUIMICOS = "Quimicos";
+    private final String CUENTA = "Cuentas";
 
     public String getEMPRESA_TRANSPORTISTA_COLLECTION() {
         return EMPRESA_TRANSPORTISTA_COLLECTION;
@@ -35,6 +36,10 @@ public class DatabaseFormats {
 
     public String getQUIMICOS() {
         return QUIMICOS;
+    }
+
+    public String getCUENTA() {
+        return CUENTA;
     }
     
     

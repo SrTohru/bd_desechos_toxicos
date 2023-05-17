@@ -16,19 +16,22 @@ public class Productores {
     private ObjectId id;
     private String nombre;
     private List<Residuos> residuos;
-
+    private Cuenta cuenta;
+    
     public Productores() {
     }
 
-    public Productores(String nombre, List<Residuos> residuos) {
+    public Productores(String nombre, List<Residuos> residuos, Cuenta cuenta) {
         this.nombre = nombre;
         this.residuos = residuos;
+        this.cuenta = cuenta;
     }
-    
-    public Productores(ObjectId id, String nombre , List<Residuos> residuos) {
+
+    public Productores(ObjectId id, String nombre, List<Residuos> residuos, Cuenta cuenta) {
         this.id = id;
         this.nombre = nombre;
         this.residuos = residuos;
+        this.cuenta = cuenta;
     }
 
     public ObjectId getId() {
@@ -39,6 +42,14 @@ public class Productores {
         this.id = id;
     }
 
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+    
     public String getNombre() {
         return nombre;
     }

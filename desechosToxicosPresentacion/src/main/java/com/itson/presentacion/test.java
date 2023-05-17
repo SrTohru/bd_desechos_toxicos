@@ -18,18 +18,7 @@ public class test {
      */
     public static void main(String[] args) {
 
-        Residuos q1 = new Residuos();
-        q1.setNombre("test");
-        Residuos q2 = new Residuos();
-        q2.setNombre("test");
-        Residuos q3 = new Residuos();
-        q3.setNombre("test");
-        
-        ResiduosDAO residuosDAO = new ResiduosDAO();
-        
-      residuosDAO.insertarElemento(q3);
-      residuosDAO.insertarElemento(q2);
-      residuosDAO.insertarElemento(q1);
+   new LoginForm().setVisible(true);
     }
     
 }
