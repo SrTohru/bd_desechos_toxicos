@@ -55,6 +55,11 @@
             this.vehiculos = vehiculos;
         }
 
+    @Override
+    public String toString() {
+        return "EmpresaTransportista{" + "id=" + id + ", nombre=" + nombre + ", vehiculos=" + vehiculos + '}';
+    }
+
 
 
     }

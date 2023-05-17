@@ -49,4 +49,12 @@ public class Residuos {
         this.peligroso = peligroso;
     }
 
+    public Quimicos getQuimico() {
+        return quimico;
+    }
+
+    public void setQuimico(Quimicos quimico) {
+        this.quimico = quimico;
+    }
+
 }

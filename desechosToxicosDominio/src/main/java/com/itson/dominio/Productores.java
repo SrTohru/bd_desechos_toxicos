@@ -15,22 +15,19 @@ public class Productores {
 
     private ObjectId id;
     private String nombre;
-    private String empresa;
     private List<Residuos> residuos;
 
     public Productores() {
     }
 
-    public Productores(String nombre, String empresa, List<Residuos> residuos) {
+    public Productores(String nombre, List<Residuos> residuos) {
         this.nombre = nombre;
-        this.empresa = empresa;
         this.residuos = residuos;
     }
     
-    public Productores(ObjectId id, String nombre, String empresa, List<Residuos> residuos) {
+    public Productores(ObjectId id, String nombre , List<Residuos> residuos) {
         this.id = id;
         this.nombre = nombre;
-        this.empresa = empresa;
         this.residuos = residuos;
     }
 
@@ -48,14 +45,6 @@ public class Productores {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
     }
 
     public List<Residuos> getResiduos() {
