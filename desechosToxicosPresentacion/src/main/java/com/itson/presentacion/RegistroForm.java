@@ -20,6 +20,37 @@ public class RegistroForm extends javax.swing.JFrame {
         initComponents();
     }
 
+    private void irLogin(){
+        new LoginForm().setVisible(true);
+        this.dispose();
+    }
+    
+    private void registrarCuenta() {
+        if (!txtUsuario.getText().isBlank() && !txtContrasenia.getText().isBlank()) {
+            Cuenta cuenta = cDAO.insertarCuenta(new Cuenta(
+                txtContrasenia.getText(), txtUsuario.getText(), 
+                comboboxTipoDeCuenta.getSelectedItem().toString()));
+            if (cuenta != null) {
+                this.irLogin();
+            } 
+        } else {
+            JOptionPane.showMessageDialog(null, "Campos vacios","Error Campos Invalidos",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public tiposDeCuenta obtenerTipoDeCuenta() {
+        JOptionPane.showMessageDialog(null, "" + comboboxTipoDeCuenta.getSelectedItem().toString());
+        String tipoCuenta = comboboxTipoDeCuenta.getSelectedItem().toString();
+        if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.Administrador.toString())) {
+            return tiposDeCuenta.Administrador;
+        } else if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.EmpresaTransportista.toString())) {
+            return tiposDeCuenta.EmpresaTransportista;
+        } else if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.Productor.toString())) {
+            return tiposDeCuenta.Productor;
+        }
+        return null;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,6 +67,7 @@ public class RegistroForm extends javax.swing.JFrame {
         comboboxTipoDeCuenta = new javax.swing.JComboBox<>();
         btnRegistrar = new javax.swing.JButton();
         txtContrasenia = new javax.swing.JPasswordField();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de cuentas");
@@ -64,6 +96,14 @@ public class RegistroForm extends javax.swing.JFrame {
 
         txtContrasenia.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRegresar.setText("<");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,11 +125,17 @@ public class RegistroForm extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(comboboxTipoDeCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(124, 124, 124))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnRegresar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addContainerGap()
+                .addComponent(btnRegresar)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -102,7 +148,7 @@ public class RegistroForm extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(btnRegistrar)
                 .addGap(39, 39, 39))
         );
@@ -110,70 +156,19 @@ public class RegistroForm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-      public tiposDeCuenta obtenerTipoDeCuenta() {
-        JOptionPane.showMessageDialog(null, "" + comboboxTipoDeCuenta.getSelectedItem().toString());
-        String tipoCuenta = comboboxTipoDeCuenta.getSelectedItem().toString();
-        if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.Administrador.toString())) {
-            return tiposDeCuenta.Administrador;
-        } else if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.EmpresaTransportista.toString())) {
-            return tiposDeCuenta.EmpresaTransportista;
-        } else if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.Productor.toString())) {
-            return tiposDeCuenta.Productor;
-        }
-
-        return null;
-    }
-
-    
+  
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-      Cuenta cuenta =  cDAO.insertarCuenta(new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoDeCuenta.getSelectedItem().toString()));
-      
-      if(cuenta != null){
-          //abrir form
-      }else{
-          //no abriri
-      }
-      
+        // TODO add your handling code here:
+        this.registrarCuenta();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistroForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistroForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistroForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistroForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistroForm().setVisible(true);
-            }
-        });
-    }
-
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        this.irLogin();
+    }//GEN-LAST:event_btnRegresarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> comboboxTipoDeCuenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

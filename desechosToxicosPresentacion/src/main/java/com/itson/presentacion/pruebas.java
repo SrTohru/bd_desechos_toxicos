@@ -21,7 +21,7 @@ public class pruebas {
         // TODO code application logic here
 //        new MenuPrincipalForm().setVisible(true);
         
-        new MenuPrincipalForm().setVisible(true);
+        new LoginForm().setVisible(true);
     }
     
 }
