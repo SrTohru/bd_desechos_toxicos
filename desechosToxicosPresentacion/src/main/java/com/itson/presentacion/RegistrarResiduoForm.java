@@ -8,9 +8,12 @@ import com.itson.desechostoxicospersistencia.dao.QuimicosDAO;
 import com.itson.desechostoxicospersistencia.interfaces.IQuimicos;
 import com.itson.desechostoxicospersistencia.utilities.ConfiguracionDePaginado;
 import com.itson.dominio.Quimicos;
+import com.itson.negocio.validadores.Validaciones;
+import static com.itson.negocio.validadores.Validaciones.validarNumero;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +25,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private static final Logger LOG = Logger.getLogger(RegistrarResiduoForm.class.getName());
     private QuimicosDAO quimicosDAO;
     private ConfiguracionDePaginado configuracionDePaginado;
+    private Validaciones v;
     
     /**
      * Creates new form RegistrarResiduoForm
@@ -127,6 +131,15 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         this.llenarTablaQuimicosDisponibles();
     }
 
+    private void validarCampoCodigo(){
+        if (txtCodigo.toString().isBlank() || txtCodigo.toString().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo codigo esta vacio","Error Campo Invalido",JOptionPane.ERROR_MESSAGE);
+        }
+        if (validarNumero(txtCodigo.toString())) {
+            JOptionPane.showMessageDialog(null, "Solo acepta numeros de maximo 6 digitos","Error Campo Invalido",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -253,6 +266,11 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         btnCrearResiduo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnCrearResiduo.setText("Guardar");
+        btnCrearResiduo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearResiduoActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegresar.setText("<");
@@ -432,6 +450,11 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.regresarQuimicoSeleccionado();
     }//GEN-LAST:event_btnEliminarQuimicoActionPerformed
+
+    private void btnCrearResiduoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearResiduoActionPerformed
+        // TODO add your handling code here:
+        this.validarCampoCodigo();
+    }//GEN-LAST:event_btnCrearResiduoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarQuimico;

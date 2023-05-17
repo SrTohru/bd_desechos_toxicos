@@ -34,7 +34,7 @@ public class LoginForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtCorreo = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         txtContrasenia = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -47,12 +47,12 @@ public class LoginForm extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 153, 255));
         setResizable(false);
 
-        txtCorreo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtNombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         txtContrasenia.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel1.setText("Correo");
+        jLabel1.setText("Nombre");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setText("Contraseña");
@@ -88,7 +88,7 @@ public class LoginForm extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtCorreo)
+                                .addComponent(txtNombre)
                                 .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnVerContrasenia))
                         .addGap(61, 61, 61))))
@@ -101,7 +101,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -129,6 +129,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField txtContrasenia;
-    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
