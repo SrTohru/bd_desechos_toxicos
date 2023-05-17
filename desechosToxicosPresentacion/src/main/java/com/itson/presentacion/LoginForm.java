@@ -39,61 +39,124 @@ public class LoginForm extends javax.swing.JFrame {
             txtContrasenia.setEchoChar('*'); // ocultar texto
         }
     }
-    
-    private void realizarLogin() throws Exception {
-        if (!txtUsuario.getText().isBlank() && !txtContrasenia.getText().isBlank()) {
-            Productores productores = new Productores();
-            Cuenta cuenta = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
-            productores.setCuenta(cuenta);
-            productores = pDAO.iniciarSesion(productores);
-            
-            Administrador admin = new Administrador();
-            Cuenta cuentaAdmin = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
-            admin.setCuenta(cuentaAdmin);
-            admin = aDAO.iniciarSesion(admin);
-            
-            EmpresaTransportista empresa = new EmpresaTransportista();
-            Cuenta cuentaEmpresa = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
-            empresa.setCuenta(cuentaEmpresa);
-            empresa = eDAO.iniciarSesion(empresa);
+//
+//    private void realizarLogin() throws Exception {
+//        if (!txtUsuario.getText().isBlank() && !txtContrasenia.getText().isBlank()) {
+//            Productores productores = new Productores();
+//            Cuenta cuenta = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
+//            productores.setCuenta(cuenta);
+//            productores = pDAO.iniciarSesion(productores);
+//
+//            Administrador admin = new Administrador();
+//            Cuenta cuentaAdmin = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
+//            admin.setCuenta(cuentaAdmin);
+//            admin = aDAO.iniciarSesion(admin);
+//
+//            EmpresaTransportista empresa = new EmpresaTransportista();
+//            Cuenta cuentaEmpresa = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
+//            empresa.setCuenta(cuentaEmpresa);
+//            empresa = eDAO.iniciarSesion(empresa);
+//
+//            if (productores != null || admin != null || empresa != null) {
+//                JOptionPane.showMessageDialog(null, "Se inicio sesion");
+//                if (productores != null) {
+//                    MenuPrincipalForm menu = new MenuPrincipalForm(cuenta);
+//                    menu.setCuenta(cuenta);
+//                    menu.setVisible(true);
+//                    this.dispose();
+//                }
+//                if (admin != null) {
+//                    MenuPrincipalForm menu = new MenuPrincipalForm(cuentaAdmin);
+//                    menu.setCuenta(cuentaAdmin);
+//                    menu.setVisible(true);
+//                    this.dispose();
+//                }
+//                if (empresa != null) {
+//                    MenuPrincipalForm menu = new MenuPrincipalForm(cuentaEmpresa);
+//                    menu.setCuenta(cuentaEmpresa);
+//                    menu.setVisible(true);
+//                    this.dispose();
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error Campos Invalidos", JOptionPane.ERROR_MESSAGE);
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Campos vacios", "Error Campos Invalidos", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
 
-            if (productores != null || admin != null || empresa!= null) {
-                JOptionPane.showMessageDialog(null, "Se inicio sesion");
-                if (productores!= null) {
-                    MenuPrincipalForm menu = new MenuPrincipalForm(cuenta);
-                    menu.setCuenta(cuenta);
-                    menu.setVisible(true);
-                    this.dispose();
-                }
-                if (admin!= null) {
-                    MenuPrincipalForm menu = new MenuPrincipalForm(cuentaAdmin);
-                    menu.setCuenta(cuentaAdmin);
-                    menu.setVisible(true);
-                    this.dispose();
-                }
-                if (empresa!= null) {
-                    MenuPrincipalForm menu = new MenuPrincipalForm(cuentaEmpresa);
-                    menu.setCuenta(cuentaEmpresa);
-                    menu.setVisible(true);
-                    this.dispose();
-                }
+    private void realizarLogin() throws Exception {
+        String tipoCuenta = comboboxTipoCuenta.getSelectedItem().toString();
+        String usuario = txtUsuario.getText();
+        String contrasenia = txtContrasenia.getText();
+
+        if (usuario.isBlank() || contrasenia.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Campos vacíos", "Error Campos Inválidos", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (tipoCuenta.equals("Administrador")) {
+            Administrador admin = new Administrador();
+            Cuenta cuenta = new Cuenta(contrasenia, usuario, tipoCuenta);
+            admin.setCuenta(cuenta);
+            admin = aDAO.iniciarSesion(admin);
+
+            if (admin != null) {
+                JOptionPane.showMessageDialog(null, "Se inició sesión como Administrador");
+                MenuPrincipalForm menu = new MenuPrincipalForm(cuenta);
+                menu.setCuenta(cuenta);
+                menu.setVisible(true);
+                this.dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Datos incorrectos","Error Campos Invalidos",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error Campos Inválidos", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (tipoCuenta.equals("EmpresaTransportista")) {
+            EmpresaTransportista admin = new EmpresaTransportista();
+            Cuenta cuenta = new Cuenta(contrasenia, usuario, tipoCuenta);
+            admin.setCuenta(cuenta);
+            admin = eDAO.iniciarSesion(admin);
+
+            if (admin != null) {
+                JOptionPane.showMessageDialog(null, "Se inició sesión como EmpresaTransportista");
+                MenuPrincipalForm menu = new MenuPrincipalForm(cuenta);
+                menu.setCuenta(cuenta);
+                menu.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error Campos Inválidos", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else if (tipoCuenta.equals("Productor")) {
+            Productores admin = new Productores();
+            Cuenta cuenta = new Cuenta(contrasenia, usuario, tipoCuenta);
+            admin.setCuenta(cuenta);
+            admin = pDAO.iniciarSesion(admin);
+
+            if (admin != null) {
+                JOptionPane.showMessageDialog(null, "Se inició sesión como Productor");
+                MenuPrincipalForm menu = new MenuPrincipalForm(cuenta);
+
+                menu.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error Campos Inválidos", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Campos vacios","Error Campos Invalidos",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Tipo de cuenta inválido", "Error Campos Inválidos", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void insertarCuentas() throws Exception{
+
+    private void insertarCuentas() throws Exception {
         insercionMasiva in = new insercionMasiva();
+        
+        JOptionPane.showMessageDialog(null, "Se realizó inserciones masivas de 'Residuos', 'Productores', 'Administradores', 'Quimicos', y 'EmpresasTransportistas con Vehiculos");
         in.insercioResiduos();
         in.insercionMasivaProductores();
         in.insercionAdministrador();
         in.insercionQuimicos();
         in.insercionMasivaDeVehiculosYEmpresas();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

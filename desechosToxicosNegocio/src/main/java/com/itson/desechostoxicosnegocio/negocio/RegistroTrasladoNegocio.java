@@ -23,51 +23,37 @@ public class RegistroTrasladoNegocio implements IRegistroTraslado {
     }
 
     @Override
-    public List<RegistroTraslado> consultarTodosLosTrasladosExistentes() {
-        try {
-            return this.registroTrasladoDAO.consultarTodosLosTrasladosExistentes();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar todos los traslados existentes");
-            return null;
-        }
+    public List<RegistroTraslado> consultarTodosLosTrasladosExistentes() throws Exception {
+
+        return this.registroTrasladoDAO.consultarTodosLosTrasladosExistentes();
+
     }
 
     @Override
-    public RegistroTraslado consultarTraslado(RegistroTraslado quimico) {
-        try {
-            return this.registroTrasladoDAO.consultarTraslado(quimico);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el traslado");
-            return null;
-        }
+    public RegistroTraslado consultarTraslado(RegistroTraslado quimico) throws Exception {
+
+        return this.registroTrasladoDAO.consultarTraslado(quimico);
+
     }
 
     @Override
-    public RegistroTraslado insertarTraslado(RegistroTraslado quimico) {
-        try {
-            return this.registroTrasladoDAO.insertarTraslado(quimico);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el traslado");
-            return null;
-        }
+    public RegistroTraslado insertarTraslado(RegistroTraslado quimico) throws Exception {
+
+        return this.registroTrasladoDAO.insertarTraslado(quimico);
+
     }
 
     @Override
-    public void eliminarTraslado(RegistroTraslado elemento) {
-        try {
-            this.registroTrasladoDAO.eliminarTraslado(elemento);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al eliminar el traslado");
-        }
+    public void eliminarTraslado(RegistroTraslado elemento) throws Exception {
+
+        this.registroTrasladoDAO.eliminarTraslado(elemento);
+
     }
 
     @Override
-    public RegistroTraslado actualizarTraslado(RegistroTraslado elemento) {
-        try {
-            return this.registroTrasladoDAO.actualizarTraslado(elemento);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar el traslado");
-            return null;
-        }
+    public RegistroTraslado actualizarTraslado(RegistroTraslado elemento) throws Exception {
+
+        return this.registroTrasladoDAO.actualizarTraslado(elemento);
+
     }
 }

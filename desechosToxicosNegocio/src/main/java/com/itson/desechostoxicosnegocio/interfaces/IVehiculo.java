@@ -14,12 +14,12 @@ import java.util.List;
  */
 public interface IVehiculo {
 
-    Vehiculo insertarElemento(Vehiculo e);
+    Vehiculo insertarElemento(Vehiculo e) throws Exception;
 
-    List<Vehiculo> insertarElementoEnLista(List<Vehiculo> e);
+    List<Vehiculo> insertarElementoEnLista(List<Vehiculo> e) throws Exception;
 
-    Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp);
+    Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) throws Exception;
 
-    List<Vehiculo> consultarAutosPorEmpresa(EmpresaTransportista emp);
+    List<Vehiculo> consultarAutosPorEmpresa(EmpresaTransportista emp) throws Exception;
 
 }

@@ -21,52 +21,38 @@ public class ResiduosNegocio implements IResiduos {
     }
 
  @Override
-public List<Residuos> consultarElementos(ConfiguracionDePaginado configuracionDePaginado) {
-    try {
+public List<Residuos> consultarElementos(ConfiguracionDePaginado configuracionDePaginado) throws Exception {
+  
         return this.residuosDAO.consultarElemento(configuracionDePaginado);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Hubo un error al consultar los residuos");
-        return null;
-    }
+
 }
 
     @Override
-    public Residuos insertarElemento(Residuos residuos) {
-        try {
+    public Residuos insertarElemento(Residuos residuos) throws Exception {
+  
             return this.residuosDAO.insertarElemento(residuos);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el residuo");
-            return null;
-        }
+     
     }
 
     @Override
-    public void eliminarElemento(Residuos elemento) {
-        try {
+    public void eliminarElemento(Residuos elemento) throws Exception {
+   
             this.residuosDAO.eliminarElemento(elemento);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al eliminar el residuo");
-        }
+     
     }
 
     @Override
-    public Residuos actualizarElemento(Residuos elemento) {
-        try {
+    public Residuos actualizarElemento(Residuos elemento) throws Exception {
+ 
             return this.residuosDAO.actualizarElemento(elemento);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar el residuo");
-            return null;
-        }
+       
     }
 
     @Override
-    public List<Residuos> consultarElementosPorProductor(Productores productor) {
-        try {
+    public List<Residuos> consultarElementosPorProductor(Productores productor) throws Exception {
+     
             return this.residuosDAO.consultarElementosPorProductor(productor);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar los residuos por productor");
-            return null;
-        }
+     
     }
 
     @Override

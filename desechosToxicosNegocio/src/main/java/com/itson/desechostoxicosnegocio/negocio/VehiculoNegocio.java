@@ -20,40 +20,31 @@ public class VehiculoNegocio implements IVehiculo {
     }
 
     @Override
-    public Vehiculo insertarElemento(Vehiculo v) {
-        try {
-            return this.vehiculoDAO.insertarElemento(v);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el vehiculo");
-            return null;
-        }
+    public Vehiculo insertarElemento(Vehiculo v) throws Exception {
+
+        return this.vehiculoDAO.insertarElemento(v);
+
     }
 
     @Override
-    public List<Vehiculo> insertarElementoEnLista(List<Vehiculo> v) {
-       try {
-            return this.vehiculoDAO.insertarElementoEnLista(v);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al insertar los vehiculo");
-            return null;
-        }}
+    public List<Vehiculo> insertarElementoEnLista(List<Vehiculo> v) throws Exception {
+
+        return this.vehiculoDAO.insertarElementoEnLista(v);
+
+    }
 
     @Override
-    public Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) {
-      try {
-            return this.vehiculoDAO.consultarAutoPorEmpresa(emp);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el vehiculo por empresa");
-            return null;
-        } }
+    public Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) throws Exception {
+
+        return this.vehiculoDAO.consultarAutoPorEmpresa(emp);
+
+    }
 
     @Override
-    public List<Vehiculo> consultarAutosPorEmpresa(EmpresaTransportista emp) {
-       try {
-            return this.vehiculoDAO.consultarAutosPorEmpresa(emp);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar los vehiculos por empresa");
-            return null;
-        }}
+    public List<Vehiculo> consultarAutosPorEmpresa(EmpresaTransportista emp) throws Exception {
+
+        return this.vehiculoDAO.consultarAutosPorEmpresa(emp);
+
+    }
 
 }

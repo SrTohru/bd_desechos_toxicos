@@ -22,27 +22,27 @@ public class ProductoresNegocio implements IProductores{
     }
 
     @Override
-    public Productores insertarProductor(Productores e) {
+    public Productores insertarProductor(Productores e) throws Exception {
         return this.productoresDAO.insertarProductor(e);
     }
 
     @Override
-    public Productores consultarProductor(Productores elemento) {
+    public Productores consultarProductor(Productores elemento) throws Exception {
         return this.productoresDAO.consultarProductor(elemento);
     }
 
     @Override
-    public void eliminarProductor(Productores elemento) {
+    public void eliminarProductor(Productores elemento) throws Exception {
         this.productoresDAO.eliminarProductor(elemento);
     }
 
     @Override
-    public Productores actualizarProductor(Productores elemento) {
+    public Productores actualizarProductor(Productores elemento) throws Exception {
         return this.productoresDAO.actualizarProductor(elemento);
     }
 
     @Override
-    public List<Productores> consultarProductores() {
+    public List<Productores> consultarProductores() throws Exception {
         return this.productoresDAO.consultarProductores();
     }
 

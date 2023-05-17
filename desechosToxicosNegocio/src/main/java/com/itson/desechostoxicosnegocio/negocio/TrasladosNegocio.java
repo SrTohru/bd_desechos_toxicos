@@ -24,32 +24,23 @@ public class TrasladosNegocio implements ITraslados {
     }
 
     @Override
-    public Traslado insertarElemento(Traslado traslado) {
-        try {
+    public Traslado insertarElemento(Traslado traslado) throws Exception {
+   
             return this.trasladoDAO.insertarElemento(traslado);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el traslado");
-            return null;
-        }
+      
     }
 
     @Override
-    public Traslado actualizarElemento(Traslado elemento) {
-        try {
+    public Traslado actualizarElemento(Traslado elemento) throws Exception {
+ 
             return this.trasladoDAO.actualizarElemento(elemento);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar el traslado");
-            return null;
-        }
+       
     }
 
     @Override
-    public Traslado consultarElemento(Traslado elemento) {
-        try {
+    public Traslado consultarElemento(Traslado elemento) throws Exception {
+   
             return this.trasladoDAO.consultarElemento(elemento);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el traslado");
-            return null;
-        }
+      
     }
 }

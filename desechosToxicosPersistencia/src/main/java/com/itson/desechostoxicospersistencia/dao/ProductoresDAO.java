@@ -28,39 +28,39 @@ public class ProductoresDAO implements IProductores {
     MongoCollection<Productores> productoresCollection = baseDatos.getCollection(dFormats.getPRODUCTORES_COLLECTION(), Productores.class);
 
     @Override
-    public Productores insertarProductor(Productores e) throws Exception{
+    public Productores insertarProductor(Productores e) throws Exception {
         try {
             productoresCollection.insertOne(e);
             return e;
         } catch (Exception ex) {
-          throw new Exception("Hubo un error al insertar al productor");
+            throw new Exception("Hubo un error al insertar al productor");
         }
     }
 
     @Override
-    public Productores consultarProductor(Productores elemento) throws Exception{
+    public Productores consultarProductor(Productores elemento) throws Exception {
         try {
             Document productorQuery = new Document("_id", elemento.getId());
             Productores productorDocument = productoresCollection.find(productorQuery).first();
 
             return productorDocument;
         } catch (Exception e) {
-         throw new Exception("Hubo un error al consultar el productor");
+            throw new Exception("Hubo un error al consultar el productor");
         }
     }
 
     @Override
-    public void eliminarProductor(Productores elemento) throws Exception{
+    public void eliminarProductor(Productores elemento) throws Exception {
         try {
             productoresCollection.findOneAndDelete(new Document("_id", elemento.getId()));
-            
+
         } catch (MongoException e) {
             throw new Exception("Hubo un error al eliminar el productor");
         }
     }
 
     @Override
-    public Productores actualizarProductor(Productores elemento) throws Exception{
+    public Productores actualizarProductor(Productores elemento) throws Exception {
         try {
             Document productorQuery = new Document("_id", elemento.getId());
             Productores productorDocument = productoresCollection.find(productorQuery).first();
@@ -77,24 +77,24 @@ public class ProductoresDAO implements IProductores {
     }
 
     @Override
-    public List<Productores> consultarProductores() throws Exception{
+    public List<Productores> consultarProductores() throws Exception {
         try {
             return productoresCollection.find().into(new ArrayList<>());
         } catch (Exception e) {
-          throw new Exception("Hubo un error al consultar a todos los productores");
+            throw new Exception("Hubo un error al consultar a todos los productores");
         }
     }
 
     @Override
-    public List<Productores> consultarProductoresConSolicitudTraslado() throws Exception{
+    public List<Productores> consultarProductoresConSolicitudTraslado() throws Exception {
         try {
             //Falta por terminar
             return null;
         } catch (Exception e) {
-           throw new Exception("Hubo un error al consultar productores con solicitud de traslado");
+            throw new Exception("Hubo un error al consultar productores con solicitud de traslado");
         }
     }
-    
+
     @Override
     public Productores iniciarSesion(Productores productores) throws Exception {
         BasicDBObject query = new BasicDBObject();

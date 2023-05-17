@@ -9,15 +9,15 @@ import java.util.List;
 
 public interface IEmpresaTransportista {
 
-    EmpresaTransportista insertarEmpresaConAutos(EmpresaTransportista empresa);
+    EmpresaTransportista insertarEmpresaConAutos(EmpresaTransportista empresa) throws Exception;
 
-    EmpresaTransportista consultarEmpresa(EmpresaTransportista elemento);
+    EmpresaTransportista consultarEmpresa(EmpresaTransportista elemento) throws Exception;
 
-    void eliminarEmpresa(EmpresaTransportista elemento);
+    void eliminarEmpresa(EmpresaTransportista elemento) throws Exception;
 
-    EmpresaTransportista actualizarEmpresa(EmpresaTransportista elemento);
+    EmpresaTransportista actualizarEmpresa(EmpresaTransportista elemento) throws Exception;
 
-    EmpresaTransportista insertarEmpresa(EmpresaTransportista empresa);
+    EmpresaTransportista insertarEmpresa(EmpresaTransportista empresa) throws Exception;
 
-    List<EmpresaTransportista> consultarTodasLasEmpresas();
+    List<EmpresaTransportista> consultarTodasLasEmpresas() throws Exception;
 }

@@ -24,41 +24,30 @@ public class QuimicosNegocio implements IQuimicos {
     }
 
     @Override
-    public List<Quimicos> consultarQuimicosGenerales(ConfiguracionDePaginado configuracionDePaginado) {
-        try {
-            return this.quimicosDAO.consultarQuimicosGenerales(configuracionDePaginado);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar los químicos generales");
-            return null;
-        }
+    public List<Quimicos> consultarQuimicosGenerales(ConfiguracionDePaginado configuracionDePaginado) throws Exception {
+
+        return this.quimicosDAO.consultarQuimicosGenerales(configuracionDePaginado);
+
     }
 
     @Override
-    public Quimicos consultarQuimico(Quimicos quimico) {
-        try {
-            return this.quimicosDAO.consultarQuimico(quimico);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el químico");
-            return null;
-        }
+    public Quimicos consultarQuimico(Quimicos quimico) throws Exception {
+
+        return this.quimicosDAO.consultarQuimico(quimico);
+
     }
 
     @Override
-    public Quimicos insertarQuimico(Quimicos quimico) {
-        try {
-            return this.quimicosDAO.insertarQuimico(quimico);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el químico");
-            return null;
-        }
+    public Quimicos insertarQuimico(Quimicos quimico) throws Exception {
+
+        return this.quimicosDAO.insertarQuimico(quimico);
+
     }
 
     @Override
-    public void eliminarQuimico(Quimicos elemento) {
-        try {
-            this.quimicosDAO.eliminarQuimico(elemento);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al eliminar el químico");
-        }
+    public void eliminarQuimico(Quimicos elemento) throws Exception {
+
+        this.quimicosDAO.eliminarQuimico(elemento);
+
     }
 }
