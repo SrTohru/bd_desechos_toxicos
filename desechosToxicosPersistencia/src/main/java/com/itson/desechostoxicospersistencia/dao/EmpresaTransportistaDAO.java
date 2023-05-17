@@ -24,7 +24,6 @@ public class EmpresaTransportistaDAO implements IEmpresaTransportista {
     MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     DatabaseFormats databaseFormats = new DatabaseFormats();
     GeneralMethods gMethods;
-    VehiculoDAO v;
     MongoCollection<EmpresaTransportista> empresaCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION(), EmpresaTransportista.class);
 
     @Override

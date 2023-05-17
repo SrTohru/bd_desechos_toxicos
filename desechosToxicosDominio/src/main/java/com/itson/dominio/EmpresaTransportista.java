@@ -15,6 +15,7 @@
 
         private ObjectId id;
         private String nombre;
+        private boolean disponibilidad;
         private List<Vehiculo> vehiculos;
 
         public EmpresaTransportista() {

@@ -6,23 +6,26 @@ public class Residuos {
 
     private ObjectId id;
     private String nombre;
+    private String codigo;
     private boolean peligroso;
     private Quimicos quimico;
 
     public Residuos() {
     }
 
-    public Residuos(String nombre, boolean peligroso, Quimicos quimico) {
+    public Residuos(String nombre, String codigo, boolean peligroso, Quimicos quimico) {
         this.nombre = nombre;
+        this.codigo = codigo;
         this.peligroso = peligroso;
         this.quimico = quimico;
     }
 
-    public Residuos(ObjectId id, String nombre, boolean peligroso, Quimicos quimico) {
+    public Residuos(ObjectId id, String nombre, String codigo, boolean peligroso, Quimicos quimico) {
         this.id = id;
         this.nombre = nombre;
-        this.quimico = quimico;
+        this.codigo = codigo;
         this.peligroso = peligroso;
+        this.quimico = quimico;
     }
 
     public ObjectId getId() {
@@ -41,6 +44,16 @@ public class Residuos {
         this.nombre = nombre;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    
+    
     public boolean isPeligroso() {
         return peligroso;
     }

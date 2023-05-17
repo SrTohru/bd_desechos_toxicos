@@ -1,15 +1,20 @@
 package com.itson.desechostoxicospersistencia.interfaces;
 
 import com.itson.desechostoxicospersistencia.utilities.DatabaseFormats;
+import com.itson.dominio.EmpresaTransportista;
 import com.itson.dominio.RegistroTraslado;
+import java.util.List;
 
 public interface IRegistroTraslado {
 
-    RegistroTraslado insertarElemento(RegistroTraslado e, DatabaseFormats collectionName);
+    RegistroTraslado insertarTraslado(RegistroTraslado e);
 
-    RegistroTraslado consultarElemento(RegistroTraslado elemento, DatabaseFormats collectionName);
+    RegistroTraslado consultarTraslado(RegistroTraslado elemento);
 
-    RegistroTraslado eliminarElemento(RegistroTraslado elemento, DatabaseFormats collectionName);
+    void eliminarTraslado(RegistroTraslado elemento);
 
-    RegistroTraslado actualizarElemento(RegistroTraslado elemento, DatabaseFormats collectionName);
+    RegistroTraslado actualizarTraslado(RegistroTraslado elemento);
+
+    List<RegistroTraslado> consultarTodosLosTrasladosExistentes();
+
 }

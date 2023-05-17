@@ -54,8 +54,5 @@ public class Productores {
     public void setResiduos(List<Residuos> residuos) {
         this.residuos = residuos;
     }
-    
-    
-    
-    
+
 }

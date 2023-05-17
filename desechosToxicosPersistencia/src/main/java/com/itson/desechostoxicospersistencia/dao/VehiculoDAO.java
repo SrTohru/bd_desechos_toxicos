@@ -11,45 +11,72 @@ import com.itson.dominio.EmpresaTransportista;
 import com.itson.dominio.Vehiculo;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import org.bson.Document;
 
 /**
  *
  * @author PC
  */
 public class VehiculoDAO implements IVehiculo {
-
+    
+    DatabaseFormats dFormats;
     MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
-    DatabaseFormats databaseFormats = new DatabaseFormats();
-
-    MongoCollection<Vehiculo> vehiculoCollection = baseDatos.getCollection(databaseFormats.getVEHICULO(), Vehiculo.class);
+    MongoCollection<Vehiculo> vehiculoCollection = baseDatos.getCollection(dFormats.getVEHICULO(), Vehiculo.class);
 
     @Override
     public Vehiculo insertarElemento(Vehiculo e) {
-return null;       
-// vehiculoCollection.insertMany(list);
-    }
+        try {
+            vehiculoCollection.insertOne(e);
 
-    @Override
-    public Vehiculo consultarElemento(Vehiculo elemento, DatabaseFormats collectionName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+            JOptionPane.showMessageDialog(null, "El vehículo ha sido insertado correctamente.");
 
-    @Override
-    public Vehiculo eliminarElemento(Vehiculo elemento, DatabaseFormats collectionName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Vehiculo actualizarElemento(Vehiculo elemento, DatabaseFormats collectionName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            return e;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el vehículo");
+            return null;
+        }
     }
 
     @Override
     public List<Vehiculo> insertarElementoEnLista(List<Vehiculo> e) {
-        vehiculoCollection.insertMany(e);
-        
-     return e;   
+        try {
+            vehiculoCollection.insertMany(e);
+
+            JOptionPane.showMessageDialog(null, "Los vehículos han sido insertados correctamente.");
+
+            return e;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar los vehículos");
+            return null;
+        }
     }
 
+    @Override
+    public Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) {
+        try {
+            Document vehiculoQuery = new Document("empresaTransportista", emp);
+            Vehiculo vehiculoDocument = vehiculoCollection.find(vehiculoQuery).first();
+
+            return vehiculoDocument;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el vehículo");
+            return null;
+        }
+    }
+
+    @Override
+    public List<Vehiculo> consultarAutosPorEmpresa(EmpresaTransportista emp) {
+        try {
+            Document vehiculoQuery = new Document("empresaTransportista", emp);
+            List<Vehiculo> vehiculos = vehiculoCollection.find(vehiculoQuery).into(new ArrayList<>());
+
+            return vehiculos;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al consultar los vehículos");
+            return null;
+        }
+    }
 }

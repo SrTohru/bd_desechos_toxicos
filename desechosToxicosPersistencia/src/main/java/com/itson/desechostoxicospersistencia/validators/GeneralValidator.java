@@ -41,7 +41,7 @@ public class GeneralValidator {
 //    }
     private RegistroTraslado verificarExistenciaRegistroTraslado(RegistroTraslado registroTraslado) {
         if (baseDatos.getCollection(formatos.getREGISTRO_TRASLADO()).find(new Document("id_", registroTraslado.getId().toString())) != null
-                || baseDatos.getCollection(formatos.getREGISTRO_TRASLADO()).find(new Document("trasladoId", registroTraslado.getTrasladoId())) != null) {
+                || baseDatos.getCollection(formatos.getREGISTRO_TRASLADO()).find(new Document("trasladoId", registroTraslado.getTaslado().getId())) != null) {
             return registroTraslado;
         } else {
             return null;

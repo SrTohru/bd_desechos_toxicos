@@ -17,52 +17,54 @@ import org.bson.types.ObjectId;
 
 public class QuimicosDAO implements IQuimicos {
 
-    MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     DatabaseFormats databaseFormats = new DatabaseFormats();
-
-    MongoCollection<Document> empresaCollection = baseDatos.getCollection(databaseFormats.getQUIMICOS());
+    MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
+    MongoCollection<Quimicos> quimicosCollection = baseDatos.getCollection(databaseFormats.getQUIMICOS(), Quimicos.class);
 
     @Override
     public List<Quimicos> consultarQuimicosGenerales(ConfiguracionDePaginado configuracionDePaginado) {
-
-        List<Quimicos> quimicosList = new ArrayList<>();
-        int offset = configuracionDePaginado.getElementoASaltar();
-        int limit = configuracionDePaginado.getElementosPorPagina();
-        // Consultar todos los documentos en la colección
-        FindIterable<Document> documents = empresaCollection.find().skip(offset).limit(limit);
-
-        // Iterar sobre los documentos y convertirlos a objetos Quimicos
-        try (MongoCursor<Document> cursor = documents.iterator()) {
-            while (cursor.hasNext()) {
-                Document document = cursor.next();
-                ObjectId id = document.getObjectId("_id");
-                String nombre = document.getString("nombre");
-                Quimicos quimico = new Quimicos(id, nombre);
-                quimicosList.add(quimico);
-                System.out.println(quimico);
-            }
+        try {
+            return quimicosCollection.find().into(new ArrayList<>());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al consultar los químicos generales");
+            return null;
         }
-
-        return quimicosList;
-
     }
 
     @Override
-    public Quimicos insertarQuimicos(Quimicos quimicos) {
-
-        // Crear el documento de la empresa
+    public Quimicos consultarQuimico(Quimicos quimico) {
         try {
-            Document empresaDocument = new Document("nombre", quimicos.getNombre());
-            
-            empresaCollection.insertOne(empresaDocument);
+            Document quimicoQuery = new Document("_id", quimico.getId());
+            Quimicos quimicoDocument = quimicosCollection.find(quimicoQuery).first();
 
-            System.out.println("El quimico se ingreso correctamente");
-            return quimicos;
+            return quimicoDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al inserar el quimico");
+            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el químico");
             return null;
         }
+    }
 
+    @Override
+    public Quimicos insertarQuimico(Quimicos quimico) {
+        try {
+            quimicosCollection.insertOne(quimico);
+
+            JOptionPane.showMessageDialog(null, "El químico ha sido insertado correctamente.");
+
+            return quimico;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el químico");
+            return null;
+        }
+    }
+
+    @Override
+    public void eliminarQuimico(Quimicos elemento) {
+        try {
+            quimicosCollection.findOneAndDelete(new Document("_id", elemento.getId()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al eliminar el químico");
+        }
     }
 
 }

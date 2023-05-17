@@ -80,28 +80,11 @@ public class ResiduosDAO implements IResiduos {
 
     @Override
     public List<Residuos> consultarElementosPorProductor(Productores productor) {
-
-        Document query = new Document("productor.id", productor.getId());
-        FindIterable<Document> result = residuosCollection.find(query);
-
-        List<Residuos> residuosList = new ArrayList<>();
-
-        try (MongoCursor<Document> cursor = result.iterator()) {
-            while (cursor.hasNext()) {
-                Document document = cursor.next();
-                ObjectId residuoId = document.getObjectId("_id");
-                String nombre = document.getString("nombre");
-                boolean peligroso = document.getBoolean("peligroso");
-                Document quimicoDocument = document.get("quimico", Document.class);
-                
-                
-                Quimicos quimico = new Quimicos(new ObjectId(quimicoDocument.getString("id_")), quimicoDocument.getString("nombreQuimico"));
-
-                Residuos residuo = new Residuos(residuoId, nombre, peligroso, quimico);
-                residuosList.add(residuo);
-            }
-        }
-
-        return residuosList;
+//
+//        Document query = new Document("productor.id", productor.getId());
+//        FindIterable<Document> result = residuosCollection.find(query);
+//
+//        return residuosList;
+return null;
     }
 }
