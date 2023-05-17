@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface IQuimicos {
 
-    List<Quimicos> consultarQuimicosGenerales(ConfiguracionDePaginado configuracionDePaginado);
+    List<Quimicos> consultarQuimicosGenerales(ConfiguracionDePaginado configuracionDePaginado) throws Exception;
     
-    Quimicos consultarQuimico(Quimicos quimico);
-    
-    Quimicos insertarQuimico(Quimicos quimico);
-    
-    void eliminarQuimico(Quimicos elemento);
+    Quimicos consultarQuimico(Quimicos quimico) throws Exception;
+     
+    Quimicos insertarQuimico(Quimicos quimico) throws Exception;
+     
+    void eliminarQuimico(Quimicos elemento) throws Exception;
 
 }

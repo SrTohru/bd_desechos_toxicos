@@ -32,7 +32,7 @@ public class ResiduosDAO implements IResiduos {
     MongoCollection<Document> residuosCollection = baseDatos.getCollection(databaseFormats.getRESIDUOS());
 
     @Override
-    public Residuos insertarElemento(Residuos residuos) {
+    public Residuos insertarElemento(Residuos residuos) throws Exception{
         // Crear el documento de la empresa
         Document empresaDocument = new Document("nombre", residuos.getNombre());
 
@@ -43,7 +43,7 @@ public class ResiduosDAO implements IResiduos {
     }
 
     @Override
-    public List<Residuos> consultarElemento(ConfiguracionDePaginado configuracionDePaginado) {
+    public List<Residuos> consultarElemento(ConfiguracionDePaginado configuracionDePaginado) throws Exception{
 
         List<Residuos> listaResiduos = new ArrayList<>();
         int offset = configuracionDePaginado.getElementoASaltar();
@@ -69,17 +69,17 @@ public class ResiduosDAO implements IResiduos {
     }
 
     @Override
-    public Residuos eliminarElemento(Residuos elemento) {
+    public Residuos eliminarElemento(Residuos elemento) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Residuos actualizarElemento(Residuos elemento) {
+    public Residuos actualizarElemento(Residuos elemento) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Residuos> consultarElementosPorProductor(Productores productor) {
+    public List<Residuos> consultarElementosPorProductor(Productores productor) throws Exception{
 //
 //        Document query = new Document("productor.id", productor.getId());
 //        FindIterable<Document> result = residuosCollection.find(query);

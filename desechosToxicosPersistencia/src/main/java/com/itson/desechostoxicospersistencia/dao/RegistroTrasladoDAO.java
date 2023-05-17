@@ -24,14 +24,14 @@ import org.bson.Document;
  */
 public class RegistroTrasladoDAO implements IRegistroTraslado{
     
-    DatabaseFormats dFormats;
+    DatabaseFormats dFormats = new DatabaseFormats();
       MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     MongoCollection<RegistroTraslado> registroTrasladoCollection = baseDatos.getCollection(dFormats.getREGISTRO_TRASLADO(), RegistroTraslado.class);
 
     
     
     @Override
-    public RegistroTraslado insertarTraslado(RegistroTraslado e) {
+    public RegistroTraslado insertarTraslado(RegistroTraslado e) throws Exception{
         try {
             registroTrasladoCollection.insertOne(e);
 
@@ -39,35 +39,33 @@ public class RegistroTrasladoDAO implements IRegistroTraslado{
 
             return e;
         } catch (HeadlessException ex) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el traslado");
-            return null;
+            throw new Exception("Hubo un error al insertar un traslado");
         }
     }
 
     @Override
-    public RegistroTraslado consultarTraslado(RegistroTraslado elemento) {
+    public RegistroTraslado consultarTraslado(RegistroTraslado elemento) throws Exception{
         try {
             Document trasladoQuery = new Document("_id", elemento.getId());
             RegistroTraslado trasladoDocument = registroTrasladoCollection.find(trasladoQuery).first();
 
             return trasladoDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el traslado");
-            return null;
+           throw new Exception("Hubo un error al consultar el traslado");
         }
     }
 
     @Override
-    public void eliminarTraslado(RegistroTraslado elemento) {
+    public void eliminarTraslado(RegistroTraslado elemento) throws Exception{
         try {
             registroTrasladoCollection.findOneAndDelete(new Document("_id", elemento.getId()));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al eliminar el traslado");
+            throw new Exception("Hubo un error al eliminar el traslado");
         }
     }
 
     @Override
-    public RegistroTraslado actualizarTraslado(RegistroTraslado elemento) {
+    public RegistroTraslado actualizarTraslado(RegistroTraslado elemento) throws Exception{
         try {
             Document trasladoQuery = new Document("_id", elemento.getId());
             RegistroTraslado trasladoDocument = registroTrasladoCollection.find(trasladoQuery).first();
@@ -83,18 +81,16 @@ public class RegistroTrasladoDAO implements IRegistroTraslado{
 
             return trasladoDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar el traslado");
-            return null;
+         throw new Exception("Hubo un error al actualizar el traslado");
         }
     }
 
     @Override
-    public List<RegistroTraslado> consultarTodosLosTrasladosExistentes() {
+    public List<RegistroTraslado> consultarTodosLosTrasladosExistentes() throws Exception{
         try {
             return registroTrasladoCollection.find().into(new ArrayList<>());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar todos los traslados existentes");
-            return null;
+         throw new Exception("Hubo un error al consultar todos los traslados");
         }
     }
 

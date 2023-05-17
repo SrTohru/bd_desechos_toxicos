@@ -5,16 +5,16 @@ import java.util.List;
 
 public interface IProductores {
 
-    Productores insertarProductor(Productores e);
+    Productores insertarProductor(Productores e) throws Exception;
 
-    Productores consultarProductor(Productores elemento);
+    Productores consultarProductor(Productores elemento) throws Exception;
 
-    void eliminarProductor(Productores elemento);
+    void eliminarProductor(Productores elemento) throws Exception;
 
-    Productores actualizarProductor(Productores elemento);
+    Productores actualizarProductor(Productores elemento) throws Exception;
 
-    List<Productores> consultarProductores();
+    List<Productores> consultarProductores() throws Exception;
     
-    List<Productores> consultarProductoresConSolicitudTraslado();
+    List<Productores> consultarProductoresConSolicitudTraslado() throws Exception;
     
 }

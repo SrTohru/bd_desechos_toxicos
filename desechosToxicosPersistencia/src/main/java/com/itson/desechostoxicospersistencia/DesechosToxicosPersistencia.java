@@ -16,12 +16,13 @@ import org.bson.types.ObjectId;
 
 public class DesechosToxicosPersistencia {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
     
-  EmpresaTransportistaDAO emp = new EmpresaTransportistaDAO();
-  
-        for (EmpresaTransportista emsp : emp.consultarTodasLasEmpresas()) {
-            System.out.println(emsp);
-        }
+        insercionMasiva in = new insercionMasiva();
+        
+        in.insercionMasivaDeQuimicos();
+        in.insercionMasivaDeVehiculosYEmpresas();
+        in.insercionMasivaProductores();
+        
     }
 }

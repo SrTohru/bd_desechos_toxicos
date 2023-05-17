@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author PC
  */
-public class RegistroTrasladoNegocio implements IRegistroTraslado{
+public class RegistroTrasladoNegocio implements IRegistroTraslado {
 
     private RegistroTrasladoDAO registroTrasladoDAO;
 

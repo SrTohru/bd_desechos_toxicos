@@ -8,6 +8,7 @@ import com.itson.desechostoxicospersistencia.database.ConnectionDataBase;
 import com.itson.desechostoxicospersistencia.interfaces.IProductores;
 import com.itson.desechostoxicospersistencia.utilities.DatabaseFormats;
 import com.itson.dominio.Productores;
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
@@ -19,49 +20,46 @@ import org.bson.Document;
  *
  * @author PC
  */
-public class ProductoresDAO implements IProductores{
-    DatabaseFormats dFormats;
-     MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
+public class ProductoresDAO implements IProductores {
+
+    DatabaseFormats dFormats = new DatabaseFormats();
+    MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     MongoCollection<Productores> productoresCollection = baseDatos.getCollection(dFormats.getPRODUCTORES_COLLECTION(), Productores.class);
 
     @Override
-    public Productores insertarProductor(Productores e) {
+    public Productores insertarProductor(Productores e) throws Exception{
         try {
             productoresCollection.insertOne(e);
-
-            JOptionPane.showMessageDialog(null, "El productor ha sido insertado correctamente.");
-
             return e;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el productor");
-            return null;
+          throw new Exception("Hubo un error al insertar al productor");
         }
     }
 
     @Override
-    public Productores consultarProductor(Productores elemento) {
+    public Productores consultarProductor(Productores elemento) throws Exception{
         try {
             Document productorQuery = new Document("_id", elemento.getId());
             Productores productorDocument = productoresCollection.find(productorQuery).first();
 
             return productorDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el productor");
-            return null;
+         throw new Exception("Hubo un error al consultar el productor");
         }
     }
 
     @Override
-    public void eliminarProductor(Productores elemento) {
+    public void eliminarProductor(Productores elemento) throws Exception{
         try {
             productoresCollection.findOneAndDelete(new Document("_id", elemento.getId()));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al eliminar el productor");
+            
+        } catch (MongoException e) {
+            throw new Exception("Hubo un error al eliminar el productor");
         }
     }
 
     @Override
-    public Productores actualizarProductor(Productores elemento) {
+    public Productores actualizarProductor(Productores elemento) throws Exception{
         try {
             Document productorQuery = new Document("_id", elemento.getId());
             Productores productorDocument = productoresCollection.find(productorQuery).first();
@@ -73,29 +71,26 @@ public class ProductoresDAO implements IProductores{
 
             return productorDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar el productor");
-            return null;
+            throw new Exception("Hubo un error al actualizar el productor");
         }
     }
 
     @Override
-    public List<Productores> consultarProductores() {
+    public List<Productores> consultarProductores() throws Exception{
         try {
             return productoresCollection.find().into(new ArrayList<>());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar todos los productores");
-            return null;
+          throw new Exception("Hubo un error al consultar a todos los productores");
         }
     }
 
     @Override
-    public List<Productores> consultarProductoresConSolicitudTraslado() {
+    public List<Productores> consultarProductoresConSolicitudTraslado() throws Exception{
         try {
             //Falta por terminar
             return null;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar los productores con solicitud de traslado");
-            return null;
+           throw new Exception("Hubo un error al consultar productores con solicitud de traslado");
         }
     }
 }

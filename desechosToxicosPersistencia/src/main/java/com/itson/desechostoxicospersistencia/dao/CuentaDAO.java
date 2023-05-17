@@ -19,31 +19,28 @@ public class CuentaDAO implements ICuenta {
     MongoCollection<Cuenta> cuentaCollection = baseDatos.getCollection(databaseFormats.getCUENTA(), Cuenta.class);
 
     @Override
-    public Cuenta insertarCuenta(Cuenta cuenta) {
+    public Cuenta insertarCuenta(Cuenta cuenta) throws Exception {
 
         try {
             cuentaCollection.insertOne(cuenta);
-            JOptionPane.showMessageDialog(null, "Se registro la cuenta correctamente");
+      
             return cuenta;
         } catch (Exception e) {
-         
-            JOptionPane.showMessageDialog(null, "Hubo un error al registrar la cuenta");
-            return null;
+            throw new Exception("Hubo un error al registrar la cuenta");
         }
     }
 
     @Override
-    public Cuenta iniciarSesion(Cuenta cuenta) {
+    public Cuenta iniciarSesion(Cuenta cuenta) throws Exception {
         BasicDBObject query = new BasicDBObject();
         query.put("usuario", cuenta.getUsuario());
         query.put("contrasena", cuenta.getContrasena());
         query.put("tipoCuenta", cuenta.getTipoCuenta());
-        
+
         Cuenta result = cuentaCollection.find(query).first();
         if (result != null) {
             return result;
         }
-
-        return null;
+        throw new Exception("Hubo un error al iniciar sesion en la cuenta");
     }
 }

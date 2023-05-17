@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface IResiduos {
 
-    Residuos insertarElemento(Residuos elemento);
+    Residuos insertarElemento(Residuos elemento) throws Exception;
 
-    List<Residuos> consultarElemento(ConfiguracionDePaginado configuracionDePaginado);
+    List<Residuos> consultarElemento(ConfiguracionDePaginado configuracionDePaginado) throws Exception;
     
-    List<Residuos> consultarElementosPorProductor(Productores productor); 
+    List<Residuos> consultarElementosPorProductor(Productores productor) throws Exception; 
             
-    Residuos eliminarElemento(Residuos elemento);
+    Residuos eliminarElemento(Residuos elemento) throws Exception;
 
-    Residuos actualizarElemento(Residuos elemento);
+    Residuos actualizarElemento(Residuos elemento) throws Exception;
 }

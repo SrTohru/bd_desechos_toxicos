@@ -22,12 +22,12 @@ import org.bson.Document;
  */
 public class VehiculoDAO implements IVehiculo {
     
-    DatabaseFormats dFormats;
+    DatabaseFormats dFormats = new DatabaseFormats();
     MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     MongoCollection<Vehiculo> vehiculoCollection = baseDatos.getCollection(dFormats.getVEHICULO(), Vehiculo.class);
 
     @Override
-    public Vehiculo insertarElemento(Vehiculo e) {
+    public Vehiculo insertarElemento(Vehiculo e) throws Exception{
         try {
             vehiculoCollection.insertOne(e);
 
@@ -35,13 +35,12 @@ public class VehiculoDAO implements IVehiculo {
 
             return e;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el vehículo");
-            return null;
+        throw new Exception("Hubo un error al insertar el vehiculo");
         }
     }
 
     @Override
-    public List<Vehiculo> insertarElementoEnLista(List<Vehiculo> e) {
+    public List<Vehiculo> insertarElementoEnLista(List<Vehiculo> e) throws Exception{
         try {
             vehiculoCollection.insertMany(e);
 
@@ -49,34 +48,31 @@ public class VehiculoDAO implements IVehiculo {
 
             return e;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar los vehículos");
-            return null;
+           throw new Exception("Hubo un error al registrar la lista de vehiculos");
         }
     }
 
     @Override
-    public Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) {
+    public Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) throws Exception{
         try {
             Document vehiculoQuery = new Document("empresaTransportista", emp);
             Vehiculo vehiculoDocument = vehiculoCollection.find(vehiculoQuery).first();
 
             return vehiculoDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el vehículo");
-            return null;
+          throw new Exception("Hubo un error al consultar auto por empresa");
         }
     }
 
     @Override
-    public List<Vehiculo> consultarAutosPorEmpresa(EmpresaTransportista emp) {
+    public List<Vehiculo> consultarAutosPorEmpresa(EmpresaTransportista emp) throws Exception{
         try {
             Document vehiculoQuery = new Document("empresaTransportista", emp);
             List<Vehiculo> vehiculos = vehiculoCollection.find(vehiculoQuery).into(new ArrayList<>());
 
             return vehiculos;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar los vehículos");
-            return null;
+            throw new Exception("Hubo un error al consultar autos por empresa");
         }
     }
 }

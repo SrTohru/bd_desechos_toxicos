@@ -19,12 +19,12 @@ import org.bson.Document;
  */
 public class TrasladoDAO implements ITraslado {
 
-    DatabaseFormats dFormats;
+    DatabaseFormats dFormats = new DatabaseFormats();
     MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     MongoCollection<Traslado> trasladoCollection = baseDatos.getCollection(dFormats.getTRASLADOS(), Traslado.class);
 
     @Override
-    public Traslado insertarElemento(Traslado e) {
+    public Traslado insertarElemento(Traslado e) throws Exception{
         try {
             trasladoCollection.insertOne(e);
 
@@ -32,26 +32,24 @@ public class TrasladoDAO implements ITraslado {
 
             return e;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el traslado");
-            return null;
+         throw new Exception("Hubo un error al insertar el traslado");
         }
     }
 
     @Override
-    public Traslado consultarElemento(Traslado elemento) {
+    public Traslado consultarElemento(Traslado elemento) throws Exception{
         try {
             Document trasladoQuery = new Document("_id", elemento.getId());
             Traslado trasladoDocument = trasladoCollection.find(trasladoQuery).first();
 
             return trasladoDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el traslado");
-            return null;
+           throw new Exception("Hubo un error al consultar el traslado");
         }
     }
 
     @Override
-    public Traslado actualizarElemento(Traslado elemento) {
+    public Traslado actualizarElemento(Traslado elemento) throws Exception{
         try {
             Document trasladoQuery = new Document("_id", elemento.getId());
             Traslado trasladoDocument = trasladoCollection.find(trasladoQuery).first();
@@ -65,8 +63,7 @@ public class TrasladoDAO implements ITraslado {
 
             return trasladoDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar el traslado");
-            return null;
+            throw new Exception("Hubo un error al actualizar el traslado");
         }
     }
 

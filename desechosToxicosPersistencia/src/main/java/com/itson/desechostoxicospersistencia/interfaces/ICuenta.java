@@ -10,7 +10,7 @@ import com.itson.dominio.utilities.tiposDeCuenta;
 
 public interface ICuenta {
     
-    Cuenta insertarCuenta(Cuenta cuenta);
+    Cuenta insertarCuenta(Cuenta cuenta) throws Exception;
     
-    Cuenta iniciarSesion(Cuenta cuenta);
+    Cuenta iniciarSesion(Cuenta cuenta) throws Exception;
 }

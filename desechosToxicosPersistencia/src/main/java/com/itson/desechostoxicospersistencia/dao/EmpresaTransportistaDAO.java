@@ -23,50 +23,46 @@ public class EmpresaTransportistaDAO implements IEmpresaTransportista {
 
     MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     DatabaseFormats databaseFormats = new DatabaseFormats();
-    GeneralMethods gMethods;
+    GeneralMethods gMethods = new GeneralMethods();
     MongoCollection<EmpresaTransportista> empresaCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION(), EmpresaTransportista.class);
 
     @Override
-    public EmpresaTransportista insertarEmpresaConAutos(EmpresaTransportista empresa) {
+    public EmpresaTransportista insertarEmpresaConAutos(EmpresaTransportista empresa) throws Exception {
         try {
             gMethods.generacionDeIdParaVehiculos(empresa);
 
             empresaCollection.insertOne(empresa);
 
-            JOptionPane.showMessageDialog(null, "La empresa y los vehículos han sido insertados correctamente.");
-
             return empresa;
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar una empresa");
-            return null;
+            throw new Exception("Hubo un error al insertar la empresa con autos");
         }
     }
 
     @Override
-    public EmpresaTransportista consultarEmpresa(EmpresaTransportista elemento) {
+    public EmpresaTransportista consultarEmpresa(EmpresaTransportista elemento) throws Exception {
         try {
             Document empresaQuery = new Document("_id", elemento.getId());
             EmpresaTransportista empresaDocument = empresaCollection.find(empresaQuery).first();
 
             return empresaDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar una empresa");
-            return null;
+            throw new Exception("Hubo un error al consultar la empresa");
         }
     }
 
     @Override
-    public void eliminarEmpresa(EmpresaTransportista elemento) {
+    public void eliminarEmpresa(EmpresaTransportista elemento) throws Exception {
 
         try {
             empresaCollection.findOneAndDelete(new Document("_id", elemento.getId()));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al eliminar la empresa");
+            throw new Exception("Hubo un error al eliminar la empresa");
         }
     }
 
     @Override
-    public EmpresaTransportista actualizarEmpresa(EmpresaTransportista elemento) {
+    public EmpresaTransportista actualizarEmpresa(EmpresaTransportista elemento) throws Exception {
 
         try {
             Document empresaQuery = new Document("_id", elemento.getId());
@@ -80,39 +76,31 @@ public class EmpresaTransportistaDAO implements IEmpresaTransportista {
             return empresaDocument;
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar la empresa");
-            return null;
+            throw new Exception("Hubo un error al actualizar la empresa");
         }
 
     }
 
     @Override
-    public EmpresaTransportista insertarEmpresa(EmpresaTransportista empresa) {
+    public EmpresaTransportista insertarEmpresa(EmpresaTransportista empresa) throws Exception {
         try {
 
             empresaCollection.insertOne(empresa);
 
-            JOptionPane.showMessageDialog(null, "La empresa ha sido insertada correctamente.");
-
             return empresa;
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar una empresa");
-            return null;
+            throw new Exception("Hubo un error al insertar la empresa");
         }
     }
 
     @Override
-    public List<EmpresaTransportista> consultarTodasLasEmpresas() {
+    public List<EmpresaTransportista> consultarTodasLasEmpresas() throws Exception {
 
-       
         try {
             return empresaCollection.find().into(new ArrayList<>());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar todas las empresas exsistentes");
-            return null;
+            throw new Exception("Hubo un error al consultar todas las empresas");
         }
 
     }
 }
-
-

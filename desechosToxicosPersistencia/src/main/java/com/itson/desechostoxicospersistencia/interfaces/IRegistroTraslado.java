@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface IRegistroTraslado {
 
-    RegistroTraslado insertarTraslado(RegistroTraslado e);
+    RegistroTraslado insertarTraslado(RegistroTraslado e) throws Exception;
 
-    RegistroTraslado consultarTraslado(RegistroTraslado elemento);
+    RegistroTraslado consultarTraslado(RegistroTraslado elemento) throws Exception;
 
-    void eliminarTraslado(RegistroTraslado elemento);
+    void eliminarTraslado(RegistroTraslado elemento) throws Exception;
 
-    RegistroTraslado actualizarTraslado(RegistroTraslado elemento);
+    RegistroTraslado actualizarTraslado(RegistroTraslado elemento) throws Exception;
 
-    List<RegistroTraslado> consultarTodosLosTrasladosExistentes();
+    List<RegistroTraslado> consultarTodosLosTrasladosExistentes() throws Exception;
 
 }

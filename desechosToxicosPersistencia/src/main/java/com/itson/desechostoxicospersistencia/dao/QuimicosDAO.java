@@ -22,48 +22,43 @@ public class QuimicosDAO implements IQuimicos {
     MongoCollection<Quimicos> quimicosCollection = baseDatos.getCollection(databaseFormats.getQUIMICOS(), Quimicos.class);
 
     @Override
-    public List<Quimicos> consultarQuimicosGenerales(ConfiguracionDePaginado configuracionDePaginado) {
+    public List<Quimicos> consultarQuimicosGenerales(ConfiguracionDePaginado configuracionDePaginado) throws Exception{
         try {
             return quimicosCollection.find().into(new ArrayList<>());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar los químicos generales");
-            return null;
+           throw new Exception("Hubo un error al consultar todos los quimicos");
         }
     }
 
     @Override
-    public Quimicos consultarQuimico(Quimicos quimico) {
+    public Quimicos consultarQuimico(Quimicos quimico) throws Exception{
         try {
             Document quimicoQuery = new Document("_id", quimico.getId());
             Quimicos quimicoDocument = quimicosCollection.find(quimicoQuery).first();
 
             return quimicoDocument;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al consultar el químico");
-            return null;
+          throw new Exception("Hubo un error al consultar al quimico");
         }
     }
 
     @Override
-    public Quimicos insertarQuimico(Quimicos quimico) {
+    public Quimicos insertarQuimico(Quimicos quimico) throws Exception{
         try {
             quimicosCollection.insertOne(quimico);
 
-            JOptionPane.showMessageDialog(null, "El químico ha sido insertado correctamente.");
-
             return quimico;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al ingresar el químico");
-            return null;
+         throw new Exception("Hubo un error al insertar el quimico");
         }
     }
 
     @Override
-    public void eliminarQuimico(Quimicos elemento) {
+    public void eliminarQuimico(Quimicos elemento) throws Exception{
         try {
             quimicosCollection.findOneAndDelete(new Document("_id", elemento.getId()));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al eliminar el químico");
+           throw new Exception("Hubo un error al eliminar el quimico");
         }
     }
 
