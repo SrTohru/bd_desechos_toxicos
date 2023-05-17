@@ -16,11 +16,6 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
     }
-
-    private void irInicio(){
-        new InicioForm().setVisible(true);
-        this.dispose();
-    }
     
     private void verContrasenia(){
         if (btnVerContrasenia.isSelected()) {
@@ -45,7 +40,6 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        btnRegresar = new javax.swing.JButton();
         btnVerContrasenia = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,14 +64,6 @@ public class LoginForm extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton1.setText("Login");
 
-        btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnRegresar.setText("<");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
         btnVerContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnVerContrasenia.setText("Ver");
         btnVerContrasenia.addActionListener(new java.awt.event.ActionListener() {
@@ -90,10 +76,6 @@ public class LoginForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(btnRegresar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(61, Short.MAX_VALUE)
@@ -114,9 +96,7 @@ public class LoginForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnRegresar)
-                .addGap(36, 36, 36)
+                .addGap(82, 82, 82)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -137,18 +117,12 @@ public class LoginForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-        this.irInicio();
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
     private void btnVerContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerContraseniaActionPerformed
         // TODO add your handling code here:
         this.verContrasenia();
     }//GEN-LAST:event_btnVerContraseniaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegresar;
     private javax.swing.JToggleButton btnVerContrasenia;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
