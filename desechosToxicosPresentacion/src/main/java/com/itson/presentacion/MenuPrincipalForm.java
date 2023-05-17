@@ -15,6 +15,7 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
      */
     public MenuPrincipalForm() {
         initComponents();
+        this.mostrarBotonesMenu();
     }
     
     private void irRegistrarResiduo(){
@@ -37,6 +38,30 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         this.dispose();
     }
     
+    private void mostrarBotonesMenu(){
+        if (comboActores.getSelectedItem() == "Selecciona" ) {
+            btnAsignarTraslado.setVisible(false);
+            btnRegistrarResiduo.setVisible(false);
+            btnRegistrarTraslado.setVisible(false);
+            btnSolicitarTraslado.setVisible(false);
+        } else if (comboActores.getSelectedItem() == "Productor") {
+            btnAsignarTraslado.setVisible(false);
+            btnRegistrarResiduo.setVisible(true);
+            btnRegistrarTraslado.setVisible(false);
+            btnSolicitarTraslado.setVisible(true);
+        } else if (comboActores.getSelectedItem() == "Empresa Transportista") {
+            btnAsignarTraslado.setVisible(false);
+            btnRegistrarResiduo.setVisible(false);
+            btnRegistrarTraslado.setVisible(true);
+            btnSolicitarTraslado.setVisible(false);
+        } else {
+            btnAsignarTraslado.setVisible(true);
+            btnRegistrarResiduo.setVisible(false);
+            btnRegistrarTraslado.setVisible(false);
+            btnSolicitarTraslado.setVisible(false);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,6 +75,8 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         btnSolicitarTraslado = new javax.swing.JButton();
         btnRegistrarTraslado = new javax.swing.JButton();
         btnAsignarTraslado = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        comboActores = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
@@ -86,23 +113,39 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setText("Actuar Como:");
+
+        comboActores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona", "Productor", "Empresa Transportista", "Administrador" }));
+        comboActores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboActoresActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRegistrarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSolicitarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRegistrarResiduo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAsignarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(69, Short.MAX_VALUE))
+                    .addComponent(btnAsignarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(comboActores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(comboActores, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(btnRegistrarResiduo)
                 .addGap(46, 46, 46)
                 .addComponent(btnSolicitarTraslado)
@@ -110,7 +153,7 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
                 .addComponent(btnRegistrarTraslado)
                 .addGap(37, 37, 37)
                 .addComponent(btnAsignarTraslado)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGap(57, 57, 57))
         );
 
         pack();
@@ -137,10 +180,17 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         this.irRegistrarTraslado();
     }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
 
+    private void comboActoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActoresActionPerformed
+        // TODO add your handling code here:
+        this.mostrarBotonesMenu();
+    }//GEN-LAST:event_comboActoresActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarTraslado;
     private javax.swing.JButton btnRegistrarResiduo;
     private javax.swing.JButton btnRegistrarTraslado;
     private javax.swing.JButton btnSolicitarTraslado;
+    private javax.swing.JComboBox<String> comboActores;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

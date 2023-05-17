@@ -22,6 +22,11 @@ public class AsignarTrasladosForm extends javax.swing.JFrame {
         this.dispose();
     }
     
+    private void irAsignarEmpresaTraslado(){
+        new AsignarEmpresaTrasladosForm().setVisible(true);
+        this.dispose();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,6 +76,11 @@ public class AsignarTrasladosForm extends javax.swing.JFrame {
 
         btnAsignarEmpresa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnAsignarEmpresa.setText("Asignar Empresa");
+        btnAsignarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarEmpresaActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegresar.setText("<");
@@ -122,6 +132,11 @@ public class AsignarTrasladosForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.irMenuPrincipal();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnAsignarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEmpresaActionPerformed
+        // TODO add your handling code here:
+        this.irAsignarEmpresaTraslado();
+    }//GEN-LAST:event_btnAsignarEmpresaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarEmpresa;
