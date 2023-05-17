@@ -7,9 +7,9 @@ public interface IEmpresaTransportista {
     
     EmpresaTransportista insertarElemento(EmpresaTransportista e);
 
-    EmpresaTransportista consultarElemento(EmpresaTransportista elemento, DatabaseFormats collectionName);
+    EmpresaTransportista consultarElemento(EmpresaTransportista elemento);
 
-    EmpresaTransportista eliminarElemento(EmpresaTransportista elemento, DatabaseFormats collectionName);
+    EmpresaTransportista eliminarElemento(EmpresaTransportista elemento);
 
-    EmpresaTransportista actualizarElemento(EmpresaTransportista elemento, DatabaseFormats collectionName);
+    EmpresaTransportista actualizarElemento(EmpresaTransportista elemento);
 }

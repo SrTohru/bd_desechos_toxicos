@@ -11,6 +11,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -48,20 +49,20 @@ public class QuimicosDAO implements IQuimicos {
 
     @Override
     public Quimicos insertarQuimicos(Quimicos quimicos) {
-   
-          
 
         // Crear el documento de la empresa
-        Document empresaDocument = new Document("nombre", quimicos.getNombre());
+        try {
+            Document empresaDocument = new Document("nombre", quimicos.getNombre());
+            
+            empresaCollection.insertOne(empresaDocument);
 
-        // Crear una lista de documentos para los vehículos
-  
-        
-        // Insertar el documento de la empresa en la colección
-        empresaCollection.insertOne(empresaDocument);
+            System.out.println("El quimico se ingreso correctamente");
+            return quimicos;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al inserar el quimico");
+            return null;
+        }
 
-        System.out.println("El quimico se ingreso correctamente");
-        return quimicos;
     }
 
 }

@@ -107,18 +107,91 @@ public class EmpresaTransportistaDAO implements IEmpresaTransportista {
     }
 
     @Override
-    public EmpresaTransportista consultarElemento(EmpresaTransportista elemento, DatabaseFormats collectionName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public EmpresaTransportista consultarElemento(EmpresaTransportista elemento) {
+        MongoCollection<Document> empresaCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION());
+
+        Document empresaQuery = new Document("_id", elemento.getId());
+        Document empresaDocument = empresaCollection.find(empresaQuery).first();
+
+        if (empresaDocument != null) {
+            String nombreEmpresa = empresaDocument.getString("nombre");
+            List<Document> vehiculosDocuments = (List<Document>) empresaDocument.get("vehiculos");
+            List<Vehiculo> vehiculos = new ArrayList<>();
+
+            for (Document vehiculoDocument : vehiculosDocuments) {
+                String marca = vehiculoDocument.getString("marca");
+                String modelo = vehiculoDocument.getString("modelo");
+                int año = vehiculoDocument.getInteger("año");
+
+                Vehiculo vehiculo = new Vehiculo(marca, modelo, año);
+                vehiculos.add(vehiculo);
+            }
+
+            EmpresaTransportista empresa = new EmpresaTransportista(nombreEmpresa, vehiculos);
+            empresa.setId(elemento.getId());
+            return empresa;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public EmpresaTransportista eliminarElemento(EmpresaTransportista elemento, DatabaseFormats collectionName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public EmpresaTransportista eliminarElemento(EmpresaTransportista elemento) {
+        MongoCollection<Document> empresaCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION());
+
+        Document empresaQuery = new Document("_id", elemento.getId());
+        Document empresaDocument = empresaCollection.findOneAndDelete(empresaQuery);
+
+        if (empresaDocument != null) {
+            String nombreEmpresa = empresaDocument.getString("nombre");
+            List<Document> vehiculosDocuments = (List<Document>) empresaDocument.get("vehiculos");
+            List<Vehiculo> vehiculos = new ArrayList<>();
+
+            for (Document vehiculoDocument : vehiculosDocuments) {
+                String marca = vehiculoDocument.getString("marca");
+                String modelo = vehiculoDocument.getString("modelo");
+                int año = vehiculoDocument.getInteger("año");
+
+                Vehiculo vehiculo = new Vehiculo(marca, modelo, año);
+                vehiculos.add(vehiculo);
+            }
+
+            EmpresaTransportista empresa = new EmpresaTransportista(nombreEmpresa, vehiculos);
+            empresa.setId(elemento.getId());
+            return empresa;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public EmpresaTransportista actualizarElemento(EmpresaTransportista elemento, DatabaseFormats collectionName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public EmpresaTransportista actualizarElemento(EmpresaTransportista elemento) {
+        MongoCollection<Document> empresaCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION());
+
+        Document empresaQuery = new Document("_id", elemento.getId());
+        Document empresaDocument = empresaCollection.find(empresaQuery).first();
+
+        if (empresaDocument != null) {
+            // Actualizar los datos de la empresa en el documento
+            empresaDocument.put("nombre", elemento.getNombre());
+
+            // Crear una lista de documentos para los vehículos
+            List<Document> vehiculosDocuments = new ArrayList<>();
+            for (Vehiculo vehiculo : elemento.getVehiculos()) {
+                Document vehiculoDocument = new Document("marca", vehiculo.getMarca())
+                        .append("modelo", vehiculo.getModelo())
+                        .append("año", vehiculo.getAño());
+                vehiculosDocuments.add(vehiculoDocument);
+            }
+            empresaDocument.put("vehiculos", vehiculosDocuments);
+
+            // Actualizar el documento de la empresa en la colección
+            empresaCollection.replaceOne(empresaQuery, empresaDocument);
+
+            return elemento;
+        } else {
+            return null;
+        }
     }
 
 }
