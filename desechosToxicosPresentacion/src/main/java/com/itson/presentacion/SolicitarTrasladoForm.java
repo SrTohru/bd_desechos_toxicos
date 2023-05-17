@@ -27,12 +27,31 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
      * Creates new form SolicitarTrasladoForm
      */
     public SolicitarTrasladoForm() {
-        this.configuracionDePaginado = new ConfiguracionDePaginado(0, 5);
+        this.configuracionDePaginado = new ConfiguracionDePaginado(0, 5);      
         initComponents();
+        this.deshabilitarCamposLitros();
+        this.deshabilitarCamposKilos();
         this.residuosDAO = new ResiduosDAO();
         this.llenarTablaResiduosDisponibles();
     }
 
+    private void deshabilitarCamposLitros(){
+        if (checkLitros.isSelected()) {
+            txtLitros.setEnabled(true);
+        } else {          
+            txtLitros.setEnabled(false);
+        }
+    }
+    
+    private void deshabilitarCamposKilos(){
+        if (checkKilos.isSelected()) {
+            txtKilos.setEnabled(true);
+        } else {          
+            txtKilos.setEnabled(false);
+        }
+    }
+
+    
     private void irMenuPrincipal(){
         new MenuPrincipalForm().setVisible(true);
         this.dispose();
@@ -48,6 +67,64 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
                     r.getNombre(),};
                 modeloTabla.addRow(fila);
             }
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+        }
+    }
+    
+    private void llenarTablaResiduoSeleccionado() {
+        try {
+            // Obtener el modelo de la tabla de origen y de destino
+            DefaultTableModel modeloOrigen = (DefaultTableModel) tableResiduosDisponibles.getModel();
+            DefaultTableModel modeloDestino = (DefaultTableModel) tableResiduosSeleccionados.getModel();
+
+            // Obtener el índice de la fila seleccionada en la tabla de origen
+            int filaSeleccionada = tableResiduosDisponibles.getSelectedRow();
+
+            // Obtener la instancia de la fila seleccionada en la tabla de origen
+            Object[] fila = new Object[modeloOrigen.getColumnCount()];
+            for (int i = 0; i < modeloOrigen.getColumnCount(); i++) {
+                fila[i] = modeloOrigen.getValueAt(filaSeleccionada, i);
+            }
+
+            // Agregar la fila a la tabla de destino
+            modeloDestino.addRow(fila);
+
+            // Eliminar la fila de la tabla de origen
+            modeloOrigen.removeRow(filaSeleccionada);
+
+            // Actualizar las vistas de las tablas
+            tableResiduosDisponibles.repaint();
+            tableResiduosSeleccionados.repaint();
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+        }
+    }
+    
+    private void regresarResiduoSeleccionado() {
+        try {
+            // Obtener el modelo de la tabla de origen y de destino
+            DefaultTableModel modeloOrigen = (DefaultTableModel) tableResiduosSeleccionados.getModel();
+            DefaultTableModel modeloDestino = (DefaultTableModel) tableResiduosDisponibles.getModel();
+
+            // Obtener el índice de la fila seleccionada en la tabla de origen
+            int filaSeleccionada = tableResiduosSeleccionados.getSelectedRow();
+
+            // Obtener la instancia de la fila seleccionada en la tabla de origen
+            Object[] fila = new Object[modeloOrigen.getColumnCount()];
+            for (int i = 0; i < modeloOrigen.getColumnCount(); i++) {
+                fila[i] = modeloOrigen.getValueAt(filaSeleccionada, i);
+            }
+
+            // Agregar la fila a la tabla de destino
+            modeloDestino.addRow(fila);
+
+            // Eliminar la fila de la tabla de origen
+            modeloOrigen.removeRow(filaSeleccionada);
+
+            // Actualizar las vistas de las tablas
+            tableResiduosSeleccionados.repaint();
+            tableResiduosDisponibles.repaint();
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, ex.getMessage());
         }
@@ -87,8 +164,8 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableResiduosDisponibles = new javax.swing.JTable();
         btnQuitar = new javax.swing.JButton();
-        btnKilos = new javax.swing.JTextField();
-        btnLitros = new javax.swing.JTextField();
+        txtKilos = new javax.swing.JTextField();
+        txtLitros = new javax.swing.JTextField();
         btnRegresar = new javax.swing.JButton();
         checkKilos = new javax.swing.JCheckBox();
         checkLitros = new javax.swing.JCheckBox();
@@ -136,6 +213,11 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
 
         btnElegir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnElegir.setText("Elegir");
+        btnElegir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElegirActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -168,10 +250,15 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
 
         btnQuitar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
 
-        btnKilos.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtKilos.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        btnLitros.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtLitros.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegresar.setText("<");
@@ -183,9 +270,19 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
 
         checkKilos.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         checkKilos.setText("Kilos");
+        checkKilos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkKilosActionPerformed(evt);
+            }
+        });
 
         checkLitros.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         checkLitros.setText("Litros");
+        checkLitros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkLitrosActionPerformed(evt);
+            }
+        });
 
         btnSolicitarTraslado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnSolicitarTraslado.setText("Solicitar Traslado");
@@ -236,8 +333,8 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkKilos)
                             .addComponent(checkLitros)
-                            .addComponent(btnLitros)
-                            .addComponent(btnKilos)))
+                            .addComponent(txtLitros)
+                            .addComponent(txtKilos)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -246,23 +343,18 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
                         .addComponent(jLabel1)))
                 .addGap(83, 83, 83))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(154, 154, 154)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(btnRetrocederDisponibles)
-                        .addGap(74, 74, 74)
-                        .addComponent(btnAvanzarDisponible))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
                         .addComponent(btnRetrocederSeleccionado)
                         .addGap(74, 74, 74)
                         .addComponent(btnAvanzarSeleccionado))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(185, 185, 185)
-                        .addComponent(btnQuitar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(185, 185, 185)
-                        .addComponent(btnElegir)))
+                        .addComponent(btnRetrocederDisponibles)
+                        .addGap(74, 74, 74)
+                        .addComponent(btnAvanzarDisponible))
+                    .addComponent(btnElegir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -291,11 +383,11 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkLitros)
                         .addGap(18, 18, 18)
-                        .addComponent(btnLitros, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtLitros, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(checkKilos)
                         .addGap(18, 18, 18)
-                        .addComponent(btnKilos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtKilos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRetrocederSeleccionado)
@@ -326,12 +418,30 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
         this.retrocederPagina();
     }//GEN-LAST:event_btnAvanzarDisponibleActionPerformed
 
+    private void btnElegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElegirActionPerformed
+        // TODO add your handling code here:
+        this.llenarTablaResiduoSeleccionado();
+    }//GEN-LAST:event_btnElegirActionPerformed
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        // TODO add your handling code here:
+        this.regresarResiduoSeleccionado();
+    }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void checkLitrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLitrosActionPerformed
+        // TODO add your handling code here:
+        this.deshabilitarCamposLitros();
+    }//GEN-LAST:event_checkLitrosActionPerformed
+
+    private void checkKilosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkKilosActionPerformed
+        // TODO add your handling code here:
+        this.deshabilitarCamposKilos();
+    }//GEN-LAST:event_checkKilosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAvanzarDisponible;
     private javax.swing.JButton btnAvanzarSeleccionado;
     private javax.swing.JButton btnElegir;
-    private javax.swing.JTextField btnKilos;
-    private javax.swing.JTextField btnLitros;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRetrocederDisponibles;
@@ -346,5 +456,7 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableResiduosDisponibles;
     private javax.swing.JTable tableResiduosSeleccionados;
+    private javax.swing.JTextField txtKilos;
+    private javax.swing.JTextField txtLitros;
     // End of variables declaration//GEN-END:variables
 }

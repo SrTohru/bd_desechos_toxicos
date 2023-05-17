@@ -50,8 +50,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="checkKilos" min="-2" max="-2" attributes="0"/>
                           <Component id="checkLitros" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnLitros" max="32767" attributes="0"/>
-                          <Component id="btnKilos" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtLitros" max="32767" attributes="0"/>
+                          <Component id="txtKilos" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -66,27 +66,20 @@
               <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
-                      <Component id="btnRetrocederDisponibles" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                      <Component id="btnAvanzarDisponible" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
+              <EmptySpace min="154" pref="154" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnQuitar" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Component id="btnRetrocederSeleccionado" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                       <Component id="btnAvanzarSeleccionado" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
-                      <Component id="btnQuitar" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRetrocederDisponibles" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                      <Component id="btnAvanzarDisponible" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
-                      <Component id="btnElegir" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="btnElegir" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
@@ -121,11 +114,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="checkLitros" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnLitros" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="txtLitros" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="checkKilos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnKilos" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="txtKilos" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -186,6 +179,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Elegir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnElegirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -221,15 +217,18 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Quitar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="btnKilos">
+    <Component class="javax.swing.JTextField" name="txtKilos">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="18" style="0"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="btnLitros">
+    <Component class="javax.swing.JTextField" name="txtLitros">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="18" style="0"/>
@@ -254,6 +253,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Kilos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkKilosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkLitros">
       <Properties>
@@ -262,6 +264,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Litros"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkLitrosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSolicitarTraslado">
       <Properties>

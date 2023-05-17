@@ -82,6 +82,35 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         }
     }
     
+    private void regresarQuimicoSeleccionado() {
+        try {
+            // Obtener el modelo de la tabla de origen y de destino
+            DefaultTableModel modeloOrigen = (DefaultTableModel) tableQuimicosNuevoResiduo.getModel();
+            DefaultTableModel modeloDestino = (DefaultTableModel) tableQuimicosDisponibles.getModel();
+
+            // Obtener el índice de la fila seleccionada en la tabla de origen
+            int filaSeleccionada = tableQuimicosNuevoResiduo.getSelectedRow();
+
+            // Obtener la instancia de la fila seleccionada en la tabla de origen
+            Object[] fila = new Object[modeloOrigen.getColumnCount()];
+            for (int i = 0; i < modeloOrigen.getColumnCount(); i++) {
+                fila[i] = modeloOrigen.getValueAt(filaSeleccionada, i);
+            }
+
+            // Agregar la fila a la tabla de destino
+            modeloDestino.addRow(fila);
+
+            // Eliminar la fila de la tabla de origen
+            modeloOrigen.removeRow(filaSeleccionada);
+
+            // Actualizar las vistas de las tablas
+            tableQuimicosNuevoResiduo.repaint();
+            tableQuimicosDisponibles.repaint();
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+        }
+    }
+    
     /**
      * Metodo para avanzar de pagina en la tabla de la consulta de personas
      */
@@ -212,6 +241,11 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         btnEliminarQuimico.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnEliminarQuimico.setText("Eliminar Quimico del Nuevo Residuo");
+        btnEliminarQuimico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarQuimicoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -393,6 +427,11 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private void btnAvanzarNuevoResiduoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvanzarNuevoResiduoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAvanzarNuevoResiduoActionPerformed
+
+    private void btnEliminarQuimicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarQuimicoActionPerformed
+        // TODO add your handling code here:
+        this.regresarQuimicoSeleccionado();
+    }//GEN-LAST:event_btnEliminarQuimicoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarQuimico;

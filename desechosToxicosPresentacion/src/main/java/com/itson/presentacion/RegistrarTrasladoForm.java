@@ -102,7 +102,7 @@ public class RegistrarTrasladoForm extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(330, 330, 330)
                                 .addComponent(txtTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(644, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
