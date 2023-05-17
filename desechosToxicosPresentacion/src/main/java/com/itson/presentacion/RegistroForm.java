@@ -4,15 +4,18 @@
  */
 package com.itson.presentacion;
 
+import com.itson.desechostoxicospersistencia.dao.CuentaDAO;
+import com.itson.dominio.Cuenta;
+import com.itson.dominio.utilities.tiposDeCuenta;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
  */
 public class RegistroForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistroForm
-     */
+    CuentaDAO cDAO = new CuentaDAO();
     public RegistroForm() {
         initComponents();
     }
@@ -28,11 +31,11 @@ public class RegistroForm extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboboxTipoDeCuenta = new javax.swing.JComboBox<>();
         btnRegistrar = new javax.swing.JButton();
+        txtContrasenia = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de cuentas");
@@ -44,17 +47,22 @@ public class RegistroForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setText("Contraseña");
 
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        jTextField2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setText("Tipo de cuenta");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productor", "EmpresaTransportista", "Administrador" }));
+        comboboxTipoDeCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productor", "EmpresaTransportista", "Administrador" }));
 
         btnRegistrar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
+        txtContrasenia.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,15 +75,15 @@ public class RegistroForm extends javax.swing.JFrame {
                         .addComponent(btnRegistrar)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                            .addComponent(jTextField2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtContrasenia, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboboxTipoDeCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(124, 124, 124))))
         );
         layout.setVerticalGroup(
@@ -88,12 +96,12 @@ public class RegistroForm extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboboxTipoDeCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(btnRegistrar)
                 .addGap(39, 39, 39))
@@ -102,6 +110,32 @@ public class RegistroForm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+      public tiposDeCuenta obtenerTipoDeCuenta() {
+        JOptionPane.showMessageDialog(null, "" + comboboxTipoDeCuenta.getSelectedItem().toString());
+        String tipoCuenta = comboboxTipoDeCuenta.getSelectedItem().toString();
+        if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.Administrador.toString())) {
+            return tiposDeCuenta.Administrador;
+        } else if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.EmpresaTransportista.toString())) {
+            return tiposDeCuenta.EmpresaTransportista;
+        } else if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.Productor.toString())) {
+            return tiposDeCuenta.Productor;
+        }
+
+        return null;
+    }
+
+    
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+      Cuenta cuenta =  cDAO.insertarCuenta(new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoDeCuenta.getSelectedItem().toString()));
+      
+      if(cuenta != null){
+          //abrir form
+      }else{
+          //no abriri
+      }
+      
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,11 +174,11 @@ public class RegistroForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> comboboxTipoDeCuenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField txtContrasenia;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

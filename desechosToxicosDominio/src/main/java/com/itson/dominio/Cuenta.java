@@ -12,18 +12,18 @@ public class Cuenta {
     private ObjectId id;
     private String usuario;
     private String contrasena;
-    private tiposDeCuenta tipoCuenta;
+    private String tipoCuenta;
 
     public Cuenta() {
     }
 
-    public Cuenta(String contrasena, String usuario, tiposDeCuenta tipoCuenta) {
+    public Cuenta(String contrasena, String usuario, String tipoCuenta) {
         this.contrasena = contrasena;
         this.usuario = usuario;
         this.tipoCuenta = tipoCuenta;
     }
 
-    public Cuenta(ObjectId id, String contrasena, String usuario, tiposDeCuenta tipoCuenta) {
+    public Cuenta(ObjectId id, String contrasena, String usuario, String tipoCuenta) {
         this.id = id;
         this.contrasena = contrasena;
         this.usuario = usuario;
@@ -54,11 +54,11 @@ public class Cuenta {
         this.usuario = usuario;
     }
 
-    public tiposDeCuenta getTipoCuenta() {
+    public String getTipoCuenta() {
         return tipoCuenta;
     }
 
-    public void setTipoCuenta(tiposDeCuenta tipoCuenta) {
+    public void setTipoCuenta(String tipoCuenta) {
         this.tipoCuenta = tipoCuenta;
     }
 

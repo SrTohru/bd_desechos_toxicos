@@ -38,6 +38,7 @@ public class CuentaDAO implements ICuenta {
         query.put("usuario", cuenta.getUsuario());
         query.put("contrasena", cuenta.getContrasena());
         query.put("tipoCuenta", cuenta.getTipoCuenta());
+        
         Cuenta result = cuentaCollection.find(query).first();
         if (result != null) {
             return result;

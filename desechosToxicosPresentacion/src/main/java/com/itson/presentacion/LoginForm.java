@@ -6,6 +6,7 @@ package com.itson.presentacion;
 
 import com.itson.desechostoxicospersistencia.dao.CuentaDAO;
 import com.itson.dominio.Cuenta;
+import com.itson.dominio.utilities.tiposDeCuenta;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,23 +16,24 @@ import javax.swing.JOptionPane;
 public class LoginForm extends javax.swing.JFrame {
 
     CuentaDAO cDAO = new CuentaDAO();
+
     public LoginForm() {
         initComponents();
     }
-    
-    private void verContrasenia(){
+
+    private void verContrasenia() {
         if (btnVerContrasenia.isSelected()) {
             txtContrasenia.setEchoChar((char) 0); // mostrar texto
         } else {
             txtContrasenia.setEchoChar('*'); // ocultar texto
         }
     }
-    
-    private void irRegistro(){
+
+    private void irRegistro() {
         new RegistroForm().setVisible(true);
         this.dispose();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,7 +51,7 @@ public class LoginForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         btnVerContrasenia = new javax.swing.JToggleButton();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboboxTipoCuenta = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,7 +97,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productor", "EmpresaTransportista", "Administrador" }));
+        comboboxTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productor", "EmpresaTransportista", "Administrador" }));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel4.setText("Tipo de cuenta");
@@ -110,7 +112,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboboxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +147,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboboxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -162,26 +164,40 @@ public class LoginForm extends javax.swing.JFrame {
         this.verContrasenia();
     }//GEN-LAST:event_btnVerContraseniaActionPerformed
 
+    public tiposDeCuenta obtenerTipoDeCuenta() {
+        JOptionPane.showMessageDialog(null, "" + comboboxTipoCuenta.getSelectedItem().toString());
+        String tipoCuenta = comboboxTipoCuenta.getSelectedItem().toString();
+        if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.Administrador.toString())) {
+            return tiposDeCuenta.Administrador;
+        } else if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.EmpresaTransportista.toString())) {
+            return tiposDeCuenta.EmpresaTransportista;
+        } else if (tipoCuenta.equalsIgnoreCase(tiposDeCuenta.Productor.toString())) {
+            return tiposDeCuenta.Productor;
+        }
+
+        return null;
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Cuenta cuenta = cDAO.iniciarSesion(new Cuenta(txtContrasenia.getText(), txtNombre.getText(), ));
-       
-       if(cuenta != null){
-           JOptionPane.showMessageDialog(null, "Se inicio sesion");
-       }else{
+        Cuenta cuenta = cDAO.iniciarSesion(new Cuenta(txtContrasenia.getText(), txtNombre.getText(), comboboxTipoCuenta.getSelectedItem().toString()));
+
+        if (cuenta != null) {
+            JOptionPane.showMessageDialog(null, "Se inicio sesion");
+        } else {
             JOptionPane.showMessageDialog(null, "No se inicio sesion");
-       }       
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        this.irRegistro();       
+        this.irRegistro();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnVerContrasenia;
+    private javax.swing.JComboBox<String> comboboxTipoCuenta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
