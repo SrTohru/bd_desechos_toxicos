@@ -151,7 +151,6 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         lblCodigo = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         lblQuimicos = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -169,6 +168,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         btnAvanzar = new javax.swing.JButton();
         btnRetrocederNuevoResiduo = new javax.swing.JButton();
         btnAvanzarNuevoResiduo = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registrar Residuo Peligroso");
@@ -179,8 +179,6 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         lblNombre.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblNombre.setText("Nombre");
-
-        txtCodigo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         txtNombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
@@ -312,6 +310,12 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
             }
         });
 
+        try {
+            txtCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -329,8 +333,8 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                                     .addComponent(lblNombre))
                                 .addGap(43, 43, 43)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCodigo)
-                                    .addComponent(txtNombre)))
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtCodigo)))
                             .addComponent(lblQuimicos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
@@ -377,12 +381,13 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnRegresar)))
-                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
+                        .addGap(38, 38, 38)
                         .addComponent(lblCodigo))
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
@@ -475,7 +480,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblQuimicos1;
     private javax.swing.JTable tableQuimicosDisponibles;
     private javax.swing.JTable tableQuimicosNuevoResiduo;
-    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JFormattedTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
