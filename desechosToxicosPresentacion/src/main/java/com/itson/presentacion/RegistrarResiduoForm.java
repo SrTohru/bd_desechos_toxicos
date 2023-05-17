@@ -5,22 +5,23 @@
 package com.itson.presentacion;
 
 import com.itson.desechostoxicospersistencia.dao.QuimicosDAO;
+import com.itson.desechostoxicospersistencia.dao.ResiduosDAO;
 import com.itson.desechostoxicospersistencia.interfaces.IQuimicos;
 import com.itson.desechostoxicospersistencia.utilities.ConfiguracionDePaginado;
 import com.itson.dominio.Cuenta;
 import com.itson.dominio.Quimicos;
+import com.itson.dominio.Residuos;
 import com.itson.negocio.validadores.Validaciones;
 import static com.itson.negocio.validadores.Validaciones.validarNumero;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Usuario
- */
 public class RegistrarResiduoForm extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(RegistrarResiduoForm.class.getName());
@@ -28,7 +29,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private ConfiguracionDePaginado configuracionDePaginado;
     private Validaciones v;
     private Cuenta cuenta;
-    
+    ResiduosDAO rDAO = new ResiduosDAO();
     /**
      * Creates new form RegistrarResiduoForm
      */
@@ -144,8 +145,28 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         }
     }
     
-    private void registrarResiduo(){
-        
+    private void registrarResiduo() throws Exception {
+        Residuos residuo = new Residuos();
+        residuo.setNombre(txtNombre.getText());
+        residuo.setCodigo((txtCodigo.getText()));  // Corregido para convertir el texto a un entero
+
+        List<Quimicos> listaQuimicosSeleccionados = new ArrayList<>();
+
+        if(checkboxPeligroso.isSelected()){
+            residuo.setPeligroso(true);
+        } else {
+            residuo.setPeligroso(false);
+        }
+    
+        for (int i = 0; i < tableQuimicosNuevoResiduo.getRowCount(); i++) {
+            String nombreQuimico = (String) tableQuimicosNuevoResiduo.getValueAt(i, 0);
+            //String formulaQuimica = (String) tableQuimicosNuevoResiduo.getValueAt(i, 1);
+            // Supongo que la clase Quimicos tiene un constructor que acepta el nombre y la fórmula química como parámetros
+            Quimicos quimico = new Quimicos(nombreQuimico);
+            listaQuimicosSeleccionados.add(quimico);
+        }
+        residuo.setQuimico(listaQuimicosSeleccionados);
+        rDAO.insertarElemento(residuo);
     }
     
     /**
@@ -177,6 +198,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         btnRetrocederNuevoResiduo = new javax.swing.JButton();
         btnAvanzarNuevoResiduo = new javax.swing.JButton();
         txtCodigo = new javax.swing.JFormattedTextField();
+        checkboxPeligroso = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registrar Residuo Peligroso");
@@ -324,29 +346,19 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        checkboxPeligroso.setText("¿Es peligroso?");
+        checkboxPeligroso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxPeligrosoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnRegresar)
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblCodigo)
-                                    .addComponent(lblNombre))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombre)
-                                    .addComponent(txtCodigo)))
-                            .addComponent(lblQuimicos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
-                        .addGap(54, 54, 54))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -360,7 +372,29 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnAvanzarNuevoResiduo))
                                     .addComponent(btnEliminarQuimico))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegresar)
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(checkboxPeligroso)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblCodigo)
+                                            .addComponent(lblNombre))
+                                        .addGap(43, 43, 43)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtNombre)
+                                            .addComponent(txtCodigo)))
+                                    .addComponent(lblQuimicos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
+                                .addGap(54, 54, 54)))))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -400,9 +434,11 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
+                .addComponent(checkboxPeligroso)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -465,9 +501,18 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarQuimicoActionPerformed
 
     private void btnCrearResiduoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearResiduoActionPerformed
-        // TODO add your handling code here:
+    
         this.validarCampoCodigo();
+            try {
+            this.registrarResiduo();
+        } catch (Exception ex) {
+            Logger.getLogger(RegistrarResiduoForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCrearResiduoActionPerformed
+
+    private void checkboxPeligrosoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxPeligrosoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkboxPeligrosoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarQuimico;
@@ -478,6 +523,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRetroceder;
     private javax.swing.JButton btnRetrocederNuevoResiduo;
+    private javax.swing.JCheckBox checkboxPeligroso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -491,4 +537,8 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    private String parseInt(JFormattedTextField txtCodigo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

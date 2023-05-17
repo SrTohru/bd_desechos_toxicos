@@ -15,6 +15,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
@@ -34,7 +35,10 @@ public class ResiduosDAO implements IResiduos {
     @Override
     public Residuos insertarElemento(Residuos residuos) throws Exception{
         // Crear el documento de la empresa
-        Document empresaDocument = new Document("nombre", residuos.getNombre());
+        Document empresaDocument = new Document();
+        empresaDocument.append("nombre", parseInt(residuos.getCodigo()))
+                .append("nombre", residuos.getNombre())
+                .append("peligroso", residuos.getQuimico());
 
         // Insertar el documento de la empresa en la colección
         residuosCollection.insertOne(empresaDocument);

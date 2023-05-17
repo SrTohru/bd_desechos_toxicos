@@ -1,5 +1,6 @@
 package com.itson.dominio;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 
 public class Residuos {
@@ -8,19 +9,19 @@ public class Residuos {
     private String nombre;
     private String codigo;
     private boolean peligroso;
-    private Quimicos quimico;
+    private List<Quimicos> quimico;
 
     public Residuos() {
     }
 
-    public Residuos(String nombre, String codigo, boolean peligroso, Quimicos quimico) {
+    public Residuos(String nombre, String codigo, boolean peligroso, List<Quimicos> quimico) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.peligroso = peligroso;
         this.quimico = quimico;
     }
 
-    public Residuos(ObjectId id, String nombre, String codigo, boolean peligroso, Quimicos quimico) {
+    public Residuos(ObjectId id, String nombre, String codigo, boolean peligroso, List<Quimicos> quimico) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
@@ -62,12 +63,13 @@ public class Residuos {
         this.peligroso = peligroso;
     }
 
-    public Quimicos getQuimico() {
+    public List<Quimicos> getQuimico() {
         return quimico;
     }
 
-    public void setQuimico(Quimicos quimico) {
+    public void setQuimico(List<Quimicos> quimico) {
         this.quimico = quimico;
     }
+
 
 }
