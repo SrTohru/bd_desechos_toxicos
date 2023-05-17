@@ -20,8 +20,9 @@ public class DesechosToxicosPersistencia {
     
         insercionMasiva in = new insercionMasiva();
         
-        in.insercionMasivaDeQuimicos();
-        in.insercionMasivaDeVehiculosYEmpresas();
+//        in.insercioResiduos();
+//        in.insercionMasivaProductores();
+        in.insercioResiduos();
         in.insercionMasivaProductores();
         
     }

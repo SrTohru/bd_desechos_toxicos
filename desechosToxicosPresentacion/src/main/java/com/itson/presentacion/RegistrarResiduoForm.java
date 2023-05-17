@@ -31,7 +31,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
      * Creates new form RegistrarResiduoForm
      */
     public RegistrarResiduoForm() {
-        this.configuracionDePaginado = new ConfiguracionDePaginado(0, 2);
+        this.configuracionDePaginado = new ConfiguracionDePaginado(0, 10);
         initComponents();
         quimicosDAO = new QuimicosDAO();       
         this.llenarTablaQuimicosDisponibles();
@@ -138,6 +138,10 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         if (validarNumero(txtCodigo.toString())) {
             JOptionPane.showMessageDialog(null, "Solo acepta numeros de maximo 6 digitos","Error Campo Invalido",JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void registrarResiduo(){
+        
     }
     
     /**
