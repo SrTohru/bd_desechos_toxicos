@@ -80,11 +80,23 @@ public class ResiduosDAO implements IResiduos {
 
     @Override
     public List<Residuos> consultarElementosPorProductor(Productores productor) throws Exception{
-//
-//        Document query = new Document("productor.id", productor.getId());
-//        FindIterable<Document> result = residuosCollection.find(query);
-//
-//        return residuosList;
-return null;
+
+        // Obtener la colección "productores"
+        MongoCollection<Document> productoresCollection = baseDatos.getCollection("Productores");
+
+        // ID del productor para buscar sus residuos
+        ObjectId id = productor.getId();
+
+        // Crear el objeto de consulta con el criterio de búsqueda
+        Document query = new Document("id_residuos", id);
+
+        // Realizar la consulta
+        FindIterable<Document> result = productoresCollection.find(query);
+
+        // Recorrer los resultados
+        for (Document document : result) {
+            System.out.println(document);
+        }
+        return null;
     }
 }

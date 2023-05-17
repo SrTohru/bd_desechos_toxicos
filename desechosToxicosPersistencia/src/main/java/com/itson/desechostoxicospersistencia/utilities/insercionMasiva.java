@@ -37,23 +37,93 @@ public class insercionMasiva {
     ProductoresDAO pDAO = new ProductoresDAO();
     CuentaDAO cDAO = new CuentaDAO();
     public void insercionMasivaDeVehiculosYEmpresas() throws Exception {
+        MongoCollection<Document> residuosCollection = baseDatos.getCollection(databaseFormats.getEMPRESA_TRANSPORTISTA_COLLECTION());
+        Document cuenta = new Document();
+        cuenta.append("usuario", "DHL")
+                .append("contrasena", "dhl22")
+                .append("tipoCuenta", tiposDeCuenta.EmpresaTransportista.toString());
+        
+        Document cuenta2 = new Document();
+        cuenta2.append("usuario", "Fedex")
+                .append("contrasena", "fedex124")
+                .append("tipoCuenta", tiposDeCuenta.EmpresaTransportista.toString());
 
-        for (int i = 1; i < 20; i++) {
-            List<Vehiculo> stringList = new LinkedList<>();
-            Vehiculo v = new Vehiculo("Marca " + i, "Modelo " + i, 2000 + i);
-            Vehiculo v2 = new Vehiculo("SMarca " + i, "SModelo " + i, 3000 + i);
-
-            stringList.add(v);
-            stringList.add(v2);
-
-            EmpresaTransportista empresaTransportista = new EmpresaTransportista("Empresa " + (i + 1), stringList);
-
-            eDAO.insertarEmpresaConAutos(empresaTransportista);
-
-        }
+        List<Document> vehiculos1 = new LinkedList<>();
+        
+        Document vehiculo1 = new Document();
+        vehiculo1.append("marca", "toyota");
+        vehiculo1.append("modelo", "corolla");
+        vehiculo1.append("ano", 2022);
+        
+        Document vehiculo2 = new Document();
+        vehiculo2.append("marca", "Chevrolet");
+        vehiculo2.append("modelo", "Cheyenne");
+        vehiculo2.append("ano", 2021);
+        
+        vehiculos1.add(vehiculo1);
+        vehiculos1.add(vehiculo2);
+        
+        Document empresa1 = new Document();
+        empresa1.append("nombre", "Fedex");
+        empresa1.append("cuenta", cuenta);    
+        empresa1.append("vehiculos", vehiculos1);
+        
+        List<Document> vehiculos2 = new LinkedList<>();
+        
+        Document vehiculo11 = new Document();
+        vehiculo11.append("marca", "Nissan");
+        vehiculo11.append("modelo", "Frontier");
+        vehiculo11.append("ano", 2022);
+        
+        Document vehiculo22 = new Document();
+        vehiculo22.append("marca", "Chevrolet");
+        vehiculo22.append("modelo", "Cheyenne");
+        vehiculo22.append("ano", 2020);
+        
+        vehiculos2.add(vehiculo11);
+        vehiculos2.add(vehiculo22);
+        
+        Document empresa2 = new Document();
+        empresa2.append("nombre", "productor2");
+        empresa2.append("cuenta", cuenta2);
+        empresa2.append("vehiculos", vehiculos2);
+        
+        List<Document> listaInsertarDocumentos = new LinkedList<>();
+        listaInsertarDocumentos.add(empresa1);
+        listaInsertarDocumentos.add(empresa2);
+        
+        residuosCollection.insertMany(listaInsertarDocumentos);
 
     }
 
+    public void insercionQuimicos() throws Exception{
+        MongoCollection<Document> quimicosCollection = baseDatos.getCollection(databaseFormats.getQUIMICOS());
+        List<Document> listaQuimicos = new LinkedList<>();
+        
+        Document quimicos1 = new Document();
+        quimicos1.append("nombre", "Quimico1");
+        
+        Document quimicos2 = new Document();
+        quimicos2.append("nombre", "Quimico2");
+        
+        Document quimicos3 = new Document();
+        quimicos3.append("nombre", "Quimico3");
+        
+        Document quimicos4 = new Document();
+        quimicos4.append("nombre", "Quimico4");
+        
+        Document quimicos5 = new Document();
+        quimicos5.append("nombre", "Quimico5");
+        
+        listaQuimicos.add(quimicos1);
+        listaQuimicos.add(quimicos2);
+        listaQuimicos.add(quimicos3);
+        listaQuimicos.add(quimicos4);
+        listaQuimicos.add(quimicos5);
+        
+        quimicosCollection.insertMany(listaQuimicos);
+    }
+    
     public void insercioResiduos() throws Exception{
         MongoCollection<Document> residuosCollection = baseDatos.getCollection(databaseFormats.getRESIDUOS());
         Document residuo = new Document();
@@ -99,32 +169,6 @@ public class insercionMasiva {
 
     public void insercionMasivaProductores() throws Exception {
         MongoCollection<Document> residuosCollection = baseDatos.getCollection(databaseFormats.getPRODUCTORES_COLLECTION());
-//        for (int i = 0; i < 5; i++) {
-//            boolean test;
-//            if (i % 2 == 0) {
-//                test = true;
-//            } else {
-//                test = false;
-//            }
-//            Cuenta cuenta = new Cuenta("Administrador" + i, "Administrador" + i, tiposDeCuenta.Administrador.toString());
-//            
-//            cDAO.insertarCuenta(cuenta);
-//            
-//            List<Residuos> stringList = new LinkedList<>();
-//            
-//            Residuos residuo1 = new Residuos("Residuo" + i, "3" + i + "2" + i + "9" + i, test, qDAO.consultarQuimicosGenerales(null).get(i));
-//            Residuos residuo2 = new Residuos("Residuo" + i, "1" + i + "3" + i + "4" + i, test, qDAO.consultarQuimicosGenerales(null).get(i));
-//            
-//            stringList.add(residuo1);
-//            stringList.add(residuo2);
-//            
-//            Productores p = new Productores("Productor " + i,  stringList, cuenta);
-//        
-//            pDAO.insertarProductor(p);
-//        }
-
-            // Obtener las colecciones
-            
         Document cuenta = new Document();
         cuenta.append("usuario", "pepe")
                 .append("contrasena", "1234")
@@ -139,12 +183,10 @@ public class insercionMasiva {
         
         Document productor = new Document();
         productor.append("nombre", "mejor productor");
-        productor.append("contrasenia", "123456");
         productor.append("cuenta", cuenta);
         
         Document productor2 = new Document();
         productor2.append("nombre", "productor2");
-        productor2.append("contrasenia", "2341");
         productor2.append("cuenta", cuenta2);
         
         List<Document> listaInsertarDocumentos = new LinkedList<>();
@@ -152,9 +194,20 @@ public class insercionMasiva {
         listaInsertarDocumentos.add(productor2);
         
         residuosCollection.insertMany(listaInsertarDocumentos);
+    }
+    
+    public void insercionAdministrador() throws Exception {
+        MongoCollection<Document> residuosCollection = baseDatos.getCollection(databaseFormats.getADMINISTRADOR());
+        Document cuenta = new Document();
+        cuenta.append("usuario", "admin")
+                .append("contrasena", "admin123")
+                .append("tipoCuenta", tiposDeCuenta.Administrador.toString());       
         
-        
-        
+        Document admin = new Document();
+        admin.append("nombre", "mejor productor");
+        admin.append("cuenta", cuenta);
+     
+        residuosCollection.insertOne(admin);
     }
     
     public void relacionarProductoresResiduos() throws Exception{

@@ -24,6 +24,9 @@ public class DesechosToxicosPersistencia {
 //        in.insercionMasivaProductores();
         in.insercioResiduos();
         in.insercionMasivaProductores();
+        in.insercionAdministrador();
+        in.insercionQuimicos();
+        in.insercionMasivaDeVehiculosYEmpresas();
         
     }
 }

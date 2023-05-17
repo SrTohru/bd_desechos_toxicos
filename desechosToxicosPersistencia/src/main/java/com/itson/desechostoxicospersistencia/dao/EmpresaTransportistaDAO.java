@@ -10,6 +10,7 @@ import com.itson.desechostoxicospersistencia.utilities.DatabaseFormats;
 import com.itson.desechostoxicospersistencia.validators.GeneralMethods;
 import com.itson.dominio.EmpresaTransportista;
 import com.itson.dominio.Vehiculo;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.awt.HeadlessException;
@@ -102,5 +103,19 @@ public class EmpresaTransportistaDAO implements IEmpresaTransportista {
             throw new Exception("Hubo un error al consultar todas las empresas");
         }
 
+    }
+    
+    @Override
+    public EmpresaTransportista iniciarSesion(EmpresaTransportista empresa) throws Exception {
+        BasicDBObject query = new BasicDBObject();
+        query.put("cuenta.usuario", empresa.getCuenta().getUsuario());
+        query.put("cuenta.contrasena", empresa.getCuenta().getContrasena());
+        query.put("cuenta.tipoCuenta", empresa.getCuenta().getTipoCuenta());
+
+        EmpresaTransportista result = empresaCollection.find(query).first();
+        if (result != null) {
+            return result;
+        }
+        throw new Exception("Hubo un error al iniciar sesion en la cuenta");
     }
 }

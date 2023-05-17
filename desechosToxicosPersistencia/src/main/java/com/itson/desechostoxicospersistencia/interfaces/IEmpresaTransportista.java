@@ -18,5 +18,7 @@ public interface IEmpresaTransportista {
 
     EmpresaTransportista actualizarEmpresa(EmpresaTransportista elemento) throws Exception;
     
-     List<EmpresaTransportista> consultarTodasLasEmpresas() throws Exception;
+    List<EmpresaTransportista> consultarTodasLasEmpresas() throws Exception;
+     
+    EmpresaTransportista iniciarSesion(EmpresaTransportista empresa) throws Exception;
 }

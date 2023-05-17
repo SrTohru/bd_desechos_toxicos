@@ -4,9 +4,14 @@
  */
 package com.itson.presentacion;
 
+import com.itson.desechostoxicospersistencia.dao.AdministradorDAO;
 import com.itson.desechostoxicospersistencia.dao.CuentaDAO;
+import com.itson.desechostoxicospersistencia.dao.EmpresaTransportistaDAO;
 import com.itson.desechostoxicospersistencia.dao.ProductoresDAO;
+import com.itson.desechostoxicospersistencia.utilities.insercionMasiva;
+import com.itson.dominio.Administrador;
 import com.itson.dominio.Cuenta;
+import com.itson.dominio.EmpresaTransportista;
 import com.itson.dominio.Productores;
 import com.itson.dominio.utilities.tiposDeCuenta;
 import java.util.logging.Level;
@@ -20,6 +25,8 @@ import javax.swing.JOptionPane;
 public class LoginForm extends javax.swing.JFrame {
 
     ProductoresDAO pDAO = new ProductoresDAO();
+    AdministradorDAO aDAO = new AdministradorDAO();
+    EmpresaTransportistaDAO eDAO = new EmpresaTransportistaDAO();
 
     public LoginForm() {
         initComponents();
@@ -39,19 +46,52 @@ public class LoginForm extends javax.swing.JFrame {
             Cuenta cuenta = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
             productores.setCuenta(cuenta);
             productores = pDAO.iniciarSesion(productores);
+            
+            Administrador admin = new Administrador();
+            Cuenta cuentaAdmin = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
+            admin.setCuenta(cuentaAdmin);
+            admin = aDAO.iniciarSesion(admin);
+            
+            EmpresaTransportista empresa = new EmpresaTransportista();
+            Cuenta cuentaEmpresa = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
+            empresa.setCuenta(cuentaEmpresa);
+            empresa = eDAO.iniciarSesion(empresa);
 
-            if (productores != null) {
+            if (productores != null || admin != null || empresa!= null) {
                 JOptionPane.showMessageDialog(null, "Se inicio sesion");
-                MenuPrincipalForm menu = new MenuPrincipalForm(cuenta);
-                menu.setCuenta(cuenta);
-                menu.setVisible(true);
-                this.dispose();
+                if (productores!= null) {
+                    MenuPrincipalForm menu = new MenuPrincipalForm(cuenta);
+                    menu.setCuenta(cuenta);
+                    menu.setVisible(true);
+                    this.dispose();
+                }
+                if (admin!= null) {
+                    MenuPrincipalForm menu = new MenuPrincipalForm(cuentaAdmin);
+                    menu.setCuenta(cuentaAdmin);
+                    menu.setVisible(true);
+                    this.dispose();
+                }
+                if (empresa!= null) {
+                    MenuPrincipalForm menu = new MenuPrincipalForm(cuentaEmpresa);
+                    menu.setCuenta(cuentaEmpresa);
+                    menu.setVisible(true);
+                    this.dispose();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Datos incorrectos","Error Campos Invalidos",JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Campos vacios","Error Campos Invalidos",JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void insertarCuentas() throws Exception{
+        insercionMasiva in = new insercionMasiva();
+        in.insercioResiduos();
+        in.insercionMasivaProductores();
+        in.insercionAdministrador();
+        in.insercionQuimicos();
+        in.insercionMasivaDeVehiculosYEmpresas();
     }
     
     /**
@@ -72,6 +112,7 @@ public class LoginForm extends javax.swing.JFrame {
         btnVerContrasenia = new javax.swing.JToggleButton();
         comboboxTipoCuenta = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        btnInsertarCuentas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -113,6 +154,14 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel4.setText("Tipo de cuenta");
 
+        btnInsertarCuentas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnInsertarCuentas.setText("Insertar Cuentas");
+        btnInsertarCuentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertarCuentasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,18 +169,19 @@ public class LoginForm extends javax.swing.JFrame {
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(89, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLogin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnInsertarCuentas))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(comboboxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnVerContrasenia)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
@@ -154,7 +204,9 @@ public class LoginForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboboxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(btnLogin)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin)
+                    .addComponent(btnInsertarCuentas))
                 .addGap(50, 50, 50))
         );
 
@@ -190,7 +242,17 @@ public class LoginForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void btnInsertarCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarCuentasActionPerformed
+        try {
+            // TODO add your handling code here:
+            this.insertarCuentas();
+        } catch (Exception ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnInsertarCuentasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnInsertarCuentas;
     private javax.swing.JButton btnLogin;
     private javax.swing.JToggleButton btnVerContrasenia;
     private javax.swing.JComboBox<String> comboboxTipoCuenta;
