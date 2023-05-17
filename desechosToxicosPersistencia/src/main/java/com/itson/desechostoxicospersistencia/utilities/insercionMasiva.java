@@ -124,11 +124,28 @@ public class insercionMasiva {
 //        }
 
             // Obtener las colecciones
+            
+        Document cuenta = new Document();
+        cuenta.append("usuario", "pepe")
+                .append("contrasena", "1234")
+                .append("tipoCuenta", tiposDeCuenta.Productor.toString());
+        
+        Document cuenta2 = new Document();
+        cuenta2.append("usuario", "pablo")
+                .append("contrasena", "1132")
+                .append("tipoCuenta", tiposDeCuenta.Productor.toString());
+            
+        
+        
         Document productor = new Document();
         productor.append("nombre", "mejor productor");
+        productor.append("contrasenia", "123456");
+        productor.append("cuenta", cuenta);
         
         Document productor2 = new Document();
         productor2.append("nombre", "productor2");
+        productor2.append("contrasenia", "2341");
+        productor2.append("cuenta", cuenta2);
         
         List<Document> listaInsertarDocumentos = new LinkedList<>();
         listaInsertarDocumentos.add(productor);

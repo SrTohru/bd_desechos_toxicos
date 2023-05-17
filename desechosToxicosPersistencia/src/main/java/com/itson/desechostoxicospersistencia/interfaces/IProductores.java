@@ -17,4 +17,6 @@ public interface IProductores {
     
     List<Productores> consultarProductoresConSolicitudTraslado() throws Exception;
     
+    Productores iniciarSesion(Productores productores) throws Exception;
+    
 }

@@ -7,6 +7,7 @@ package com.itson.presentacion;
 import com.itson.desechostoxicospersistencia.dao.QuimicosDAO;
 import com.itson.desechostoxicospersistencia.interfaces.IQuimicos;
 import com.itson.desechostoxicospersistencia.utilities.ConfiguracionDePaginado;
+import com.itson.dominio.Cuenta;
 import com.itson.dominio.Quimicos;
 import com.itson.negocio.validadores.Validaciones;
 import static com.itson.negocio.validadores.Validaciones.validarNumero;
@@ -26,19 +27,22 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private QuimicosDAO quimicosDAO;
     private ConfiguracionDePaginado configuracionDePaginado;
     private Validaciones v;
+    private Cuenta cuenta;
     
     /**
      * Creates new form RegistrarResiduoForm
      */
-    public RegistrarResiduoForm() {
+    public RegistrarResiduoForm(Cuenta cuenta) {
         this.configuracionDePaginado = new ConfiguracionDePaginado(0, 10);
         initComponents();
+        this.cuenta = cuenta;
         quimicosDAO = new QuimicosDAO();       
         this.llenarTablaQuimicosDisponibles();
     }
 
     private void irMenuPrincipal() {
-        new MenuPrincipalForm().setVisible(true);
+        MenuPrincipalForm menu = new MenuPrincipalForm(this.cuenta);
+        menu.setVisible(true);
         this.dispose();
     }
     

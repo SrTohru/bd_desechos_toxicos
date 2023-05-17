@@ -4,26 +4,31 @@
  */
 package com.itson.presentacion;
 
+import com.itson.dominio.Cuenta;
+
 /**
  *
  * @author Usuario
  */
 public class AsignarTrasladosForm extends javax.swing.JFrame {
 
+    private Cuenta cuenta;
+    
     /**
      * Creates new form SolicitudesTrasladosForm
      */
-    public AsignarTrasladosForm() {
+    public AsignarTrasladosForm(Cuenta cuenta) {
         initComponents();
+        this.cuenta = cuenta;
     }
 
     private void irMenuPrincipal(){
-        new MenuPrincipalForm().setVisible(true);
+        new MenuPrincipalForm(this.cuenta).setVisible(true);
         this.dispose();
     }
     
     private void irAsignarEmpresaTraslado(){
-        new AsignarEmpresaTrasladosForm().setVisible(true);
+        new AsignarEmpresaTrasladosForm(this.cuenta).setVisible(true);
         this.dispose();
     }
     

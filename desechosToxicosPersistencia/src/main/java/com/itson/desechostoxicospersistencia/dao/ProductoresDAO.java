@@ -8,6 +8,7 @@ import com.itson.desechostoxicospersistencia.database.ConnectionDataBase;
 import com.itson.desechostoxicospersistencia.interfaces.IProductores;
 import com.itson.desechostoxicospersistencia.utilities.DatabaseFormats;
 import com.itson.dominio.Productores;
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -92,5 +93,19 @@ public class ProductoresDAO implements IProductores {
         } catch (Exception e) {
            throw new Exception("Hubo un error al consultar productores con solicitud de traslado");
         }
+    }
+    
+    @Override
+    public Productores iniciarSesion(Productores productores) throws Exception {
+        BasicDBObject query = new BasicDBObject();
+        query.put("cuenta.usuario", productores.getCuenta().getUsuario());
+        query.put("cuenta.contrasena", productores.getCuenta().getContrasena());
+        query.put("cuenta.tipoCuenta", productores.getCuenta().getTipoCuenta());
+
+        Productores result = productoresCollection.find(query).first();
+        if (result != null) {
+            return result;
+        }
+        throw new Exception("Hubo un error al iniciar sesion en la cuenta");
     }
 }

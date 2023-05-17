@@ -7,6 +7,7 @@ package com.itson.presentacion;
 import com.itson.desechostoxicospersistencia.dao.ResiduosDAO;
 import com.itson.desechostoxicospersistencia.interfaces.IResiduos;
 import com.itson.desechostoxicospersistencia.utilities.ConfiguracionDePaginado;
+import com.itson.dominio.Cuenta;
 import com.itson.dominio.Residuos;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,13 +23,15 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
     private static final Logger LOG = Logger.getLogger(SolicitarTrasladoForm.class.getName());
     private ConfiguracionDePaginado configuracionDePaginado;
     private IResiduos residuosDAO;
+    private Cuenta cuenta;
     
     /**
      * Creates new form SolicitarTrasladoForm
      */
-    public SolicitarTrasladoForm() {
+    public SolicitarTrasladoForm(Cuenta cuenta) {
         this.configuracionDePaginado = new ConfiguracionDePaginado(0, 5);      
         initComponents();
+        this.cuenta = cuenta;
         this.deshabilitarCamposLitros();
         this.deshabilitarCamposKilos();
         this.residuosDAO = new ResiduosDAO();
@@ -53,7 +56,8 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
 
     
     private void irMenuPrincipal(){
-        new MenuPrincipalForm().setVisible(true);
+        MenuPrincipalForm menu = new MenuPrincipalForm(this.cuenta);
+        menu.setVisible(true);
         this.dispose();
     }
     

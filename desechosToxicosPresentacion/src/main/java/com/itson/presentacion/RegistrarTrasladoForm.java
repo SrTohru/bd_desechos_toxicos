@@ -4,21 +4,26 @@
  */
 package com.itson.presentacion;
 
+import com.itson.dominio.Cuenta;
+
 /**
  *
  * @author Usuario
  */
 public class RegistrarTrasladoForm extends javax.swing.JFrame {
 
+    private Cuenta cuenta;
+    
     /**
      * Creates new form RegistrarTrasladoForm
      */
-    public RegistrarTrasladoForm() {
+    public RegistrarTrasladoForm(Cuenta cuenta) {
         initComponents();
+        this.cuenta = cuenta;
     }
 
     private void irTrasladosAsignadosForm(){
-        TrasladosAsignadosForm taf = new TrasladosAsignadosForm();
+        TrasladosAsignadosForm taf = new TrasladosAsignadosForm(this.cuenta);
         taf.setVisible(true);
         this.dispose();
     }

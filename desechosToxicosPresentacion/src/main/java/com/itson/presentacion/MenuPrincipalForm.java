@@ -4,57 +4,70 @@
  */
 package com.itson.presentacion;
 
+import com.itson.dominio.Cuenta;
+import com.itson.dominio.utilities.tiposDeCuenta;
+
 /**
  *
  * @author Usuario
  */
 public class MenuPrincipalForm extends javax.swing.JFrame {
 
+    private Cuenta cuenta;
+    
     /**
      * Creates new form MenuPrincipalForm
+     * @param cuenta
      */
-    public MenuPrincipalForm() {
+    public MenuPrincipalForm(Cuenta cuenta) {    
         initComponents();
+        this.cuenta = cuenta;
         this.mostrarBotonesMenu();
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
     
     private void irRegistrarResiduo(){
-        new RegistrarResiduoForm().setVisible(true);
+        new RegistrarResiduoForm(this.cuenta).setVisible(true);
         this.dispose();
     }
     
     private void irSolicitarTraslado(){
-        new SolicitarTrasladoForm().setVisible(true);
+        new SolicitarTrasladoForm(this.cuenta).setVisible(true);
         this.dispose();
     }
     
     private void irAsignarTraslados(){
-        new AsignarTrasladosForm().setVisible(true);
+        new AsignarTrasladosForm(this.cuenta).setVisible(true);
         this.dispose();
     }
     
     private void irRegistrarTraslado(){
-        new TrasladosAsignadosForm().setVisible(true);
+        new TrasladosAsignadosForm(this.cuenta).setVisible(true);
         this.dispose();
     }
     
     private void mostrarBotonesMenu(){
-        if (comboActores.getSelectedItem() == "Selecciona" ) {
-            btnAsignarTraslado.setVisible(false);
-            btnRegistrarResiduo.setVisible(false);
-            btnRegistrarTraslado.setVisible(false);
-            btnSolicitarTraslado.setVisible(false);
-        } else if (comboActores.getSelectedItem() == "Productor") {
+        if (cuenta.getTipoCuenta() == tiposDeCuenta.Productor.toString()) {
+            lblActor.setText(tiposDeCuenta.Productor.toString());
             btnAsignarTraslado.setVisible(false);
             btnRegistrarResiduo.setVisible(true);
             btnRegistrarTraslado.setVisible(false);
             btnSolicitarTraslado.setVisible(true);
-        } else if (comboActores.getSelectedItem() == "Empresa Transportista") {
+        } else if (cuenta.getTipoCuenta() == tiposDeCuenta.EmpresaTransportista.toString()) {
+            lblActor.setText(tiposDeCuenta.EmpresaTransportista.toString());
             btnAsignarTraslado.setVisible(false);
             btnRegistrarResiduo.setVisible(false);
             btnRegistrarTraslado.setVisible(true);
             btnSolicitarTraslado.setVisible(false);
         } else {
+            lblActor.setText(tiposDeCuenta.Administrador.toString());
             btnAsignarTraslado.setVisible(true);
             btnRegistrarResiduo.setVisible(false);
             btnRegistrarTraslado.setVisible(false);
@@ -76,7 +89,7 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         btnRegistrarTraslado = new javax.swing.JButton();
         btnAsignarTraslado = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        comboActores = new javax.swing.JComboBox<>();
+        lblActor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
@@ -116,12 +129,8 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Actuar Como:");
 
-        comboActores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona", "Productor", "Empresa Transportista", "Administrador" }));
-        comboActores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboActoresActionPerformed(evt);
-            }
-        });
+        lblActor.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblActor.setText("....");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,13 +138,14 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(73, 73, 73)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRegistrarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSolicitarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRegistrarResiduo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAsignarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(comboActores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblActor)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnRegistrarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSolicitarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegistrarResiduo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAsignarTraslado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)))
                 .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -143,9 +153,9 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(comboActores, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblActor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(btnRegistrarResiduo)
                 .addGap(46, 46, 46)
                 .addComponent(btnSolicitarTraslado)
@@ -180,17 +190,12 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         this.irRegistrarTraslado();
     }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
 
-    private void comboActoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActoresActionPerformed
-        // TODO add your handling code here:
-        this.mostrarBotonesMenu();
-    }//GEN-LAST:event_comboActoresActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarTraslado;
     private javax.swing.JButton btnRegistrarResiduo;
     private javax.swing.JButton btnRegistrarTraslado;
     private javax.swing.JButton btnSolicitarTraslado;
-    private javax.swing.JComboBox<String> comboActores;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblActor;
     // End of variables declaration//GEN-END:variables
 }
