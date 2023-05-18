@@ -24,32 +24,30 @@ public class TrasladoDAO implements ITraslado {
     MongoCollection<Traslado> trasladoCollection = baseDatos.getCollection(dFormats.getTRASLADOS(), Traslado.class);
 
     @Override
-    public Traslado insertarTraslado(Traslado e) throws Exception{
+    public Traslado insertarTraslado(Traslado e) throws Exception {
         try {
             trasladoCollection.insertOne(e);
 
-            JOptionPane.showMessageDialog(null, "El traslado ha sido insertado correctamente.");
-
             return e;
         } catch (Exception ex) {
-         throw new Exception("Hubo un error al insertar el traslado");
+            throw new Exception("Hubo un error al insertar el traslado");
         }
     }
 
     @Override
-    public Traslado consultarTraslado(Traslado elemento) throws Exception{
+    public Traslado consultarTraslado(Traslado elemento) throws Exception {
         try {
             Document trasladoQuery = new Document("_id", elemento.getId());
             Traslado trasladoDocument = trasladoCollection.find(trasladoQuery).first();
 
             return trasladoDocument;
         } catch (Exception e) {
-           throw new Exception("Hubo un error al consultar el traslado");
+            throw new Exception("Hubo un error al consultar el traslado");
         }
     }
 
     @Override
-    public Traslado actualizarTraslado(Traslado elemento) throws Exception{
+    public Traslado actualizarTraslado(Traslado elemento) throws Exception {
         try {
             Document trasladoQuery = new Document("_id", elemento.getId());
             Traslado trasladoDocument = trasladoCollection.find(trasladoQuery).first();

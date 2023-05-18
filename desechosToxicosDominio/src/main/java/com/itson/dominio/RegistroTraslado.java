@@ -27,6 +27,17 @@ public class RegistroTraslado {
     public RegistroTraslado() {
     }
 
+    public RegistroTraslado(Traslado taslado, int kilometrosRecorridos, double costo, Date fechaLlegada, String tratamiento, String estadoTraslado) {
+        this.taslado = taslado;
+        this.kilometrosRecorridos = kilometrosRecorridos;
+        this.costo = costo;
+        this.fechaLlegada = fechaLlegada;
+        this.tratamiento = tratamiento;
+        this.estadoTraslado = estadoTraslado;
+    }
+
+    
+    
     public RegistroTraslado(Traslado taslado, Vehiculo vehiculo, int kilometrosRecorridos, double costo, Date fechaLlegada, String tratamiento, String estadoTraslado) {
         this.taslado = taslado;
         this.vehiculo = vehiculo;

@@ -10,6 +10,8 @@ public class Traslado {
     private Date fecha;
     private List<Residuos> residuos;
     private List<EmpresaTransportista> EmpresaTransportista;
+    private float kilos;
+    private float litros;
 
     public Traslado() {
     }
@@ -27,6 +29,15 @@ public class Traslado {
         this.residuos = residuos;
     }
     
+      public Traslado(ObjectId productorId, Date fecha, List<Residuos> residuos, float kilos, float litros) {
+        this.productorId = productorId;
+        this.fecha = fecha;
+        this.residuos = residuos;
+        this.litros = litros;
+        this.kilos = kilos;
+    }
+    
+    
     public Traslado(ObjectId id, ObjectId productorId, Date fecha, List<Residuos> residuos, List<EmpresaTransportista> EmpresaTransportista) {
         this.id = id;
         this.productorId = productorId;
@@ -43,6 +54,24 @@ public class Traslado {
         this.id = id;
     }
 
+    public float getKilos() {
+        return kilos;
+    }
+
+    public void setKilos(float kilos) {
+        this.kilos = kilos;
+    }
+
+    public float getLitros() {
+        return litros;
+    }
+
+    public void setLitros(float litros) {
+        this.litros = litros;
+    }
+
+    
+    
     public ObjectId getProductorId() {
         return productorId;
     }

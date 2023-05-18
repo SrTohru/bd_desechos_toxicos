@@ -49,10 +49,6 @@ public class TrasladosNegocio implements ITraslados {
 
     public void validarTraslado(Traslado traslado) throws Exception {
 
-        if (traslado.getProductorId() == null) {
-            throw new Exception("El campo 'productorId' del objeto Traslado es nulo.");
-        }
-
         if (traslado.getFecha() == null) {
             throw new Exception("El campo 'fecha' del objeto Traslado es nulo.");
         }
@@ -60,22 +56,7 @@ public class TrasladosNegocio implements ITraslados {
         if (traslado.getResiduos() == null || traslado.getResiduos().isEmpty()) {
             throw new Exception("El campo 'residuos' del objeto Traslado es nulo o está vacío.");
         }
-
-        if (traslado.getEmpresaTransportista() == null || traslado.getEmpresaTransportista().isEmpty()) {
-            throw new Exception("El campo 'EmpresaTransportista' del objeto Traslado es nulo o está vacío.");
-        } else {
-            for (EmpresaTransportista transportista : traslado.getEmpresaTransportista()) {
-                validarEmpresaTransportista(transportista);
-            }
-        }
     }
 
-    private void validarEmpresaTransportista(EmpresaTransportista transportista) throws Exception {
-        if (transportista == null) {
-            throw new Exception("Se encontró una empresa transportista nula en la lista de empresas transportistas.");
-        }
-
-        // Validar los atributos de la empresa transportista si es necesario
-    }
 
 }

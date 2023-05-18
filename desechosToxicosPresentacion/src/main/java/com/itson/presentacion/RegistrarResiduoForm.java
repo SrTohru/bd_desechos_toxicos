@@ -49,49 +49,51 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void llenarTablaQuimicosDisponibles() {
-        try {
-            DefaultTableModel modeloTabla = (DefaultTableModel) this.tableQuimicosDisponibles.getModel();
-            List<Quimicos> listaQuimicos = fachadaNegocio.consultarQuimicosGenerales(this.configuracionDePaginado);
-            modeloTabla.setRowCount(0);
-            for (Quimicos q : listaQuimicos) {
-                Object[] fila = {
-                    q.getNombre(),};
+private void llenarTablaQuimicosDisponibles() {
+    try {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tableQuimicosDisponibles.getModel();
+        List<Quimicos> listaQuimicos = fachadaNegocio.consultarQuimicosGenerales(this.configuracionDePaginado);
+        modeloTabla.setRowCount(0);
+
+        // Obtener los químicos que ya están en la tabla de químicos del nuevo residuo
+        DefaultTableModel modeloDestino = (DefaultTableModel) tableQuimicosNuevoResiduo.getModel();
+        List<String> quimicosSeleccionados = new ArrayList<>();
+        for (int i = 0; i < modeloDestino.getRowCount(); i++) {
+            String nombreQuimico = (String) modeloDestino.getValueAt(i, 0);
+            quimicosSeleccionados.add(nombreQuimico);
+        }
+
+        for (Quimicos q : listaQuimicos) {
+            // Verificar si el químico ya está seleccionado en la tabla del nuevo residuo
+            if (!quimicosSeleccionados.contains(q.getNombre())) {
+                Object[] fila = { q.getNombre() };
                 modeloTabla.addRow(fila);
             }
-        } catch (Exception ex) {
-            LOG.log(Level.SEVERE, ex.getMessage());
         }
+    } catch (Exception ex) {
+        LOG.log(Level.SEVERE, ex.getMessage());
     }
+}
+
 
     private void llenarTablaQuimicosNuevoResiduo() {
-        try {
-            // Obtener el modelo de la tabla de origen y de destino
-            DefaultTableModel modeloOrigen = (DefaultTableModel) tableQuimicosDisponibles.getModel();
-            DefaultTableModel modeloDestino = (DefaultTableModel) tableQuimicosNuevoResiduo.getModel();
+    try {
+        DefaultTableModel modeloOrigen = (DefaultTableModel) tableQuimicosDisponibles.getModel();
+        DefaultTableModel modeloDestino = (DefaultTableModel) tableQuimicosNuevoResiduo.getModel();
 
-            // Obtener el índice de la fila seleccionada en la tabla de origen
-            int filaSeleccionada = tableQuimicosDisponibles.getSelectedRow();
+        int filaSeleccionada = tableQuimicosDisponibles.getSelectedRow();
 
-            // Obtener la instancia de la fila seleccionada en la tabla de origen
-            Object[] fila = new Object[modeloOrigen.getColumnCount()];
-            for (int i = 0; i < modeloOrigen.getColumnCount(); i++) {
-                fila[i] = modeloOrigen.getValueAt(filaSeleccionada, i);
-            }
-
-            // Agregar la fila a la tabla de destino
-            modeloDestino.addRow(fila);
-
-            // Eliminar la fila de la tabla de origen
-            modeloOrigen.removeRow(filaSeleccionada);
-
-            // Actualizar las vistas de las tablas
-            tableQuimicosDisponibles.repaint();
-            tableQuimicosNuevoResiduo.repaint();
-        } catch (Exception ex) {
-            LOG.log(Level.SEVERE, ex.getMessage());
+        Object[] fila = new Object[modeloOrigen.getColumnCount()];
+        for (int i = 0; i < modeloOrigen.getColumnCount(); i++) {
+            fila[i] = modeloOrigen.getValueAt(filaSeleccionada, i);
         }
+
+        modeloDestino.addRow(fila);
+        modeloOrigen.removeRow(filaSeleccionada);
+    } catch (Exception ex) {
+        LOG.log(Level.SEVERE, ex.getMessage());
     }
+}
 
     private void regresarQuimicoSeleccionado() {
         try {
