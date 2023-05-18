@@ -5,9 +5,9 @@ import com.itson.dominio.Traslado;
 
 public interface ITraslado {
 
-    Traslado insertarElemento(Traslado e) throws Exception;
+    Traslado insertarTraslado(Traslado e) throws Exception;
 
-    Traslado consultarElemento(Traslado elemento) throws Exception;
+    Traslado consultarTraslado(Traslado elemento) throws Exception;
 
-    Traslado actualizarElemento(Traslado elemento) throws Exception;
+    Traslado actualizarTraslado(Traslado elemento) throws Exception;
 }

@@ -27,32 +27,6 @@ public class VehiculoDAO implements IVehiculo {
     MongoCollection<Vehiculo> vehiculoCollection = baseDatos.getCollection(dFormats.getVEHICULO(), Vehiculo.class);
 
     @Override
-    public Vehiculo insertarElemento(Vehiculo e) throws Exception{
-        try {
-            vehiculoCollection.insertOne(e);
-
-            JOptionPane.showMessageDialog(null, "El vehículo ha sido insertado correctamente.");
-
-            return e;
-        } catch (Exception ex) {
-        throw new Exception("Hubo un error al insertar el vehiculo");
-        }
-    }
-
-    @Override
-    public List<Vehiculo> insertarElementoEnLista(List<Vehiculo> e) throws Exception{
-        try {
-            vehiculoCollection.insertMany(e);
-
-            JOptionPane.showMessageDialog(null, "Los vehículos han sido insertados correctamente.");
-
-            return e;
-        } catch (Exception ex) {
-           throw new Exception("Hubo un error al registrar la lista de vehiculos");
-        }
-    }
-
-    @Override
     public Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) throws Exception{
         try {
             Document vehiculoQuery = new Document("empresaTransportista", emp);

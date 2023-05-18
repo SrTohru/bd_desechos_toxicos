@@ -23,31 +23,37 @@ public class QuimicosNegocio implements IQuimicos {
         this.quimicosDAO = new QuimicosDAO();
     }
 
-    @Override
+      @Override
     public List<Quimicos> consultarQuimicosGenerales(ConfiguracionDePaginado configuracionDePaginado) throws Exception {
-
-        return this.quimicosDAO.consultarQuimicosGenerales(configuracionDePaginado);
-
+        // Validar configuracionDePaginado si es necesario
+        return quimicosDAO.consultarQuimicosGenerales(configuracionDePaginado);
     }
 
     @Override
     public Quimicos consultarQuimico(Quimicos quimico) throws Exception {
-
-        return this.quimicosDAO.consultarQuimico(quimico);
-
+        validarQuimico(quimico);
+        return quimicosDAO.consultarQuimico(quimico);
     }
 
     @Override
     public Quimicos insertarQuimico(Quimicos quimico) throws Exception {
-
-        return this.quimicosDAO.insertarQuimico(quimico);
-
+        validarQuimico(quimico);
+        return quimicosDAO.insertarQuimico(quimico);
     }
 
     @Override
     public void eliminarQuimico(Quimicos elemento) throws Exception {
+        validarQuimico(elemento);
+        quimicosDAO.eliminarQuimico(elemento);
+    }
 
-        this.quimicosDAO.eliminarQuimico(elemento);
-
+    private void validarQuimico(Quimicos quimico) throws Exception {
+        if (quimico == null) {
+            throw new Exception("El químico no puede ser nulo");
+        }
+        if (quimico.getNombre() == null || quimico.getNombre().isEmpty()) {
+            throw new Exception("El nombre del químico es requerido");
+        }
+        // Otras validaciones específicas del químico
     }
 }

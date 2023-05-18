@@ -19,4 +19,5 @@ public interface ITraslados {
     Traslado consultarElemento(Traslado elemento) throws Exception;
 
     Traslado actualizarElemento(Traslado elemento) throws Exception;
+    
 }

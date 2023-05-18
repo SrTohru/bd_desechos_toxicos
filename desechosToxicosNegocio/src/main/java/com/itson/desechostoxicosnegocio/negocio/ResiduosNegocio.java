@@ -20,43 +20,62 @@ public class ResiduosNegocio implements IResiduos {
         this.residuosDAO = new ResiduosDAO();
     }
 
- @Override
-public List<Residuos> consultarElementos(ConfiguracionDePaginado configuracionDePaginado) throws Exception {
-  
-        return this.residuosDAO.consultarElemento(configuracionDePaginado);
-
-}
-
     @Override
-    public Residuos insertarElemento(Residuos residuos) throws Exception {
-  
-            return this.residuosDAO.insertarElemento(residuos);
-     
+    public List<Residuos> consultarResiduos(ConfiguracionDePaginado configuracionDePaginado) throws Exception {
+
+        return this.residuosDAO.consultarResiduo(configuracionDePaginado);
+
     }
 
     @Override
-    public void eliminarElemento(Residuos elemento) throws Exception {
-   
-            this.residuosDAO.eliminarElemento(elemento);
-     
+    public Residuos insertarResiduo(Residuos residuos) throws Exception {
+        validarResiduos(residuos);
+        return this.residuosDAO.insertarResiduo(residuos);
+
     }
 
     @Override
-    public Residuos actualizarElemento(Residuos elemento) throws Exception {
- 
-            return this.residuosDAO.actualizarElemento(elemento);
-       
+    public void eliminarResiduo(Residuos elemento) throws Exception {
+        validarResiduos(elemento);
+        this.residuosDAO.eliminarResiduo(elemento);
+
     }
 
     @Override
-    public List<Residuos> consultarElementosPorProductor(Productores productor) throws Exception {
-     
-            return this.residuosDAO.consultarElementosPorProductor(productor);
-     
+    public Residuos actualizarResiduo(Residuos elemento) throws Exception {
+        validarResiduos(elemento);
+        return this.residuosDAO.actualizarResiduo(elemento);
+
     }
 
     @Override
-    public List<Residuos> consultarElementos() {
+    public List<Residuos> consultarResiduosPorProductor(Productores productor) throws Exception {
+
+        return this.residuosDAO.consultarResiduosPorProductor(productor);
+
+    }
+
+    @Override
+    public List<Residuos> consultarResiduos() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public void validarResiduos(Residuos residuos) throws IllegalArgumentException {
+        if (residuos == null) {
+            throw new IllegalArgumentException("El objeto Residuos proporcionado es nulo");
+        }
+
+        if (residuos.getNombre() == null || residuos.getNombre().isEmpty()) {
+            throw new IllegalArgumentException("El campo 'nombre' de Residuos es nulo o está vacío");
+        }
+
+        if (residuos.getCodigo() == null || residuos.getCodigo().isEmpty()) {
+            throw new IllegalArgumentException("El campo 'codigo' de Residuos es nulo o está vacío");
+        }
+
+        if (residuos.getQuimico() == null || residuos.getQuimico().isEmpty()) {
+            throw new IllegalArgumentException("El campo 'quimico' de Residuos es nulo o está vacío");
+        }
+    }
+
 }

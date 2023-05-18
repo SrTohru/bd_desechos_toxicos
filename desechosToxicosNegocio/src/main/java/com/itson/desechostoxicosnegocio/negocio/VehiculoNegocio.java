@@ -20,20 +20,6 @@ public class VehiculoNegocio implements IVehiculo {
     }
 
     @Override
-    public Vehiculo insertarElemento(Vehiculo v) throws Exception {
-
-        return this.vehiculoDAO.insertarElemento(v);
-
-    }
-
-    @Override
-    public List<Vehiculo> insertarElementoEnLista(List<Vehiculo> v) throws Exception {
-
-        return this.vehiculoDAO.insertarElementoEnLista(v);
-
-    }
-
-    @Override
     public Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) throws Exception {
 
         return this.vehiculoDAO.consultarAutoPorEmpresa(emp);
@@ -46,5 +32,8 @@ public class VehiculoNegocio implements IVehiculo {
         return this.vehiculoDAO.consultarAutosPorEmpresa(emp);
 
     }
+    
+    
+    
 
 }

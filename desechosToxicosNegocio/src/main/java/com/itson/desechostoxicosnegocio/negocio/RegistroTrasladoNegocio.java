@@ -21,39 +21,69 @@ public class RegistroTrasladoNegocio implements IRegistroTraslado {
     public RegistroTrasladoNegocio() {
         this.registroTrasladoDAO = new RegistroTrasladoDAO();
     }
-
-    @Override
+  @Override
     public List<RegistroTraslado> consultarTodosLosTrasladosExistentes() throws Exception {
-
-        return this.registroTrasladoDAO.consultarTodosLosTrasladosExistentes();
-
+        try {
+            return this.registroTrasladoDAO.consultarTodosLosTrasladosExistentes();
+        } catch (Exception e) {
+            // Manejar la excepción o relanzarla
+            throw e;
+        }
     }
 
     @Override
     public RegistroTraslado consultarTraslado(RegistroTraslado quimico) throws Exception {
-
-        return this.registroTrasladoDAO.consultarTraslado(quimico);
-
+        try {
+            if (quimico == null) {
+                throw new IllegalArgumentException("El objeto RegistroTraslado proporcionado es nulo");
+            }
+            // Realizar la lógica de consulta del traslado
+            return this.registroTrasladoDAO.consultarTraslado(quimico);
+        } catch (Exception e) {
+            // Manejar la excepción o relanzarla
+            throw e;
+        }
     }
 
     @Override
     public RegistroTraslado insertarTraslado(RegistroTraslado quimico) throws Exception {
-
-        return this.registroTrasladoDAO.insertarTraslado(quimico);
-
+        try {
+            if (quimico == null) {
+                throw new IllegalArgumentException("El objeto RegistroTraslado proporcionado es nulo");
+            }
+            // Realizar la lógica de inserción del traslado
+            return this.registroTrasladoDAO.insertarTraslado(quimico);
+        } catch (Exception e) {
+            // Manejar la excepción o relanzarla
+            throw e;
+        }
     }
 
     @Override
     public void eliminarTraslado(RegistroTraslado elemento) throws Exception {
-
-        this.registroTrasladoDAO.eliminarTraslado(elemento);
-
+        try {
+            if (elemento == null) {
+                throw new IllegalArgumentException("El objeto RegistroTraslado proporcionado es nulo");
+            }
+            // Realizar la lógica de eliminación del traslado
+            this.registroTrasladoDAO.eliminarTraslado(elemento);
+        } catch (Exception e) {
+            // Manejar la excepción o relanzarla
+            throw e;
+        }
     }
 
     @Override
     public RegistroTraslado actualizarTraslado(RegistroTraslado elemento) throws Exception {
-
-        return this.registroTrasladoDAO.actualizarTraslado(elemento);
-
+        try {
+            if (elemento == null) {
+                throw new IllegalArgumentException("El objeto RegistroTraslado proporcionado es nulo");
+            }
+            // Realizar la lógica de actualización del traslado
+            return this.registroTrasladoDAO.actualizarTraslado(elemento);
+        } catch (Exception e) {
+            // Manejar la excepción o relanzarla
+            throw e;
+        }
     }
 }

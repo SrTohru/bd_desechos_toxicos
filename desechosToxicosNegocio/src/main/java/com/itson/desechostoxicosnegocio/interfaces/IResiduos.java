@@ -15,15 +15,15 @@ import java.util.List;
  */
 public interface IResiduos {
     
-     List<Residuos> consultarElementos() throws Exception;
+     List<Residuos> consultarResiduos() throws Exception;
 
-    List<Residuos> consultarElementos(ConfiguracionDePaginado configuracionDePaginado) throws Exception;
+    List<Residuos> consultarResiduos(ConfiguracionDePaginado configuracionDePaginado) throws Exception;
 
-    Residuos insertarElemento(Residuos residuos) throws Exception;
+    Residuos insertarResiduo(Residuos residuos) throws Exception;
 
-    void eliminarElemento(Residuos elemento) throws Exception;
+    void eliminarResiduo(Residuos elemento) throws Exception;
 
-    Residuos actualizarElemento(Residuos elemento) throws Exception;
+    Residuos actualizarResiduo(Residuos elemento) throws Exception;
 
-    List<Residuos> consultarElementosPorProductor(Productores productor) throws Exception;
+    List<Residuos> consultarResiduosPorProductor(Productores productor) throws Exception;
 }

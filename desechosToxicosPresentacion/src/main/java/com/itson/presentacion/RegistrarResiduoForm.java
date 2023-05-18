@@ -4,6 +4,7 @@
  */
 package com.itson.presentacion;
 
+import com.itson.desechostoxicosnegocio.fachada.FachadaNegocio;
 import com.itson.desechostoxicospersistencia.dao.QuimicosDAO;
 import com.itson.desechostoxicospersistencia.dao.ResiduosDAO;
 import com.itson.desechostoxicospersistencia.interfaces.IQuimicos;
@@ -25,11 +26,12 @@ import javax.swing.table.DefaultTableModel;
 public class RegistrarResiduoForm extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(RegistrarResiduoForm.class.getName());
-    private QuimicosDAO quimicosDAO;
+    private FachadaNegocio fachadaNegocio;
     private ConfiguracionDePaginado configuracionDePaginado;
     private Validaciones v;
     private Cuenta cuenta;
     ResiduosDAO rDAO = new ResiduosDAO();
+
     /**
      * Creates new form RegistrarResiduoForm
      */
@@ -37,7 +39,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         this.configuracionDePaginado = new ConfiguracionDePaginado(0, 10);
         initComponents();
         this.cuenta = cuenta;
-        quimicosDAO = new QuimicosDAO();       
+        fachadaNegocio = new FachadaNegocio();
         this.llenarTablaQuimicosDisponibles();
     }
 
@@ -46,11 +48,11 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         menu.setVisible(true);
         this.dispose();
     }
-    
+
     private void llenarTablaQuimicosDisponibles() {
         try {
             DefaultTableModel modeloTabla = (DefaultTableModel) this.tableQuimicosDisponibles.getModel();
-            List<Quimicos> listaQuimicos = quimicosDAO.consultarQuimicosGenerales(this.configuracionDePaginado);
+            List<Quimicos> listaQuimicos = fachadaNegocio.consultarQuimicosGenerales(this.configuracionDePaginado);
             modeloTabla.setRowCount(0);
             for (Quimicos q : listaQuimicos) {
                 Object[] fila = {
@@ -90,7 +92,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
             LOG.log(Level.SEVERE, ex.getMessage());
         }
     }
-    
+
     private void regresarQuimicoSeleccionado() {
         try {
             // Obtener el modelo de la tabla de origen y de destino
@@ -119,7 +121,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
             LOG.log(Level.SEVERE, ex.getMessage());
         }
     }
-    
+
     /**
      * Metodo para avanzar de pagina en la tabla de la consulta de personas
      */
@@ -136,15 +138,29 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
         this.llenarTablaQuimicosDisponibles();
     }
 
-    private void validarCampoCodigo(){
-        if (txtCodigo.toString().isBlank() || txtCodigo.toString().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El campo codigo esta vacio","Error Campo Invalido",JOptionPane.ERROR_MESSAGE);
+    private void validarInformacion() {
+
+        if (txtCodigo.toString().isBlank() || txtCodigo.toString().isEmpty() && txtNombre.getText().isBlank() || txtNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Porfavor llene todos los campos", "Error campos vacios", JOptionPane.ERROR_MESSAGE);
         }
+
+        if (txtCodigo.toString().isBlank() || txtCodigo.toString().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo codigo esta vacio", "Error Campo Invalido", JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (txtNombre.getText().isBlank() || txtNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo nombre esta vacio", "Error Campo Invalido", JOptionPane.ERROR_MESSAGE);
+        }
+
         if (validarNumero(txtCodigo.toString())) {
-            JOptionPane.showMessageDialog(null, "Solo acepta numeros de maximo 6 digitos","Error Campo Invalido",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Solo acepta numeros de maximo 6 digitos", "Error Campo Invalido", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
+    public boolean listaQuimicosVacia() {
+        return tableQuimicosNuevoResiduo.getRowCount() <= 0;
+    }
+
     private void registrarResiduo() throws Exception {
         Residuos residuo = new Residuos();
         residuo.setNombre(txtNombre.getText());
@@ -152,23 +168,21 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         List<Quimicos> listaQuimicosSeleccionados = new ArrayList<>();
 
-        if(checkboxPeligroso.isSelected()){
+        if (checkboxPeligroso.isSelected()) {
             residuo.setPeligroso(true);
         } else {
             residuo.setPeligroso(false);
         }
-    
+
         for (int i = 0; i < tableQuimicosNuevoResiduo.getRowCount(); i++) {
             String nombreQuimico = (String) tableQuimicosNuevoResiduo.getValueAt(i, 0);
-            //String formulaQuimica = (String) tableQuimicosNuevoResiduo.getValueAt(i, 1);
-            // Supongo que la clase Quimicos tiene un constructor que acepta el nombre y la fórmula química como parámetros
             Quimicos quimico = new Quimicos(nombreQuimico);
             listaQuimicosSeleccionados.add(quimico);
         }
         residuo.setQuimico(listaQuimicosSeleccionados);
-        rDAO.insertarElemento(residuo);
+        fachadaNegocio.insertarResiduo(residuo);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -310,6 +324,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         btnRetroceder.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRetroceder.setText("<");
+        btnRetroceder.setToolTipText("Retroceder lista");
         btnRetroceder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRetrocederActionPerformed(evt);
@@ -318,6 +333,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         btnAvanzar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnAvanzar.setText(">");
+        btnAvanzar.setToolTipText("Avanzar lsita");
         btnAvanzar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAvanzarActionPerformed(evt);
@@ -326,6 +342,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         btnRetrocederNuevoResiduo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRetrocederNuevoResiduo.setText("<");
+        btnRetrocederNuevoResiduo.setToolTipText("Retroceder lista");
         btnRetrocederNuevoResiduo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRetrocederNuevoResiduoActionPerformed(evt);
@@ -334,6 +351,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
 
         btnAvanzarNuevoResiduo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnAvanzarNuevoResiduo.setText(">");
+        btnAvanzarNuevoResiduo.setToolTipText("Avanzar lsita");
         btnAvanzarNuevoResiduo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAvanzarNuevoResiduoActionPerformed(evt);
@@ -501,12 +519,21 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarQuimicoActionPerformed
 
     private void btnCrearResiduoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearResiduoActionPerformed
-    
-        this.validarCampoCodigo();
+
+        this.validarInformacion();
+
+        if (this.listaQuimicosVacia()) {
+            JOptionPane.showMessageDialog(null, "Debes ingresar almenos un quimico a la lista");
+        } else {
             try {
-            this.registrarResiduo();
-        } catch (Exception ex) {
-            Logger.getLogger(RegistrarResiduoForm.class.getName()).log(Level.SEVERE, null, ex);
+                this.registrarResiduo();
+
+                JOptionPane.showMessageDialog(null, "Se ha registrado exitosamente el residuo");
+                dispose();
+                new MenuPrincipalForm(cuenta).setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         }
     }//GEN-LAST:event_btnCrearResiduoActionPerformed
 
@@ -538,7 +565,4 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    private String parseInt(JFormattedTextField txtCodigo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

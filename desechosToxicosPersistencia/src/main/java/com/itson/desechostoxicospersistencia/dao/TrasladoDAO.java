@@ -24,7 +24,7 @@ public class TrasladoDAO implements ITraslado {
     MongoCollection<Traslado> trasladoCollection = baseDatos.getCollection(dFormats.getTRASLADOS(), Traslado.class);
 
     @Override
-    public Traslado insertarElemento(Traslado e) throws Exception{
+    public Traslado insertarTraslado(Traslado e) throws Exception{
         try {
             trasladoCollection.insertOne(e);
 
@@ -37,7 +37,7 @@ public class TrasladoDAO implements ITraslado {
     }
 
     @Override
-    public Traslado consultarElemento(Traslado elemento) throws Exception{
+    public Traslado consultarTraslado(Traslado elemento) throws Exception{
         try {
             Document trasladoQuery = new Document("_id", elemento.getId());
             Traslado trasladoDocument = trasladoCollection.find(trasladoQuery).first();
@@ -49,7 +49,7 @@ public class TrasladoDAO implements ITraslado {
     }
 
     @Override
-    public Traslado actualizarElemento(Traslado elemento) throws Exception{
+    public Traslado actualizarTraslado(Traslado elemento) throws Exception{
         try {
             Document trasladoQuery = new Document("_id", elemento.getId());
             Traslado trasladoDocument = trasladoCollection.find(trasladoQuery).first();

@@ -30,42 +30,32 @@ public class ResiduosDAO implements IResiduos {
     MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     DatabaseFormats databaseFormats = new DatabaseFormats();
 
-    MongoCollection<Document> residuosCollection = baseDatos.getCollection(databaseFormats.getRESIDUOS());
+    MongoCollection<Residuos> residuosCollection = baseDatos.getCollection(databaseFormats.getRESIDUOS(), Residuos.class);
 
     @Override
-    public Residuos insertarElemento(Residuos residuos) throws Exception{
-        // Crear el documento de la empresa
-        Document empresaDocument = new Document();
-        empresaDocument.append("nombre", parseInt(residuos.getCodigo()))
-                .append("nombre", residuos.getNombre())
-                .append("peligroso", residuos.getQuimico());
+    public Residuos insertarResiduo(Residuos residuos) throws Exception {
 
-        // Insertar el documento de la empresa en la colección
-        residuosCollection.insertOne(empresaDocument);
+        residuosCollection.insertOne(residuos);
 
         return residuos;
     }
 
     @Override
-    public List<Residuos> consultarElemento(ConfiguracionDePaginado configuracionDePaginado) throws Exception{
+    public List<Residuos> consultarResiduo(ConfiguracionDePaginado configuracionDePaginado) throws Exception {
 
         List<Residuos> listaResiduos = new ArrayList<>();
         int offset = configuracionDePaginado.getElementoASaltar();
         int limit = configuracionDePaginado.getElementosPorPagina();
         // Consultar todos los documentos en la colección
-        FindIterable<Document> documents = residuosCollection.find().skip(offset).limit(limit);
+        FindIterable<Residuos> documents = residuosCollection.find().skip(offset).limit(limit);
 
         // Iterar sobre los documentos y convertirlos a objetos Quimicos
-        try (MongoCursor<Document> cursor = documents.iterator()) {
+        try (MongoCursor<Residuos> cursor = documents.iterator()) {
             while (cursor.hasNext()) {
-                Document document = cursor.next();
-                ObjectId id = document.getObjectId("_id");
-                String nombre = document.getString("nombre");
-                Residuos residuo = new Residuos();
-                residuo.setId(id);
-                residuo.setNombre(nombre);
-                listaResiduos.add(residuo);
-                System.out.println(residuo);
+                Residuos document = cursor.next();
+
+                listaResiduos.add(document);
+
             }
         }
 
@@ -73,17 +63,17 @@ public class ResiduosDAO implements IResiduos {
     }
 
     @Override
-    public Residuos eliminarElemento(Residuos elemento) throws Exception{
+    public Residuos eliminarResiduo(Residuos elemento) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Residuos actualizarElemento(Residuos elemento) throws Exception{
+    public Residuos actualizarResiduo(Residuos elemento) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Residuos> consultarElementosPorProductor(Productores productor) throws Exception{
+    public List<Residuos> consultarResiduosPorProductor(Productores productor) throws Exception {
 
         // Obtener la colección "productores"
         MongoCollection<Document> productoresCollection = baseDatos.getCollection("Productores");

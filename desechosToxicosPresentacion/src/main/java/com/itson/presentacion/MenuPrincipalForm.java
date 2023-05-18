@@ -14,12 +14,8 @@ import com.itson.dominio.utilities.tiposDeCuenta;
 public class MenuPrincipalForm extends javax.swing.JFrame {
 
     private Cuenta cuenta;
-    
-    /**
-     * Creates new form MenuPrincipalForm
-     * @param cuenta
-     */
-    public MenuPrincipalForm(Cuenta cuenta) {    
+
+    public MenuPrincipalForm(Cuenta cuenta) {
         initComponents();
         this.cuenta = cuenta;
         this.mostrarBotonesMenu();
@@ -32,49 +28,49 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
     public void setCuenta(Cuenta cuenta) {
         this.cuenta = cuenta;
     }
-    
-    private void irRegistrarResiduo(){
+
+    private void irRegistrarResiduo() {
         new RegistrarResiduoForm(this.cuenta).setVisible(true);
         this.dispose();
     }
-    
-    private void irSolicitarTraslado(){
+
+    private void irSolicitarTraslado() {
         new SolicitarTrasladoForm(this.cuenta).setVisible(true);
         this.dispose();
     }
-    
-    private void irAsignarTraslados(){
+
+    private void irAsignarTraslados() {
         new AsignarTrasladosForm(this.cuenta).setVisible(true);
         this.dispose();
     }
-    
-    private void irRegistrarTraslado(){
+
+    private void irRegistrarTraslado() {
         new TrasladosAsignadosForm(this.cuenta).setVisible(true);
         this.dispose();
     }
-    
-    private void mostrarBotonesMenu(){
-        if (cuenta.getTipoCuenta() == tiposDeCuenta.Productor.toString()) {
+
+    private void mostrarBotonesMenu() {
+        if (cuenta.getTipoCuenta().equalsIgnoreCase(tiposDeCuenta.Productor.toString())) {
             lblActor.setText(tiposDeCuenta.Productor.toString());
             btnAsignarTraslado.setVisible(false);
-            btnRegistrarResiduo.setVisible(true);
             btnRegistrarTraslado.setVisible(false);
+            btnRegistrarResiduo.setVisible(true);
             btnSolicitarTraslado.setVisible(true);
-        } else if (cuenta.getTipoCuenta() == tiposDeCuenta.EmpresaTransportista.toString()) {
+        } else if (cuenta.getTipoCuenta().equalsIgnoreCase(tiposDeCuenta.EmpresaTransportista.toString())) {
             lblActor.setText(tiposDeCuenta.EmpresaTransportista.toString());
             btnAsignarTraslado.setVisible(false);
             btnRegistrarResiduo.setVisible(false);
-            btnRegistrarTraslado.setVisible(true);
             btnSolicitarTraslado.setVisible(false);
+            btnRegistrarTraslado.setVisible(true);
         } else {
             lblActor.setText(tiposDeCuenta.Administrador.toString());
-            btnAsignarTraslado.setVisible(true);
             btnRegistrarResiduo.setVisible(false);
             btnRegistrarTraslado.setVisible(false);
             btnSolicitarTraslado.setVisible(false);
+            btnAsignarTraslado.setVisible(true);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
