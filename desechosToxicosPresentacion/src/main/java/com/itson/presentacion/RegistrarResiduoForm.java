@@ -164,7 +164,7 @@ public class RegistrarResiduoForm extends javax.swing.JFrame {
     private void registrarResiduo() throws Exception {
         Residuos residuo = new Residuos();
         residuo.setNombre(txtNombre.getText());
-        residuo.setCodigo((txtCodigo.getText()));  // Corregido para convertir el texto a un entero
+        residuo.setCodigo((Integer.parseInt(txtCodigo.getText())));  // Corregido para convertir el texto a un entero
 
         List<Quimicos> listaQuimicosSeleccionados = new ArrayList<>();
 

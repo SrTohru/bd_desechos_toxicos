@@ -69,13 +69,23 @@ public class ResiduosNegocio implements IResiduos {
             throw new IllegalArgumentException("El campo 'nombre' de Residuos es nulo o está vacío");
         }
 
-        if (residuos.getCodigo() == null || residuos.getCodigo().isEmpty()) {
+        if (residuos.getCodigo() == 0) {
             throw new IllegalArgumentException("El campo 'codigo' de Residuos es nulo o está vacío");
         }
 
         if (residuos.getQuimico() == null || residuos.getQuimico().isEmpty()) {
             throw new IllegalArgumentException("El campo 'quimico' de Residuos es nulo o está vacío");
         }
+    }
+
+    @Override
+    public Residuos consultarResiduo(Residuos elemento) throws Exception {
+        return this.residuosDAO.consultarResiduo(elemento);
+    }
+
+    @Override
+    public List<Residuos> consultarResiduos(List<Residuos> residuos) throws Exception {
+        return this.residuosDAO.consultarResiduos(residuos);
     }
 
 }

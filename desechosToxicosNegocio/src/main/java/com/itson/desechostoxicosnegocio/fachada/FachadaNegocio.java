@@ -355,4 +355,30 @@ public class FachadaNegocio implements INegocio {
         }
     }
 
+    @Override
+    public Productores obtenerCuenta(Cuenta cuenta) throws Exception {
+        try {
+            return productoresN.obtenerCuenta(cuenta);
+        } catch (Exception e) {
+            throw new Exception("Hubo un error al consultar la cuenta del productor en fachada");
+        }
+    }
+
+    @Override
+    public Residuos consultarResiduo(Residuos elemento) throws Exception {
+        try {
+            return residuosN.consultarResiduo(elemento);
+        } catch (Exception e) {
+            throw new Exception("Hubo un error al consultar el residuo en fachada");
+        }
+    }
+
+    @Override
+    public List<Residuos> consultarResiduos(List<Residuos> residuos) throws Exception {
+     try {
+            return residuosN.consultarResiduos(residuos);
+        } catch (Exception e) {
+            throw new Exception("Hubo un error al consultar los residuos en fachada");
+        } }
+
 }

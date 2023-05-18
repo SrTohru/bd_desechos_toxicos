@@ -131,6 +131,11 @@ public class AsignarEmpresaTrasladosForm extends javax.swing.JFrame {
 
         btnAsignarTransporte.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnAsignarTransporte.setText("Asignar Transporte");
+        btnAsignarTransporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarTransporteActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegresar.setText("<");
@@ -212,6 +217,11 @@ public class AsignarEmpresaTrasladosForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.irAsignarTraslados();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnAsignarTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarTransporteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAsignarTransporteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarTransporte;
     private javax.swing.JButton btnRegresar;

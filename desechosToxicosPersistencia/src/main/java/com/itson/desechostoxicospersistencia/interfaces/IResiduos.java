@@ -11,6 +11,10 @@ public interface IResiduos {
 
     Residuos insertarResiduo(Residuos elemento) throws Exception;
 
+    Residuos consultarResiduo(Residuos elemento) throws Exception;
+        
+    List<Residuos> consultarResiduos(List<Residuos> residuos) throws Exception;
+    
     List<Residuos> consultarResiduo(ConfiguracionDePaginado configuracionDePaginado) throws Exception;
     
     List<Residuos> consultarResiduosPorProductor(Productores productor) throws Exception; 

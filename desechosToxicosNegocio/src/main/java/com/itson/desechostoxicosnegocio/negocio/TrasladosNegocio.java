@@ -9,6 +9,7 @@ import com.itson.desechostoxicospersistencia.dao.TrasladoDAO;
 import com.itson.desechostoxicospersistencia.utilities.ConfiguracionDePaginado;
 import com.itson.dominio.EmpresaTransportista;
 import com.itson.dominio.RegistroTraslado;
+import com.itson.dominio.Residuos;
 import com.itson.dominio.Traslado;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -27,43 +28,39 @@ public class TrasladosNegocio implements ITraslados {
 
     @Override
     public Traslado insertarElemento(Traslado traslado) throws Exception {
-            validarTraslado(traslado);
-            return this.trasladoDAO.insertarTraslado(traslado);
-      
+        validarTraslado(traslado);
+        return this.trasladoDAO.insertarTraslado(traslado);
+
     }
 
     @Override
     public Traslado actualizarElemento(Traslado elemento) throws Exception {
- validarTraslado(elemento);
-            return this.trasladoDAO.actualizarTraslado(elemento);
-       
+        validarTraslado(elemento);
+        return this.trasladoDAO.actualizarTraslado(elemento);
+
     }
 
     @Override
     public Traslado consultarElemento(Traslado elemento) throws Exception {
-   validarTraslado(elemento);
-            return this.trasladoDAO.consultarTraslado(elemento);
-      
+        validarTraslado(elemento);
+        return this.trasladoDAO.consultarTraslado(elemento);
+
     }
-    
-      public void validarTraslado(Traslado traslado) throws Exception {
-      
+
+    public void validarTraslado(Traslado traslado) throws Exception {
+
         if (traslado.getProductorId() == null) {
             throw new Exception("El campo 'productorId' del objeto Traslado es nulo.");
         }
-        
+
         if (traslado.getFecha() == null) {
             throw new Exception("El campo 'fecha' del objeto Traslado es nulo.");
         }
-        
+
         if (traslado.getResiduos() == null || traslado.getResiduos().isEmpty()) {
             throw new Exception("El campo 'residuos' del objeto Traslado es nulo o está vacío.");
-        } else {
-            for (RegistroTraslado registro : traslado.getResiduos()) {
-                validarRegistroTraslado(registro);
-            }
         }
-        
+
         if (traslado.getEmpresaTransportista() == null || traslado.getEmpresaTransportista().isEmpty()) {
             throw new Exception("El campo 'EmpresaTransportista' del objeto Traslado es nulo o está vacío.");
         } else {
@@ -72,21 +69,13 @@ public class TrasladosNegocio implements ITraslados {
             }
         }
     }
-    
-    private void validarRegistroTraslado(RegistroTraslado registro) throws Exception {
-        if (registro == null) {
-            throw new Exception("Se encontró un registro de traslado nulo en la lista de residuos.");
-        }
-        
-        // Validar los atributos del registro si es necesario
-    }
-    
+
     private void validarEmpresaTransportista(EmpresaTransportista transportista) throws Exception {
         if (transportista == null) {
             throw new Exception("Se encontró una empresa transportista nula en la lista de empresas transportistas.");
         }
-        
+
         // Validar los atributos de la empresa transportista si es necesario
     }
-    
+
 }

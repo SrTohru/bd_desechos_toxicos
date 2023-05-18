@@ -129,7 +129,7 @@ public class insercionMasiva {
         Document residuo = new Document();
         residuo.append("codigo", 412411);
         residuo.append("nombre", "Residuo3");
-
+        residuo.append("peligroso", false);
         List<Document> listaQuimicos = new LinkedList<>();
         
         Document quimicos1 = new Document();
@@ -146,7 +146,7 @@ public class insercionMasiva {
         Document residuo2 = new Document();
         residuo2.append("codigo", 321132);
         residuo2.append("nombre", "Residuo2");
-
+        residuo2.append("peligroso", true);
         List<Document> listaQuimicos2 = new LinkedList<>();
         
         Document quimicos11 = new Document();

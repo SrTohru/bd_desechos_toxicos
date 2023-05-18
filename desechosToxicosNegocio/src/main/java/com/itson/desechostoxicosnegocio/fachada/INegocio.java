@@ -80,5 +80,12 @@ public interface INegocio {
     Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) throws Exception;
 
     List<Vehiculo> consultarAutosPorEmpresa(EmpresaTransportista emp) throws Exception;
+    
+     Productores obtenerCuenta(Cuenta cuenta) throws Exception;
+     
+        Residuos consultarResiduo(Residuos elemento) throws Exception;
 
+    List<Residuos> consultarResiduos(List<Residuos> residuos) throws Exception;
+
+    
 }

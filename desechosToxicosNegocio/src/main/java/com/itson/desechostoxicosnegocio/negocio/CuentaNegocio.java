@@ -24,6 +24,12 @@ public class CuentaNegocio implements ICuenta {
         return cuentaDAO.iniciarSesion(cuenta);
     }
 
+    public Cuenta verificarExistenciaCuenta(Cuenta cuenta) throws Exception {
+        validarCuenta(cuenta);
+        cuentaDAO.verificarExistenciaCuenta(cuenta);
+        return cuentaDAO.iniciarSesion(cuenta);
+    }
+
     private void validarCuenta(Cuenta cuenta) throws Exception {
         if (cuenta == null) {
             throw new Exception("La cuenta no puede ser nula");
@@ -38,5 +44,5 @@ public class CuentaNegocio implements ICuenta {
             throw new Exception("El tipo de cuenta es requerido");
         }
     }
-
+    
 }

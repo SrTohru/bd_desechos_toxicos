@@ -14,8 +14,12 @@ import java.util.List;
  * @author PC
  */
 public interface IResiduos {
-    
-     List<Residuos> consultarResiduos() throws Exception;
+
+    Residuos consultarResiduo(Residuos elemento) throws Exception;
+
+    List<Residuos> consultarResiduos(List<Residuos> residuos) throws Exception;
+
+    List<Residuos> consultarResiduos() throws Exception;
 
     List<Residuos> consultarResiduos(ConfiguracionDePaginado configuracionDePaginado) throws Exception;
 

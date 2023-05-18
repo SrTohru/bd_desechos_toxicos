@@ -17,13 +17,13 @@ public class CuentaDAO implements ICuenta {
     MongoDatabase baseDatos = ConnectionDataBase.getBaseDatos();
     DatabaseFormats databaseFormats = new DatabaseFormats();
     MongoCollection<Cuenta> cuentaCollection = baseDatos.getCollection(databaseFormats.getCUENTA(), Cuenta.class);
-
+    
     @Override
     public Cuenta insertarCuenta(Cuenta cuenta) throws Exception {
 
         try {
             cuentaCollection.insertOne(cuenta);
-      
+
             return cuenta;
         } catch (Exception e) {
             throw new Exception("Hubo un error al registrar la cuenta");
@@ -42,5 +42,19 @@ public class CuentaDAO implements ICuenta {
             return result;
         }
         throw new Exception("Hubo un error al iniciar sesion en la cuenta");
+    }
+
+    public Cuenta verificarExistenciaCuenta(Cuenta cuenta) throws Exception {
+        try {
+            Document query = new Document();
+            query.append("usuario", cuenta.getUsuario());
+            query.append("contrasena", cuenta.getContrasena());
+            query.append("tipoCuenta", cuenta.getTipoCuenta());
+
+            Cuenta result = cuentaCollection.find(query).first();
+            return result;
+        } catch (Exception e) {
+            throw new Exception("Hubo un error al verificar la existencia de la cuenta");
+        }
     }
 }

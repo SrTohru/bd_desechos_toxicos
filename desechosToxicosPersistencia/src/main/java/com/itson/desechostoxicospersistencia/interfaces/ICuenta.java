@@ -7,10 +7,11 @@ package com.itson.desechostoxicospersistencia.interfaces;
 import com.itson.dominio.Cuenta;
 import com.itson.dominio.utilities.tiposDeCuenta;
 
-
 public interface ICuenta {
-    
+
     Cuenta insertarCuenta(Cuenta cuenta) throws Exception;
-    
+
     Cuenta iniciarSesion(Cuenta cuenta) throws Exception;
+
+    
 }

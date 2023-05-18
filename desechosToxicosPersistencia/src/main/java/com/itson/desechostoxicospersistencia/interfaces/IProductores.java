@@ -1,5 +1,6 @@
 package com.itson.desechostoxicospersistencia.interfaces;
 
+import com.itson.dominio.Cuenta;
 import com.itson.dominio.Productores;
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface IProductores {
     
     Productores iniciarSesion(Productores productores) throws Exception;
     
-}
+    Productores obtenerCuenta(Cuenta cuenta) throws Exception;
+ }

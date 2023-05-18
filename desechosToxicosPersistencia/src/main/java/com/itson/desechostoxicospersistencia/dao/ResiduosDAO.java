@@ -15,6 +15,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,22 @@ public class ResiduosDAO implements IResiduos {
     }
 
     @Override
+    public Residuos consultarResiduo(Residuos elemento) throws Exception {
+        try {
+            Document query = new Document("_id", elemento.getId());
+            Residuos result = residuosCollection.find(query).first();
+
+            if (result != null) {
+                return result;
+            }
+            throw new Exception("hubo un error al consultar ese residuo");
+        } catch (Exception e) {
+            throw new Exception("hubo un error al consultar ese residuo");
+        }
+
+    }
+
+    @Override
     public Residuos eliminarResiduo(Residuos elemento) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -92,5 +109,26 @@ public class ResiduosDAO implements IResiduos {
             System.out.println(document);
         }
         return null;
+    }
+
+    @Override
+    public List<Residuos> consultarResiduos(List<Residuos> residuos) throws Exception {
+        List<ObjectId> ids = new ArrayList<>();
+        for (Residuos residuo : residuos) {
+            ids.add(residuo.getId());
+        }
+
+        // Crear el filtro para buscar los residuos por sus IDs
+        Document query = new Document("_id", new Document("$in", ids));
+
+        // Realizar la consulta en la colección residuosCollection
+        FindIterable<Residuos> results = residuosCollection.find(query);
+
+        List<Residuos> residuosEncontrados = new ArrayList<>();
+        for (Residuos result : results) {
+            residuosEncontrados.add(result);
+        }
+
+        return residuosEncontrados;
     }
 }

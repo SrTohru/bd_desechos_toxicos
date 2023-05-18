@@ -4,70 +4,118 @@
  */
 package com.itson.presentacion;
 
+import com.itson.desechostoxicosnegocio.fachada.FachadaNegocio;
 import com.itson.desechostoxicospersistencia.dao.ResiduosDAO;
 import com.itson.desechostoxicospersistencia.interfaces.IResiduos;
 import com.itson.desechostoxicospersistencia.utilities.ConfiguracionDePaginado;
 import com.itson.dominio.Cuenta;
+import com.itson.dominio.Quimicos;
+import com.itson.dominio.RegistroTraslado;
 import com.itson.dominio.Residuos;
+import com.itson.dominio.Traslado;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author Usuario
  */
 public class SolicitarTrasladoForm extends javax.swing.JFrame {
-
+    
     private static final Logger LOG = Logger.getLogger(SolicitarTrasladoForm.class.getName());
     private ConfiguracionDePaginado configuracionDePaginado;
-    private IResiduos residuosDAO;
+    private FachadaNegocio fachadaNegocio;
     private Cuenta cuenta;
-    
+
     /**
      * Creates new form SolicitarTrasladoForm
      */
     public SolicitarTrasladoForm(Cuenta cuenta) {
-        this.configuracionDePaginado = new ConfiguracionDePaginado(0, 5);      
+        this.configuracionDePaginado = new ConfiguracionDePaginado(0, 5);
         initComponents();
         this.cuenta = cuenta;
         this.deshabilitarCamposLitros();
         this.deshabilitarCamposKilos();
-        this.residuosDAO = new ResiduosDAO();
+        fachadaNegocio = new FachadaNegocio();
         this.llenarTablaResiduosDisponibles();
     }
+    
+   public void solicitarTraslado() throws Exception {
+    List<Residuos> listaResiduosSeleccionados = new LinkedList<>();
+    for (int i = 0; i < tableResiduosSeleccionados.getRowCount(); i++) {
+        String idResiduo = (String) tableResiduosSeleccionados.getValueAt(i, 0);
+        String nombreResiduo = (String) tableResiduosSeleccionados.getValueAt(i, 1); // Corregir el índice de columna
+        Residuos residuo = new Residuos();
+        residuo.setId(new ObjectId(idResiduo));
+        residuo.setNombre(nombreResiduo);
+        listaResiduosSeleccionados.add(residuo);
+    }
 
-    private void deshabilitarCamposLitros(){
+    Traslado traslado = new Traslado(cuenta.getId(), dateChooser.getDate(), listaResiduosSeleccionados);
+
+    // Aquí debes completar el código para obtener los valores de las variables:
+    String vehiculo = ""; // Obtener el valor del vehículo
+    int kilometrosRecorridos = 0; // Obtener el valor de los kilómetros recorridos
+    String fechaLlegada = ""; // Obtener el valor de la fecha de llegada
+    String tratamiento = ""; // Obtener el valor del tratamiento
+    String estadoTraslado = ""; // Obtener el valor del estado de traslado
+    
+    
+    /*
+       private ObjectId id;
+    private ObjectId productorId;
+    private Date fecha;
+    private List<Residuos> residuos;
+    private List<EmpresaTransportista> EmpresaTransportista;
+
+    */
+          
+   // RegistroTraslado registroTraslado = new RegistroTraslado(traslado, vehiculo, kilometrosRecorridos, WIDTH, fechaLlegada, tratamiento, estadoTraslado);
+    
+    //fachadaNegocio.insertarTraslado(registroTraslado);
+}
+
+    
+    private void deshabilitarCamposLitros() {
         if (checkLitros.isSelected()) {
+            checkKilos.setSelected(false);
+            txtKilos.setEnabled(false);
             txtLitros.setEnabled(true);
-        } else {          
+        } else {
             txtLitros.setEnabled(false);
         }
     }
     
-    private void deshabilitarCamposKilos(){
+    private void deshabilitarCamposKilos() {
         if (checkKilos.isSelected()) {
+            checkLitros.setSelected(false);
+            txtLitros.setEnabled(false);
             txtKilos.setEnabled(true);
-        } else {          
+        } else {
             txtKilos.setEnabled(false);
+            
         }
     }
-
     
-    private void irMenuPrincipal(){
+    private void irMenuPrincipal() {
         MenuPrincipalForm menu = new MenuPrincipalForm(this.cuenta);
         menu.setVisible(true);
         this.dispose();
     }
     
-    private void llenarTablaResiduosDisponibles(){
+    private void llenarTablaResiduosDisponibles() {
         try {
             DefaultTableModel modeloTabla = (DefaultTableModel) this.tableResiduosDisponibles.getModel();
-            List<Residuos> listaResiduos = residuosDAO.consultarResiduo(this.configuracionDePaginado);
+            List<Residuos> listaResiduos = fachadaNegocio.consultarResiduos(this.configuracionDePaginado);
             modeloTabla.setRowCount(0);
             for (Residuos r : listaResiduos) {
                 Object[] fila = {
+                    r.getId(),
                     r.getNombre(),};
                 modeloTabla.addRow(fila);
             }
@@ -133,7 +181,7 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
             LOG.log(Level.SEVERE, ex.getMessage());
         }
     }
-    
+
     /**
      * Metodo para avanzar de pagina en la tabla de la consulta de personas
      */
@@ -150,11 +198,6 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
         this.llenarTablaResiduosDisponibles();
     }
     
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -180,7 +223,7 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
         btnAvanzarDisponible = new javax.swing.JButton();
         btnRetrocederSeleccionado = new javax.swing.JButton();
         btnAvanzarSeleccionado = new javax.swing.JButton();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        dateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Solicitar Traslado");
@@ -235,14 +278,14 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Residuo"
+                "Id", "Residuo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false
+                true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -293,6 +336,11 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
 
         btnSolicitarTraslado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnSolicitarTraslado.setText("Solicitar Traslado");
+        btnSolicitarTraslado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitarTrasladoActionPerformed(evt);
+            }
+        });
 
         btnRetrocederDisponibles.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRetrocederDisponibles.setText("<");
@@ -352,7 +400,7 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)))))
                 .addGap(83, 83, 83))
             .addGroup(layout.createSequentialGroup()
@@ -385,7 +433,7 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
-                        .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRetrocederDisponibles)
@@ -456,6 +504,14 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
         this.deshabilitarCamposKilos();
     }//GEN-LAST:event_checkKilosActionPerformed
 
+    private void btnSolicitarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarTrasladoActionPerformed
+        try {
+            solicitarTraslado();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
+    }//GEN-LAST:event_btnSolicitarTrasladoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAvanzarDisponible;
     private javax.swing.JButton btnAvanzarSeleccionado;
@@ -467,9 +523,9 @@ public class SolicitarTrasladoForm extends javax.swing.JFrame {
     private javax.swing.JButton btnSolicitarTraslado;
     private javax.swing.JCheckBox checkKilos;
     private javax.swing.JCheckBox checkLitros;
+    private com.toedter.calendar.JDateChooser dateChooser;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

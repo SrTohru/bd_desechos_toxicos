@@ -10,4 +10,6 @@ public interface ICuenta {
      Cuenta insertarCuenta(Cuenta cuenta) throws Exception;
     
     Cuenta iniciarSesion(Cuenta cuenta) throws Exception; 
+    
+  
 }

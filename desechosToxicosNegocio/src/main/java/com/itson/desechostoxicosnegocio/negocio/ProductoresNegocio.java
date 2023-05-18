@@ -14,10 +14,9 @@ import java.util.List;
  *
  * @author PC
  */
-public class ProductoresNegocio implements IProductores{
-    
+public class ProductoresNegocio implements IProductores {
+
     //Añadir verificaciones de cada dato :)
-    
     private ProductoresDAO productoresDAO;
 
     public ProductoresNegocio() {
@@ -54,6 +53,11 @@ public class ProductoresNegocio implements IProductores{
     }
 
     @Override
+    public Productores obtenerCuenta(Cuenta cuenta) throws Exception {
+        return productoresDAO.obtenerCuenta(cuenta);
+    }
+
+    @Override
     public List<Productores> consultarProductoresConSolicitudTraslado() {
         //Falta por terminar
         return null;
@@ -87,4 +91,5 @@ public class ProductoresNegocio implements IProductores{
             throw new Exception("El tipo de cuenta es requerido");
         }
     }
+
 }

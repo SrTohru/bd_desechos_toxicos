@@ -7,21 +7,21 @@ public class Residuos {
 
     private ObjectId id;
     private String nombre;
-    private String codigo;
+    private int codigo;
     private boolean peligroso;
     private List<Quimicos> quimico;
 
     public Residuos() {
     }
 
-    public Residuos(String nombre, String codigo, boolean peligroso, List<Quimicos> quimico) {
+    public Residuos(String nombre, int codigo, boolean peligroso, List<Quimicos> quimico) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.peligroso = peligroso;
         this.quimico = quimico;
     }
 
-    public Residuos(ObjectId id, String nombre, String codigo, boolean peligroso, List<Quimicos> quimico) {
+    public Residuos(ObjectId id, String nombre, int codigo, boolean peligroso, List<Quimicos> quimico) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
@@ -45,16 +45,14 @@ public class Residuos {
         this.nombre = nombre;
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
-    
-    
     public boolean isPeligroso() {
         return peligroso;
     }
@@ -70,6 +68,5 @@ public class Residuos {
     public void setQuimico(List<Quimicos> quimico) {
         this.quimico = quimico;
     }
-
 
 }

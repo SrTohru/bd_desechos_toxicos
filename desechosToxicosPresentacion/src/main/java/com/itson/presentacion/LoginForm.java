@@ -39,51 +39,7 @@ public class LoginForm extends javax.swing.JFrame {
             txtContrasenia.setEchoChar('*'); // ocultar texto
         }
     }
-//
-//    private void realizarLogin() throws Exception {
-//        if (!txtUsuario.getText().isBlank() && !txtContrasenia.getText().isBlank()) {
-//            Productores productores = new Productores();
-//            Cuenta cuenta = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
-//            productores.setCuenta(cuenta);
-//            productores = pDAO.iniciarSesion(productores);
-//
-//            Administrador admin = new Administrador();
-//            Cuenta cuentaAdmin = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
-//            admin.setCuenta(cuentaAdmin);
-//            admin = aDAO.iniciarSesion(admin);
-//
-//            EmpresaTransportista empresa = new EmpresaTransportista();
-//            Cuenta cuentaEmpresa = new Cuenta(txtContrasenia.getText(), txtUsuario.getText(), comboboxTipoCuenta.getSelectedItem().toString());
-//            empresa.setCuenta(cuentaEmpresa);
-//            empresa = eDAO.iniciarSesion(empresa);
-//
-//            if (productores != null || admin != null || empresa != null) {
-//                JOptionPane.showMessageDialog(null, "Se inicio sesion");
-//                if (productores != null) {
-//                    MenuPrincipalForm menu = new MenuPrincipalForm(cuenta);
-//                    menu.setCuenta(cuenta);
-//                    menu.setVisible(true);
-//                    this.dispose();
-//                }
-//                if (admin != null) {
-//                    MenuPrincipalForm menu = new MenuPrincipalForm(cuentaAdmin);
-//                    menu.setCuenta(cuentaAdmin);
-//                    menu.setVisible(true);
-//                    this.dispose();
-//                }
-//                if (empresa != null) {
-//                    MenuPrincipalForm menu = new MenuPrincipalForm(cuentaEmpresa);
-//                    menu.setCuenta(cuentaEmpresa);
-//                    menu.setVisible(true);
-//                    this.dispose();
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error Campos Invalidos", JOptionPane.ERROR_MESSAGE);
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Campos vacios", "Error Campos Invalidos", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
+
 
     private void realizarLogin() throws Exception {
         String tipoCuenta = comboboxTipoCuenta.getSelectedItem().toString();

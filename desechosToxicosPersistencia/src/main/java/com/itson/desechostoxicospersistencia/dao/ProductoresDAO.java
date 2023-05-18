@@ -7,6 +7,7 @@ package com.itson.desechostoxicospersistencia.dao;
 import com.itson.desechostoxicospersistencia.database.ConnectionDataBase;
 import com.itson.desechostoxicospersistencia.interfaces.IProductores;
 import com.itson.desechostoxicospersistencia.utilities.DatabaseFormats;
+import com.itson.dominio.Cuenta;
 import com.itson.dominio.Productores;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoException;
@@ -108,4 +109,20 @@ public class ProductoresDAO implements IProductores {
         }
         throw new Exception("Hubo un error al iniciar sesion en la cuenta");
     }
+    
+    @Override
+    public Productores obtenerCuenta(Cuenta cuenta) {
+        Document query = new Document();
+        query.append("cuenta.tipoCuenta", cuenta.getTipoCuenta());
+
+        // Reemplaza "productoresCollection" con el nombre de tu colección en MongoDB
+       
+        Productores result = productoresCollection.find(query).first();
+        if (result != null) {
+   
+            return result;
+        }
+        return null;
+    }
+
 }

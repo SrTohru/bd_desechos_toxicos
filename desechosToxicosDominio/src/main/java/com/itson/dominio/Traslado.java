@@ -8,20 +8,26 @@ public class Traslado {
     private ObjectId id;
     private ObjectId productorId;
     private Date fecha;
-    private List<RegistroTraslado> residuos;
+    private List<Residuos> residuos;
     private List<EmpresaTransportista> EmpresaTransportista;
 
     public Traslado() {
     }
 
-    public Traslado(ObjectId productorId, Date fecha, List<RegistroTraslado> residuos, List<EmpresaTransportista> EmpresaTransportista) {
+    public Traslado(ObjectId productorId, Date fecha, List<Residuos> residuos, List<EmpresaTransportista> EmpresaTransportista) {
         this.productorId = productorId;
         this.fecha = fecha;
         this.residuos = residuos;
         this.EmpresaTransportista = EmpresaTransportista;
     }
 
-    public Traslado(ObjectId id, ObjectId productorId, Date fecha, List<RegistroTraslado> residuos, List<EmpresaTransportista> EmpresaTransportista) {
+    public Traslado(ObjectId productorId, Date fecha, List<Residuos> residuos) {
+        this.productorId = productorId;
+        this.fecha = fecha;
+        this.residuos = residuos;
+    }
+    
+    public Traslado(ObjectId id, ObjectId productorId, Date fecha, List<Residuos> residuos, List<EmpresaTransportista> EmpresaTransportista) {
         this.id = id;
         this.productorId = productorId;
         this.fecha = fecha;
@@ -53,11 +59,11 @@ public class Traslado {
         this.fecha = fecha;
     }
 
-    public List<RegistroTraslado> getResiduos() {
+    public List<Residuos> getResiduos() {
         return residuos;
     }
 
-    public void setResiduos(List<RegistroTraslado> residuos) {
+    public void setResiduos(List<Residuos> residuos) {
         this.residuos = residuos;
     }
 
