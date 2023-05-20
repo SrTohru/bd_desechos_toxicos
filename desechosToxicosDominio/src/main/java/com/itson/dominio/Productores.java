@@ -20,7 +20,8 @@ public class Productores {
     
     public Productores() {
     }
-
+    
+    
     public Productores(String nombre, List<Residuos> residuos, Cuenta cuenta) {
         this.nombre = nombre;
         this.residuos = residuos;

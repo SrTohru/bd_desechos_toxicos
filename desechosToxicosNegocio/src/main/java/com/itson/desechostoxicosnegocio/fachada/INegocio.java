@@ -77,8 +77,10 @@ public interface INegocio {
 
     Traslado actualizarTraslado(Traslado elemento) throws Exception;
 
+      List<Traslado> consultarTraslados() throws Exception;
+    
     Vehiculo consultarAutoPorEmpresa(EmpresaTransportista emp) throws Exception;
-
+    
     List<Vehiculo> consultarAutosPorEmpresa(EmpresaTransportista emp) throws Exception;
     
      Productores obtenerCuenta(Cuenta cuenta) throws Exception;

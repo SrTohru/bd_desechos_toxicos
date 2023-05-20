@@ -6,6 +6,8 @@ package com.itson.presentacion;
 
 import com.itson.dominio.Cuenta;
 import com.itson.dominio.utilities.tiposDeCuenta;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -44,7 +46,7 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void irRegistrarTraslado() {
+    private void irRegistrarTraslado() throws Exception {
         new TrasladosAsignadosForm(this.cuenta).setVisible(true);
         this.dispose();
     }
@@ -182,8 +184,12 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAsignarTrasladoActionPerformed
 
     private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed
-        // TODO add your handling code here:
-        this.irRegistrarTraslado();
+        try {
+            // TODO add your handling code here:
+            this.irRegistrarTraslado();
+        } catch (Exception ex) {
+            Logger.getLogger(MenuPrincipalForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -19,6 +19,7 @@ public class Administrador {
     public Administrador() {
     }
 
+    
     public Administrador(String nombre, Cuenta cuenta) {
         this.nombre = nombre;
         this.cuenta = cuenta;

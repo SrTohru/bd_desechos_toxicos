@@ -8,6 +8,8 @@ import com.itson.desechostoxicosnegocio.fachada.FachadaNegocio;
 import com.itson.dominio.Cuenta;
 import com.itson.dominio.RegistroTraslado;
 import com.itson.dominio.Traslado;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,7 +26,7 @@ public class RegistrarTrasladoForm extends javax.swing.JFrame {
         this.cuenta = cuenta;
     }
 
-    private void irTrasladosAsignadosForm() {
+    private void irTrasladosAsignadosForm() throws Exception {
         TrasladosAsignadosForm taf = new TrasladosAsignadosForm(this.cuenta);
         taf.setVisible(true);
         this.dispose();
@@ -151,7 +153,7 @@ public class RegistrarTrasladoForm extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(30, 30, 30)
                 .addComponent(btnRegistrarTraslado)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,8 +174,12 @@ public class RegistrarTrasladoForm extends javax.swing.JFrame {
     }
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-        this.irTrasladosAsignadosForm();
+        try {
+            // TODO add your handling code here:
+            this.irTrasladosAsignadosForm();
+        } catch (Exception ex) {
+            Logger.getLogger(RegistrarTrasladoForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed

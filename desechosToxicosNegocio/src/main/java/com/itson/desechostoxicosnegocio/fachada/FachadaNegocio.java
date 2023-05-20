@@ -320,6 +320,15 @@ public class FachadaNegocio implements INegocio {
     }
 
     @Override
+    public List<Traslado> consultarTraslados() throws Exception {
+        try {
+            return trasladosN.consultarTraslados();
+        } catch (Exception e) {
+            throw new Exception("Hubo un error al consultar todos los traslados");
+        }
+    }
+
+    @Override
     public Traslado consultarTraslado(Traslado elemento) throws Exception {
         try {
             return trasladosN.consultarElemento(elemento);
@@ -375,10 +384,11 @@ public class FachadaNegocio implements INegocio {
 
     @Override
     public List<Residuos> consultarResiduos(List<Residuos> residuos) throws Exception {
-     try {
+        try {
             return residuosN.consultarResiduos(residuos);
         } catch (Exception e) {
             throw new Exception("Hubo un error al consultar los residuos en fachada");
-        } }
+        }
+    }
 
 }

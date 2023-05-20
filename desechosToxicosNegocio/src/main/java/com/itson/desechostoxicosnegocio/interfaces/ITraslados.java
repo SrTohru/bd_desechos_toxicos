@@ -14,10 +14,12 @@ import java.util.List;
  */
 public interface ITraslados {
 
+    List<Traslado> consultarTraslados() throws Exception;
+
     Traslado insertarElemento(Traslado e) throws Exception;
 
     Traslado consultarElemento(Traslado elemento) throws Exception;
 
     Traslado actualizarElemento(Traslado elemento) throws Exception;
-    
+
 }

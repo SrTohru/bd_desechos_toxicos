@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 public class Residuos {
 
     private ObjectId id;
+    private Productores productor;
     private String nombre;
     private int codigo;
     private boolean peligroso;
@@ -14,20 +15,32 @@ public class Residuos {
     public Residuos() {
     }
 
-    public Residuos(String nombre, int codigo, boolean peligroso, List<Quimicos> quimico) {
+    public Residuos(Productores productor, String nombre, int codigo, boolean peligroso, List<Quimicos> quimico) {
+        this.productor = productor;
         this.nombre = nombre;
         this.codigo = codigo;
         this.peligroso = peligroso;
         this.quimico = quimico;
     }
 
-    public Residuos(ObjectId id, String nombre, int codigo, boolean peligroso, List<Quimicos> quimico) {
+    public Residuos(ObjectId id, Productores productor, String nombre, int codigo, boolean peligroso, List<Quimicos> quimico) {
         this.id = id;
+        this.productor = productor;
         this.nombre = nombre;
         this.codigo = codigo;
         this.peligroso = peligroso;
         this.quimico = quimico;
     }
+
+    public Productores getProductor() {
+        return productor;
+    }
+
+    public void setProductor(Productores productor) {
+        this.productor = productor;
+    }
+
+
 
     public ObjectId getId() {
         return id;

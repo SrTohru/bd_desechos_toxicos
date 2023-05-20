@@ -11,6 +11,7 @@ import com.itson.dominio.EmpresaTransportista;
 import com.itson.dominio.RegistroTraslado;
 import com.itson.dominio.Residuos;
 import com.itson.dominio.Traslado;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -47,6 +48,15 @@ public class TrasladosNegocio implements ITraslados {
 
     }
 
+    @Override
+    public List<Traslado> consultarTraslados() throws Exception {
+        try {
+            return this.trasladoDAO.consultarTraslados();
+        } catch (Exception e) {
+            throw new Exception("Hubo un error al consultar todos los traslados");
+        }
+    }
+
     public void validarTraslado(Traslado traslado) throws Exception {
 
         if (traslado.getFecha() == null) {
@@ -57,6 +67,5 @@ public class TrasladosNegocio implements ITraslados {
             throw new Exception("El campo 'residuos' del objeto Traslado es nulo o está vacío.");
         }
     }
-
 
 }

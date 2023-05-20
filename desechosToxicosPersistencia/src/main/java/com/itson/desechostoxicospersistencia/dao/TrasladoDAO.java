@@ -8,8 +8,11 @@ import com.itson.desechostoxicospersistencia.database.ConnectionDataBase;
 import com.itson.desechostoxicospersistencia.interfaces.ITraslado;
 import com.itson.desechostoxicospersistencia.utilities.DatabaseFormats;
 import com.itson.dominio.Traslado;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 
@@ -62,6 +65,15 @@ public class TrasladoDAO implements ITraslado {
             return trasladoDocument;
         } catch (Exception e) {
             throw new Exception("Hubo un error al actualizar el traslado");
+        }
+    }
+
+    @Override
+    public List<Traslado> consultarTraslados() throws Exception {
+        try {
+            return trasladoCollection.find().into(new ArrayList<>());
+        } catch (Exception e) {
+            throw new Exception("Hubo un error al consultar todos los traslados");
         }
     }
 

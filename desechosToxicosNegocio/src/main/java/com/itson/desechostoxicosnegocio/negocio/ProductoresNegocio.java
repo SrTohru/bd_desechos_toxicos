@@ -31,7 +31,7 @@ public class ProductoresNegocio implements IProductores {
 
     @Override
     public Productores consultarProductor(Productores elemento) throws Exception {
-        validarProductor(elemento);
+       //validarProductor(elemento);
         return productoresDAO.consultarProductor(elemento);
     }
 

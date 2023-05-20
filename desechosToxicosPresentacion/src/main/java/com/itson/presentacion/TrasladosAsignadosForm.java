@@ -7,25 +7,69 @@ package com.itson.presentacion;
 import com.itson.desechostoxicosnegocio.fachada.FachadaNegocio;
 import com.itson.dominio.Cuenta;
 import com.itson.dominio.EmpresaTransportista;
+import com.itson.dominio.Residuos;
+import com.itson.dominio.Traslado;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
+import java.util.logging.Level;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class TrasladosAsignadosForm extends javax.swing.JFrame {
 
     private Cuenta cuenta;
-    FachadaNegocio fachada;
-    public TrasladosAsignadosForm(Cuenta cuenta) {
+    FachadaNegocio fachadaNegocio;
+
+    public TrasladosAsignadosForm(Cuenta cuenta) throws Exception {
         initComponents();
-        fachada = new FachadaNegocio();
+        fachadaNegocio = new FachadaNegocio();
         this.cuenta = cuenta;
-        
+        this.añadirTodasLasEmpresasALaLista();
+
+    }
+
+ private void añadirTodasLasEmpresasALaLista() {
+    try {
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaTrasladosAsignados.getModel();
+        modeloTabla.setRowCount(0);
+
+        List<Traslado> listaTraslados = fachadaNegocio.consultarTraslados();
+
+        for (Traslado traslado : listaTraslados) {
+            // Obtener la fecha, el residuo, la cantidad y el productor del traslado
+            Date fecha = traslado.getFecha();
+            List<Residuos> residuos = traslado.getResiduos();
+            float cantidad = traslado.getKilos() + traslado.getLitros();
+            String productor = "asd"; // Debes obtener el nombre del productor aquí
+
+            // Crear una nueva fila con los valores del traslado
+            Object[] fila = {
+                fecha,
+                "asd",
+                cantidad,
+                productor
+            };
+
+            // Agregar la fila a la tabla
+            modeloTabla.addRow(fila);
+        }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage());
         
     }
-    
-    public void añadirTodasLasEmpresasALaLista(){
-        
+}
+
+private String obtenerNombresResiduos(List<Residuos> residuos) {
+    StringBuilder nombres = new StringBuilder();
+    for (Residuos residuo : residuos) {
+        nombres.append(residuo.getNombre()).append(", ");
     }
-    
+    if (nombres.length() > 0) {
+        nombres.delete(nombres.length() - 2, nombres.length());
+    }
+    return nombres.toString();
+}
     private void irRegistrarTrasladoForm() {
         RegistrarTrasladoForm rt = new RegistrarTrasladoForm(this.cuenta);
         rt.setVisible(true);
@@ -38,7 +82,7 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
     }
 
     public List<EmpresaTransportista> consultarTodasLasEmpresas() throws Exception {
-       return fachada.consultarTodasLasEmpresas();
+        return fachadaNegocio.consultarTodasLasEmpresas();
     }
 
     @SuppressWarnings("unchecked")
@@ -46,7 +90,7 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaTrasladosAsignados = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
@@ -54,7 +98,7 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Traslados Asignados");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaTrasladosAsignados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -77,11 +121,11 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaTrasladosAsignados);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Traslados Asignados");
+        jLabel1.setText("Traslados asignados");
 
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnRegresar.setText("<");
@@ -136,8 +180,8 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-        this.irMenuPrincipal();
+      añadirTodasLasEmpresasALaLista();
+      //  this.irMenuPrincipal();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -145,6 +189,6 @@ public class TrasladosAsignadosForm extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaTrasladosAsignados;
     // End of variables declaration//GEN-END:variables
 }

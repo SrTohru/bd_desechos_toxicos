@@ -5,6 +5,7 @@
 package com.itson.presentacion;
 
 import com.itson.dominio.Cuenta;
+import com.itson.dominio.Residuos;
 
 /**
  *
@@ -13,13 +14,14 @@ import com.itson.dominio.Cuenta;
 public class AsignarEmpresaTrasladosForm extends javax.swing.JFrame {
 
     private Cuenta cuenta;
-    
+    private Residuos residuo;
     /**
      * Creates new form AsignarEmpresaTrasladosForm
      */
-    public AsignarEmpresaTrasladosForm(Cuenta cuenta) {
+    public AsignarEmpresaTrasladosForm(Cuenta cuenta, Residuos residuo) {
         initComponents();
         this.cuenta = cuenta;
+        this.residuo = residuo;
     }
     
     private void irAsignarTraslados(){
@@ -51,7 +53,7 @@ public class AsignarEmpresaTrasladosForm extends javax.swing.JFrame {
         btnAsignarTransporte = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Asignacion de empresas transportistas");
         setResizable(false);
 

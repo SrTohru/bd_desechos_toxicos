@@ -109,17 +109,17 @@ public class ProductoresDAO implements IProductores {
         }
         throw new Exception("Hubo un error al iniciar sesion en la cuenta");
     }
-    
+
     @Override
     public Productores obtenerCuenta(Cuenta cuenta) {
         Document query = new Document();
+        query.append("id_", cuenta.getId());
         query.append("cuenta.tipoCuenta", cuenta.getTipoCuenta());
 
         // Reemplaza "productoresCollection" con el nombre de tu colección en MongoDB
-       
         Productores result = productoresCollection.find(query).first();
         if (result != null) {
-   
+
             return result;
         }
         return null;

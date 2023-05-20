@@ -167,7 +167,7 @@ private void llenarTablaQuimicosDisponibles() {
         Residuos residuo = new Residuos();
         residuo.setNombre(txtNombre.getText());
         residuo.setCodigo((Integer.parseInt(txtCodigo.getText())));  // Corregido para convertir el texto a un entero
-
+        residuo.setProductor(fachadaNegocio.obtenerCuenta(cuenta));
         List<Quimicos> listaQuimicosSeleccionados = new ArrayList<>();
 
         if (checkboxPeligroso.isSelected()) {
@@ -361,11 +361,7 @@ private void llenarTablaQuimicosDisponibles() {
             }
         });
 
-        try {
-            txtCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        txtCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoActionPerformed(evt);
